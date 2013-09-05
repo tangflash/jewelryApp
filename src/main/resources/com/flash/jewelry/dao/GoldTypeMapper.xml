@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flash.jewelry.dao.GoldTypeMapper">
+	
+	<resultMap type="com.flash.jewelry.model.GoldType" id="goldTypeMap">
+		<id column="id" property="id" />
+		<result column="number" property="number" />
+		<result column="name" property="name" />		
+		<result column="remark" property="remark" />
+	</resultMap>
+	<select id="selectGoldType" parameterType="int" resultMap="goldTypeMap">
+		SELECT
+		id,
+		number,
+		name,
+		remark
+		FROM GoldType	
+	</select>
+	<select id="selectGoldTypeByNumber" parameterType="String" resultMap="goldTypeMap">
+		SELECT
+		id,
+		number,
+		name,
+		remark
+		FROM GoldType
+		WHERE number=#{number}
+		LIMIT 1	
+	</select>	
+	<select id="getGoldTypeByNumOrName" parameterType="String" resultMap="goldTypeMap">
+		SELECT
+		id,
+		number,
+		name,
+		remark
+		FROM GoldType
+		WHERE number=#{goldTypeName} or name= #{goldTypeName}
+		LIMIT 1	
+	</select>	
+	<select id="selectGoldTypeById" parameterType="int" resultMap="goldTypeMap">
+		SELECT
+		id,
+		number,
+		name,
+		remark
+		FROM GoldType
+		WHERE id=#{id}		
+	</select>
+	<select id="repeatRowByNumber" parameterType="com.flash.jewelry.model.GoldType" resultType="int">
+		SELECT
+		Count(1)
+		FROM GoldType
+		WHERE id!=#{id} And number=#{number}		
+	</select>	
+	<select id="repeatRowByName" parameterType="com.flash.jewelry.model.GoldType" resultType="int">
+		SELECT
+		Count(1)
+		FROM GoldType
+		WHERE id!=#{id} And name=#{name}		
+	</select>
+	<update id="updateGoldType" parameterType="com.flash.jewelry.model.GoldType">
+		update GoldType set
+		number =
+		#{number},
+		name = #{name},
+		remark = #{remark}				
+		where
+		id = #{id};
+	</update>
+	<delete id="deleteGoldType" parameterType="int">
+		delete from GoldType where
+		id = #{id};
+	</delete>
+	<insert id="insertGoldType" parameterType="com.flash.jewelry.model.GoldType"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into GoldType(
+		number,
+		name,
+		remark) 
+		values(
+		#{number},
+		#{name}, 
+		#{remark}
+		);
+	</insert>
+</mapper>

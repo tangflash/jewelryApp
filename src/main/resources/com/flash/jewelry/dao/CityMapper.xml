@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flash.jewelry.dao.CityMapper">
+	
+	<resultMap type="com.flash.jewelry.controller.City" id="citymap">
+		<id column="city_id" property="id" />
+		<result column="city_name" property="name" />
+		<result column="city_lastUpdate" property="lastUpDate" />
+		<collection property="country" ofType="com.flash.jewelry.controller.Country">
+			<id property="id" column="country_id" />
+			<result property="name" column="country_name" />
+			<result property="lastUpdate" column="country_lastUpdate" />
+		</collection>
+	</resultMap>
+	<select id="selectCity" parameterType="int" resultMap="citymap">
+		SELECT
+		city.city_id As city_id,
+		city.city As city_name,
+		city.last_update
+		As city_lastUpdate,
+
+		country.country_id As country_id,
+		country.country As
+		country_name,
+		country.last_update As
+		country_lastUpdate
+
+		FROM City city
+		LEFT JOIN Country country
+		ON city.country_id =
+		country.country_id
+		WHERE
+		city.city_id = 1
+		LIMIT 50
+	</select>
+	<update id="updateCity" parameterType="com.flash.jewelry.controller.City">
+		update City set
+		city =
+		#{name},
+		country_id = #{countryId},
+		last_update = #{lastUpDate}
+		where
+		city_id = #{id};
+	</update>
+	<delete id="deleteCity" parameterType="int">
+		delete from City where
+		city_id = #{id};
+	</delete>
+	<insert id="insertCity" parameterType="com.flash.jewelry.controller.City"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into City(city,
+		country_id,
+		last_Update) values(#{name},
+		#{countryId}, #{lastUpDate});
+	</insert>
+</mapper>

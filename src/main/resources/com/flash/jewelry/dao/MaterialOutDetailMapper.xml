@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flash.jewelry.dao.MaterialOutDetailMapper">	
+	
+	<resultMap type="com.flash.jewelry.model.MaterialOutDetail" id="materialOutDetailMap">
+		<id column="Detail_Id" property="id" />
+		<result column="Detail_BillId" property="billId" />
+		<result column="Detail_Sort" property="sort" />
+		<result column="Detail_ProductNameId" property="productNameId" />
+		<result column="Product_ProductName" property="productName" />
+		<result column="Detail_StyleNameId" property="styleId" />		
+		<result column="Style_StyleName" property="styleName" />
+		<result column="Detail_HandSize" property="handSize" />
+		<result column="Detail_ProductAmount" property="productAmount" />
+		<result column="Detail_ProductWeight" property="productWeight" />
+		<result column="Detail_GoldWeight" property="goldWeight" />
+		<result column="Detail_ConsumeWeight" property="consumeWeight" />
+		<result column="Detail_ProcessCost" property="processCost" />
+		<result column="Detail_AddProcessCost" property="addProcessCost" />
+		<result column="Detail_SuperSetCost" property="superSetCost" />
+		<result column="Detail_MaterId" property="materId" />
+		<result column="MainMaterial_MaterName" property="materName" />	
+		<result column="Detail_Amount" property="amount" />
+		<result column="Detail_Weight" property="weight" />
+		<result column="Detail_FactoryAddMoney" property="factoryAddMoney" />
+		<result column="Detail_SecMaterId" property="secMaterId" />
+		<result column="SecMaterial_SecMaterName" property="secMaterName" />
+		<result column="Detail_SecAmount" property="secAmount" />
+		<result column="Detail_SecWeight" property="secWeight" />
+		<result column="Detail_SecPrice" property="secPrice" />		
+	</resultMap>
+	
+	<resultMap type="com.flash.jewelry.model.MaterialOutDetail" id="materialOutQueryMap">
+		<id column="Detail_Id" property="id" />
+		<result column="Detail_BillId" property="billId" />
+		<result column="Detail_Sort" property="sort" />
+		<result column="Detail_ProductNameId" property="productNameId" />
+		<result column="Product_ProductName" property="productName" />
+		<result column="Detail_StyleNameId" property="styleId" />		
+		<result column="Style_StyleName" property="styleName" />
+		<result column="Detail_HandSize" property="handSize" />
+		<result column="Detail_ProductAmount" property="productAmount" />
+		<result column="Detail_ProductWeight" property="productWeight" />
+		<result column="Detail_GoldWeight" property="goldWeight" />
+		<result column="Detail_ConsumeWeight" property="consumeWeight" />
+		<result column="Detail_GoldMoney" property="goldMoney" />
+		<result column="Detail_ProcessCost" property="processCost" />
+		<result column="Detail_TotalProcessCost" property="totalProcessCost" />		
+		<result column="Detail_AddProcessCost" property="addProcessCost" />
+		<result column="Detail_SuperSetCost" property="superSetCost" />
+		<result column="Detail_MaterId" property="materId" />
+		<result column="MainMaterial_MaterName" property="materName" />	
+		<result column="Detail_Amount" property="amount" />
+		<result column="Detail_Weight" property="weight" />
+		<result column="Detail_BackAmount" property="backAmount" />
+		<result column="Detail_BackWeight" property="backWeight" />
+		<result column="Detail_FactoryAddMoney" property="factoryAddMoney" />
+		<result column="Detail_SecMaterId" property="secMaterId" />
+		<result column="SecMaterial_SecMaterName" property="secMaterName" />
+		<result column="Detail_SecAmount" property="secAmount" />
+		<result column="Detail_SecWeight" property="secWeight" />
+		<result column="Detail_SecPrice" property="secPrice" />
+		<result column="Detail_SecMaterMoney" property="secMaterMoney" />	
+		<result column="Detail_TotalMoney" property="totalMoney" />
+		
+		
+		<result column="BillMain_id" property="materialOut.id" />	
+		<result column="BillMain_BillNumber" property="materialOut.billNumber" />	
+		<result column="BillMain_ClientId" property="materialOut.clientId" />	
+		<result column="Client_ClientName" property="materialOut.clientName" />	
+		<result column="BillMain_goldPrice" property="materialOut.goldPrice" />	
+		<result column="BillMain_goldTypeId" property="materialOut.goldTypeId" />
+		<result column="GoldType_goldTypeName" property="materialOut.goldTypeName" />
+		<result column="BaseData_BillStatusName" property="materialOut.billStatus.name" />
+		<result column="BaseData_BillStatusNumber" property="materialOut.billStatus.number" />
+		<result column="BillMain_CreateTime" property="materialOut.createTime" />
+		<result column="BillMain_BizDate" property="materialOut.bizDate" />
+			
+	</resultMap>
+	
+	<select id="findMateriallOut" parameterType="com.flash.jewelry.model.MaterialInQueryParam" resultMap="materialOutQueryMap">
+		SELECT
+		Detail.Id				Detail_Id,					
+		Detail.BillId			Detail_BillId,	
+		Detail.Sort				Detail_Sort,
+		Detail.ProductNameId	Detail_ProductNameId,
+		Product.Name			Product_ProductName,
+		Detail.StyleNameId		Detail_StyleNameId,
+		Style.Name				Style_StyleName,
+		Detail.HandSize			Detail_HandSize,
+		Detail.ProductAmount	Detail_ProductAmount,
+		Detail.ProductWeight	Detail_ProductWeight,
+		Detail.goldWeight		Detail_goldWeight,
+		Detail.ConsumeWeight	Detail_ConsumeWeight,
+		Detail.ConsumeWeight * BillMain.goldPrice						Detail_GoldMoney,
+		Detail.ProcessCost		Detail_ProcessCost,
+		Detail.AddProcessCost	Detail_AddProcessCost,
+		Detail.SuperSetCost		Detail_SuperSetCost,
+		Detail.MaterId			Detail_MaterId,
+		MainMaterial.Name		MainMaterial_MaterName,
+		Detail.Amount			Detail_Amount,
+		Detail.Weight			Detail_Weight,
+		Detail.FactoryAddMoney	Detail_FactoryAddMoney,
+		Detail.SecMaterId		Detail_SecMaterId,
+		SecMaterial.Name		SecMaterial_SecMaterName,
+		Detail.SecAmount		Detail_SecAmount,
+		Detail.SecWeight		Detail_SecWeight,
+		Detail.SecPrice			Detail_SecPrice,
+		Detail.SecWeight * Detail.SecPrice						Detail_SecMaterMoney,
+		Detail.ConsumeWeight * BillMain.goldPrice + Detail.ProcessCost + Detail.AddProcessCost
+		+ Detail.SuperSetCost + Detail.FactoryAddMoney + Detail.SecWeight * Detail.SecPrice		Detail_TotalMoney,
+		
+		BillMain.id					BillMain_id,
+		BillMain.BillNumber			BillMain_BillNumber,
+		BillMain.BizDate			BillMain_BizDate,
+		BillMain.ClientId			BillMain_ClientId,
+		Client.Name					Client_ClientName,
+		BillMain.goldPrice			BillMain_goldPrice,
+		BillMain.goldTypeId			BillMain_goldTypeId,
+		GoldType.Name				GoldType_goldTypeName,
+		BillMain.BillStatus			BillMain_BillStatus,
+		BaseData.Name				BaseData_BillStatusName,
+		BaseData.Number				BaseData_BillStatusNumber,
+		BillMain.CreateTime			BillMain_CreateTime
+				
+		FROM MaterialOutDetail Detail
+		LEFT JOIN Product Product ON Detail.ProductNameId = Product.Id
+		LEFT JOIN ProductStyle Style ON Detail.StyleNameId = Style.Id
+		LEFT JOIN Material MainMaterial ON Detail.MaterId = MainMaterial.Id
+		LEFT JOIN Material SecMaterial ON Detail.SecMaterId = SecMaterial.Id
+		Left Join MaterialOut As BillMain on Detail.billId=BillMain.id		
+		Left Join BaseData on BillMain.BillStatus=BaseData.Number
+		LEFT JOIN Client ON BillMain.ClientId = Client.id
+		LEFT JOIN GoldType ON BillMain.goldTypeId = GoldType.id
+		where Detail.Sort=0 And BaseData.TypeNum='01'
+		<if test="billNumber != null and billNumber.length()>0 ">
+    		And BillMain.BillNumber = #{billNumber}
+  		</if>
+  		<if test="bizBeginDate != null">
+    		And BillMain.BizDate>=#{bizBeginDate}
+  		</if>
+  		<if test="bizEndDate != null">
+    		And BillMain.BizDate &lt;=#{bizEndDate}
+  		</if>
+  		Order By BillMain.BizDate desc,BillMain.BillNumber
+	</select>
+	
+	<select id="staticOutBillByProduct" parameterType="com.flash.jewelry.model.MaterialInQueryParam" resultMap="materialOutQueryMap">
+		SELECT		
+		Product.Name			    Product_ProductName,
+		Sum(Detail.ProductAmount)	Detail_ProductAmount,
+		Sum(Detail.ProductWeight)	Detail_ProductWeight,
+		Sum(Detail.goldWeight)		Detail_goldWeight,
+		Sum(Detail.ConsumeWeight)	Detail_ConsumeWeight,
+		Sum(Detail.ConsumeWeight * BillMain.goldPrice)								Detail_GoldMoney,
+		Sum(Detail.ProcessCost)		Detail_ProcessCost,
+		Sum(Detail.AddProcessCost)	Detail_AddProcessCost,
+		Sum(Detail.SuperSetCost)		Detail_SuperSetCost,	
+		Sum(Detail.ProcessCost * Detail.ProductAmount) 								Detail_TotalProcessCost,
+		Sum(Detail.ConsumeWeight * BillMain.goldPrice + Detail.AddProcessCost
+		+ Detail.SuperSetCost + Detail.ProcessCost * Detail.ProductAmount)		Detail_TotalMoney,		
+		
+		BillMain.BizDate			BillMain_BizDate,
+		BillMain.BillNumber			BillMain_BillNumber,		
+		Client.Name					Client_ClientName,
+		BillMain.goldPrice			BillMain_goldPrice,		
+		GoldType.Name				GoldType_goldTypeName		
+	
+				
+		FROM MaterialOutDetail Detail		
+		LEFT JOIN Material MainMaterial ON Detail.MaterId = MainMaterial.Id
+		LEFT JOIN Product Product ON Detail.ProductNameId = Product.Id		
+		Left Join MaterialOut As BillMain on Detail.billId=BillMain.id		
+		LEFT JOIN Client ON BillMain.ClientId = Client.id
+		LEFT JOIN GoldType ON BillMain.goldTypeId = GoldType.id		
+		where Detail.Sort=0	And BillMain.billStatus=1
+		<if test="billNumber != null and billNumber.length()>0 ">
+    		And BillMain.BillNumber = #{billNumber}
+  		</if> 
+  		group by Product.Name,BillMain.BizDate,Client.Name,BillMain.goldPrice,GoldType.Name  		
+  		
+	</select>
+	
+	<select id="staticOutBillByMainMaterial" parameterType="com.flash.jewelry.model.MaterialInQueryParam" resultMap="materialOutQueryMap">
+		SELECT		
+		MainMaterial.Name			MainMaterial_MaterName,
+		Sum(Detail.Amount)			Detail_Amount,
+		Sum(Detail.Weight)			Detail_Weight,
+		Sum(Detail.BackAmount)		Detail_BackAmount,
+		Sum(Detail.BackWeight)		Detail_BackWeight	
+				
+		FROM MaterialOutDetail Detail			
+		Left Join MaterialOut As BillMain on Detail.billId=BillMain.id		
+		LEFT JOIN Material MainMaterial ON Detail.MaterId = MainMaterial.Id	
+		where Detail.Sort=0 And BillMain.billStatus=1
+		<if test="billNumber != null and billNumber.length()>0 ">
+    		And BillMain.BillNumber = #{billNumber}
+  		</if>   
+  		group by MainMaterial.Name		
+	</select>
+	
+	<select id="staticOutBillBySecMaterial" parameterType="com.flash.jewelry.model.MaterialInQueryParam" resultMap="materialOutQueryMap">
+		SELECT			
+		Detail.SecPrice				Detail_SecPrice,
+		Sum(Detail.SecAmount)		Detail_SecAmount,
+		Sum(Detail.SecWeight)		Detail_SecWeight,
+		Sum(Detail.SecWeight * Detail.SecPrice)		Detail_SecMaterMoney			
+				
+		FROM MaterialOutDetail Detail	
+		Left Join MaterialOut As BillMain on Detail.billId=BillMain.id	
+		where Detail.Sort=0 And BillMain.billStatus=1
+		<if test="billNumber != null and billNumber.length()>0 ">
+    		And BillMain.BillNumber = #{billNumber}
+  		</if>   		
+  		group by Detail.SecPrice
+	</select>
+	
+	<select id="staticOutBillByTotalFee" parameterType="com.flash.jewelry.model.MaterialInQueryParam" resultMap="materialOutQueryMap">
+		SELECT			
+		Sum(Detail.AddProcessCost)							Detail_AddProcessCost,
+		Sum(Detail.ProcessCost * ProductAmount)				Detail_TotalProcessCost,
+		Sum(Detail.SuperSetCost)							Detail_SuperSetCost,
+		Sum(Detail.ConsumeWeight * BillMain.goldPrice)		Detail_GoldMoney,
+		Sum(Detail.SecWeight * Detail.SecPrice)				Detail_SecMaterMoney			
+				
+		FROM MaterialOutDetail Detail	
+		Left Join MaterialOut As BillMain on Detail.billId=BillMain.id
+		where Detail.Sort=0 And BillMain.billStatus=1
+		<if test="billNumber != null and billNumber.length()>0 ">
+    		And BillMain.BillNumber = #{billNumber}
+  		</if>   		
+	</select>
+	
+	<select id="selectMaterialOutDetail" parameterType="long" resultMap="materialOutDetailMap">
+		SELECT
+		Detail.Id				Detail_Id,					
+		Detail.BillId			Detail_BillId,	
+		Detail.Sort				Detail_Sort,
+		Detail.ProductNameId	Detail_ProductNameId,
+		Product.Name			Product_ProductName,
+		Detail.StyleNameId		Detail_StyleNameId,
+		Style.Name				Style_StyleName,
+		Detail.HandSize			Detail_HandSize,
+		Detail.ProductAmount	Detail_ProductAmount,
+		Detail.ProductWeight	Detail_ProductWeight,
+		Detail.goldWeight		Detail_goldWeight,
+		Detail.ConsumeWeight	Detail_ConsumeWeight,
+		Detail.ProcessCost		Detail_ProcessCost,
+		Detail.AddProcessCost	Detail_AddProcessCost,
+		Detail.SuperSetCost		Detail_SuperSetCost,
+		Detail.MaterId			Detail_MaterId,
+		MainMaterial.Name		MainMaterial_MaterName,
+		Detail.Amount			Detail_Amount,
+		Detail.Weight			Detail_Weight,
+		Detail.FactoryAddMoney	Detail_FactoryAddMoney,
+		Detail.SecMaterId		Detail_SecMaterId,
+		SecMaterial.Name		SecMaterial_SecMaterName,
+		Detail.SecAmount		Detail_SecAmount,
+		Detail.SecWeight		Detail_SecWeight,
+		Detail.SecPrice			Detail_SecPrice		
+		FROM MaterialOutDetail Detail
+		LEFT JOIN Product Product ON Detail.ProductNameId = Product.Id
+		LEFT JOIN ProductStyle Style ON Detail.StyleNameId = Style.Id
+		LEFT JOIN Material MainMaterial ON Detail.MaterId = MainMaterial.Id
+		LEFT JOIN Material SecMaterial ON Detail.SecMaterId = SecMaterial.Id		
+	</select>
+	<select id="selectMaterialOutDetailByBillId" parameterType="long" resultMap="materialOutDetailMap">
+		SELECT
+		Detail.Id				Detail_Id,					
+		Detail.BillId			Detail_BillId,	
+		Detail.Sort				Detail_Sort,
+		Detail.ProductNameId	Detail_ProductNameId,
+		Product.Name			Product_ProductName,
+		Detail.StyleNameId		Detail_StyleNameId,
+		Style.Name				Style_StyleName,
+		Detail.HandSize			Detail_HandSize,
+		Detail.ProductAmount	Detail_ProductAmount,
+		Detail.ProductWeight	Detail_ProductWeight,
+		Detail.goldWeight		Detail_goldWeight,
+		Detail.ConsumeWeight	Detail_ConsumeWeight,
+		Detail.ProcessCost		Detail_ProcessCost,
+		Detail.AddProcessCost	Detail_AddProcessCost,
+		Detail.SuperSetCost		Detail_SuperSetCost,
+		Detail.MaterId			Detail_MaterId,
+		MainMaterial.Name		MainMaterial_MaterName,
+		Detail.Amount			Detail_Amount,
+		Detail.Weight			Detail_Weight,
+		Detail.FactoryAddMoney	Detail_FactoryAddMoney,
+		Detail.SecMaterId		Detail_SecMaterId,
+		SecMaterial.Name		SecMaterial_SecMaterName,
+		Detail.SecAmount		Detail_SecAmount,
+		Detail.SecWeight		Detail_SecWeight,
+		Detail.SecPrice			Detail_SecPrice		
+		FROM MaterialOutDetail Detail
+		LEFT JOIN Product Product ON Detail.ProductNameId = Product.Id
+		LEFT JOIN ProductStyle Style ON Detail.StyleNameId = Style.Id
+		LEFT JOIN Material MainMaterial ON Detail.MaterId = MainMaterial.Id
+		LEFT JOIN Material SecMaterial ON Detail.SecMaterId = SecMaterial.Id
+		WHERE Detail.BillId = #{billId}		
+	</select>
+	<select id="selectMaterialOutDetailById" parameterType="long" resultMap="materialOutDetailMap">
+		SELECT
+		Detail.Id				Detail_Id,					
+		Detail.BillId			Detail_BillId,	
+		Detail.Sort				Detail_Sort,
+		Detail.ProductNameId	Detail_ProductNameId,
+		Product.Name			Product_ProductName,
+		Detail.StyleNameId		Detail_StyleNameId,
+		Style.Name				Style_StyleName,
+		Detail.HandSize			Detail_HandSize,
+		Detail.ProductAmount	Detail_ProductAmount,
+		Detail.ProductWeight	Detail_ProductWeight,
+		Detail.goldWeight		Detail_goldWeight,
+		Detail.ConsumeWeight	Detail_ConsumeWeight,
+		Detail.ProcessCost		Detail_ProcessCost,
+		Detail.AddProcessCost	Detail_AddProcessCost,
+		Detail.SuperSetCost		Detail_SuperSetCost,
+		Detail.MaterId			Detail_MaterId,
+		MainMaterial.Name		MainMaterial_MaterName,
+		Detail.Amount			Detail_Amount,
+		Detail.Weight			Detail_Weight,
+		Detail.FactoryAddMoney	Detail_FactoryAddMoney,
+		Detail.SecMaterId		Detail_SecMaterId,
+		SecMaterial.Name		SecMaterial_SecMaterName,
+		Detail.SecAmount		Detail_SecAmount,
+		Detail.SecWeight		Detail_SecWeight,
+		Detail.SecPrice			Detail_SecPrice		
+		FROM MaterialOutDetail Detail
+		LEFT JOIN Product Product ON Detail.ProductNameId = Product.Id
+		LEFT JOIN ProductStyle Style ON Detail.StyleNameId = Style.Id
+		LEFT JOIN Material MainMaterial ON Detail.MaterId = MainMaterial.Id
+		LEFT JOIN Material SecMaterial ON Detail.SecMaterId = SecMaterial.Id
+		WHERE Detail.Id = #{id}		
+	</select>	
+	<select id="isBillMaterialRepeat" parameterType="com.flash.jewelry.model.MaterialOutDetail" resultType="int">
+		SELECT
+		Count(1)
+		FROM MaterialOutDetail
+		WHERE id!=#{id} And billId=#{billId} And materId=#{materId} 		
+	</select>
+	<update id="updateMaterialOutDetail" parameterType="com.flash.jewelry.model.MaterialOutDetail">
+		update MaterialOutDetail set
+		billId=#{billId},	
+		sort=#{sort},
+		productNameId=#{productNameId},
+		styleNameId=#{styleId},
+		handSize=#{handSize},
+		productAmount=#{productAmount},
+		productWeight=#{productWeight},
+		goldWeight=#{goldWeight},
+		consumeWeight=#{consumeWeight},
+		processCost=#{processCost},
+		addProcessCost=#{addProcessCost},
+		superSetCost=#{superSetCost},
+		materId=#{materId},
+		amount=#{amount},
+		weight=#{weight},
+		factoryAddMoney=#{factoryAddMoney},
+		secMaterId=#{secMaterId},
+		secAmount=#{secAmount},
+		secWeight=#{secWeight},
+		secPrice=#{secPrice}						
+		where
+		id = #{id};
+	</update>
+	<delete id="deleteMaterialOutDetail" parameterType="long">
+		delete from MaterialOutDetail where
+		id = #{id};
+	</delete>
+	<insert id="insertMaterialOutDetail" parameterType="com.flash.jewelry.model.MaterialOutDetail"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into MaterialOutDetail(
+		BillId,	
+		Sort,
+		ProductNameId,
+		StyleNameId,
+		HandSize,
+		ProductAmount,
+		ProductWeight,
+		goldWeight,
+		ConsumeWeight,
+		ProcessCost,
+		AddProcessCost,
+		SuperSetCost,
+		MaterId,
+		Amount,
+		Weight,
+		FactoryAddMoney,
+		SecMaterId,
+		SecAmount,
+		SecWeight,
+		SecPrice
+		) 
+		values(
+		#{billId},	
+		#{sort},
+		#{productNameId},
+		#{styleId},
+		#{handSize},
+		#{productAmount},
+		#{productWeight},
+		#{goldWeight},
+		#{consumeWeight},
+		#{processCost},
+		#{addProcessCost},
+		#{superSetCost},
+		#{materId},
+		#{amount},
+		#{weight},
+		#{factoryAddMoney},
+		#{secMaterId},
+		#{secAmount},
+		#{secWeight},
+		#{secPrice}
+		);
+	</insert>
+</mapper>

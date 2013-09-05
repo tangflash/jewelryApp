@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flash.jewelry.dao.ProductMapper">
+	
+	<resultMap type="com.flash.jewelry.model.Product" id="productMap">
+		<id column="id" property="id" />
+		<result column="number" property="number" />
+		<result column="name" property="name" />		
+		<result column="remark" property="remark" />
+	</resultMap>
+	<select id="selectProduct" parameterType="int" resultMap="productMap">
+		SELECT
+		id,
+		number,
+		name,
+		remark
+		FROM Product	
+	</select>
+	<select id="selectProductByNumber" parameterType="String" resultMap="productMap">
+		SELECT
+		id,
+		number,
+		name,
+		remark
+		FROM Product
+		WHERE number=#{number}
+		LIMIT 1	
+	</select>
+	<select id="selectProductByNumberOrName" parameterType="String" resultMap="productMap">
+		SELECT
+		id,
+		number,
+		name,
+		remark
+		FROM Product
+		WHERE number=#{numberOrName} or name=#{numberOrName}
+		LIMIT 1	
+	</select>
+	<select id="selectProductById" parameterType="int" resultMap="productMap">
+		SELECT
+		id,
+		number,
+		name,
+		remark
+		FROM Product
+		WHERE id=#{id}		
+	</select>
+	<select id="repeatRowByNumber" parameterType="com.flash.jewelry.model.Product" resultType="int">
+		SELECT
+		Count(1)
+		FROM Product
+		WHERE id!=#{id} And number=#{number}		
+	</select>
+	<select id="repeatRowByName" parameterType="com.flash.jewelry.model.Product" resultType="int">
+		SELECT
+		Count(1)
+		FROM Product
+		WHERE id!=#{id} And name=#{name}		
+	</select>	
+	<update id="updateProduct" parameterType="com.flash.jewelry.model.Product">
+		update Product set
+		number =
+		#{number},
+		name = #{name},
+		remark = #{remark}				
+		where
+		id = #{id};
+	</update>
+	<delete id="deleteProduct" parameterType="int">
+		delete from Product where
+		id = #{id};
+	</delete>
+	<insert id="insertProduct" parameterType="com.flash.jewelry.model.Product"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into Product(
+		number,
+		name,
+		remark) 
+		values(
+		#{number},
+		#{name}, 
+		#{remark}
+		);
+	</insert>
+</mapper>

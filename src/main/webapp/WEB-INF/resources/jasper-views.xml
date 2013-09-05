@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:util="http://www.springframework.org/schema/util"	  
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util 
+		http://www.springframework.org/schema/util/spring-util.xsd">
+		
+	<bean id="simpleReport"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView"
+		p:url="/WEB-INF/reports/simpleReport.jrxml"
+		p:reportDataKey="datasource" />	
+		
+	<bean id="materialOutBillReport"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView"
+		p:url="/WEB-INF/reports/materialOutBillReport.jrxml"
+		p:reportDataKey="datasource" />
+		
+	<bean id="materialOutBillTotalReport"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView"
+		p:url="/WEB-INF/reports/materialOutTotalBillReport.jrxml"
+		p:reportDataKey="datasource" 
+		p:subReportUrls-ref="MaterOutSubReportUrls"
+		p:subReportDataKeys-ref="MaterOutSubReportDatasource"/>
+		
+	<util:map id="MaterOutSubReportUrls">
+	    <entry key="mainMaterSubReportLocation" value="/WEB-INF/reports/materialOutBill_mainMater.jrxml"/>
+	    <entry key="secMaterSubReportLocation" value="/WEB-INF/reports/materialOutBill_secMater.jrxml"/>
+	    <entry key="feeTotalMaterSubReportLocation" value="/WEB-INF/reports/materialOutBill_feeTotal.jrxml"/>
+	</util:map>
+	
+	<util:list id="MaterOutSubReportDatasource">
+	    <value>mainMaterSubReportDatasource</value>
+	    <value>secMaterSubReportDatasource</value>
+	    <value>feeTotalMaterSubReportDatasource</value>
+	</util:list>
+	
+</beans>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flash.jewelry.dao.ClientMapper">
+	
+	<resultMap type="com.flash.jewelry.model.Client" id="clientMap">
+		<id column="id" property="id" />
+		<result column="number" property="number" />
+		<result column="name" property="name" />	
+		<result column="address" property="address" />
+		<result column="tel" property="tel" />	
+		<result column="remark" property="remark" />
+	</resultMap>
+	<select id="selectClient" parameterType="int" resultMap="clientMap">
+		SELECT
+		id,
+		number,
+		name,
+		address,
+		tel,
+		remark
+		FROM Client	
+	</select>
+	<select id="selectClientByNumber" parameterType="String" resultMap="clientMap">
+		SELECT
+		id,
+		number,
+		name,
+		address,
+		tel,
+		remark
+		FROM Client
+		WHERE number=#{number}
+		LIMIT 1	
+	</select>
+	<select id="getClientByNumOrName" parameterType="String" resultMap="clientMap">
+		SELECT
+		id,
+		number,
+		name,
+		address,
+		tel,
+		remark
+		FROM Client
+		WHERE number=#{clientName} Or name=#{clientName}
+		LIMIT 1	
+	</select>
+	<select id="selectClientById" parameterType="int" resultMap="clientMap">
+		SELECT
+		id,
+		number,
+		name,
+		address,
+		tel,
+		remark
+		FROM Client
+		WHERE id=#{id}		
+	</select>
+	<select id="repeatRowByNumber" parameterType="com.flash.jewelry.model.Client" resultType="int">
+		SELECT
+		Count(1)
+		FROM Client
+		WHERE id!=#{id} And number=#{number}		
+	</select>	
+	<update id="updateClient" parameterType="com.flash.jewelry.model.Client">
+		update Client set
+		number =
+		#{number},
+		name = #{name},
+		address=#{address},
+		tel=#{tel},
+		remark = #{remark}				
+		where
+		id = #{id};
+	</update>
+	<delete id="deleteClient" parameterType="int">
+		delete from Client where
+		id = #{id};
+	</delete>
+	<insert id="insertClient" parameterType="com.flash.jewelry.model.Client"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into Client(
+		number,
+		name,
+		address,
+		tel,
+		remark) 
+		values(
+		#{number},
+		#{name}, 
+		#{address},
+		#{tel},
+		#{remark}
+		);
+	</insert>
+</mapper>

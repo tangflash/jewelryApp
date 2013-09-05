@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flash.jewelry.dao.MaterialInventoryMapper">	
+	
+	<resultMap type="com.flash.jewelry.model.MaterialInventory" id="materialInventoryMap">
+		<id column="id" property="id" />
+		<result column="MaterId" property="materId" />		
+		<result column="InAmount" property="inAmount" />
+		<result column="InWeight" property="inWeight" />		
+		<result column="OutAmount" property="outAmount" />
+		<result column="OutWeight" property="outWeight" />
+		<result column="Sort" property="sort" />
+	</resultMap>	
+	<resultMap type="com.flash.jewelry.model.MaterialInventory" id="findMaterialInventoryMap">
+		<id column="id" property="id" />		
+		<result column="ClientName" property="clientName" />
+		<result column="MaterId" property="materId" />	
+		<result column="MaterNum" property="materNum" />	
+		<result column="InAmount" property="inAmount" />
+		<result column="InWeight" property="inWeight" />		
+		<result column="OutAmount" property="outAmount" />
+		<result column="OutWeight" property="outWeight" />
+		<result column="Sort" property="sort" />
+	</resultMap>
+	<select id="findMaterialInventory" parameterType="com.flash.jewelry.model.ComQueryParam" resultMap="findMaterialInventoryMap">
+		SELECT
+		MaterialInventory.id		As Id,
+		MaterialInventory.MaterId	As MaterId,
+		Material.Number 			As MaterNum,
+		MaterialInventory.InAmount	As InAmount,	
+		MaterialInventory.InWeight 	As InWeight,
+		MaterialInventory.OutAmount As OutAmount,
+		MaterialInventory.OutWeight As OutWeight,	
+		MaterialInventory.Sort		As Sort,
+		Client.Name 				AS ClientName	
+		FROM MaterialInventory Left Join Material		
+		On MaterialInventory.MaterId = Material.Id	
+		Left Join Client 
+		On MaterialInventory.ClientId = Client.Id
+		Where 1 = 1		
+		<if test="materNum != null">
+    		And Material.Number = #{materNum}
+  		</if>
+	</select>	
+	<select id="selectMaterialInventoryByMaterId" parameterType="long" resultMap="materialInventoryMap">
+		SELECT
+		id,
+		MaterId,		
+		InAmount,	
+		InWeight,
+		OutAmount,
+		OutWeight,	
+		Sort	
+		FROM MaterialInventory
+		WHERE MaterId=#{materId}		
+	</select>
+	<update id="updateMaterIn" parameterType="com.flash.jewelry.model.MaterialInventory">
+		update MaterialInventory set
+		InAmount = InAmount + #{inAmount}						
+		where MaterId = #{materId};
+	</update>
+	<update id="updateMaterOut" parameterType="com.flash.jewelry.model.MaterialInventory">	
+		update MaterialInventory set
+		OutAmount = OutAmount + #{outAmount}						
+		where MaterId = #{materId};		
+	</update>	
+	<update id="insertMaterialFromMaterialIn" parameterType="long">		
+		insert into MaterialInventory(
+		ClientId,
+		MaterId,		
+		InAmount,
+		InWeight,
+		OutAmount,
+		OutWeight,	
+		Sort
+		)
+		select ClientId,MaterId,0,0,0,0,0 from MaterialInDetail Left Join MaterialIn On  
+		MaterialInDetail.billId=MaterialIn.id where MaterialIn.id=#{billId} and 
+		not exists(select 1 from MaterialInventory where MaterialInventory.materId=MaterialInDetail.materId
+		And MaterialInventory.ClientId=MaterialIn.ClientId);
+	</update>
+	<update id="submitMaterialIn" parameterType="long">			
+		update MaterialInventory set InAmount = InAmount + 
+		(select sum(amount) from MaterialInDetail Left Join MaterialIn On  MaterialInDetail.billId
+		=MaterialIn.id where MaterialIn.id=#{billId} and MaterialInDetail.materId=MaterialInventory.materId
+		AND MaterialIn.ClientId=MaterialInventory.ClientId)
+		,InWeight = InWeight + 
+		(select sum(weight) from MaterialInDetail Left Join MaterialIn On  MaterialInDetail.billId
+		=MaterialIn.id where MaterialIn.id=#{billId} and MaterialInDetail.materId=MaterialInventory.materId
+		AND MaterialIn.ClientId=MaterialInventory.ClientId)						
+		where 
+		exists(select 1 from MaterialInDetail Left Join MaterialIn On  MaterialInDetail.billId
+		=MaterialIn.id where MaterialIn.id=#{billId} and MaterialInDetail.materId=MaterialInventory.materId
+		AND MaterialIn.ClientId=MaterialInventory.ClientId);
+	</update>
+	<update id="insertMaterialFromMaterialOut" parameterType="long">
+		insert into MaterialInventory(
+		MaterId,
+		ClientId,
+		InAmount,
+		InWeight,
+		OutAmount,
+		OutWeight,	
+		Sort
+		)
+		select MaterId,ClientId,0,0,0,0,0 from MaterialOutDetail Left Join MaterialOut On  MaterialOutDetail.billId
+		=MaterialOut.id where MaterialOut.id=#{billId} and 
+		not exists(select 1 from MaterialInventory where MaterialInventory.materId=MaterialOutDetail.materId and 
+		MaterialInventory.ClientId=MaterialOut.ClientId);	
+	</update>
+	<update id="submitMaterialOut" parameterType="long">
+		update MaterialInventory set
+		OutAmount = OutAmount + 
+		(select sum(amount) from MaterialOutDetail Left Join MaterialOut On  MaterialOutDetail.billId
+		=MaterialOut.id where MaterialOut.id=#{billId} and MaterialOutDetail.materId=MaterialInventory.materId
+		And MaterialOut.ClientId=MaterialInventory.ClientId)
+		,OutWeight = OutWeight + 
+		(select sum(weight) from MaterialOutDetail Left Join MaterialOut On  MaterialOutDetail.billId
+		=MaterialOut.id where MaterialOut.id=#{billId} and MaterialOutDetail.materId=MaterialInventory.materId
+		And MaterialOut.ClientId=MaterialInventory.ClientId)						
+		where 
+		exists(select 1 from MaterialOutDetail Left Join MaterialOut On  MaterialOutDetail.billId
+		=MaterialOut.id where MaterialOut.id=#{billId} and MaterialOutDetail.materId=MaterialInventory.materId
+		And MaterialOut.ClientId=MaterialInventory.ClientId);
+	</update>
+	<update id="updateBackForMaterialOut" parameterType="com.flash.jewelry.model.MaterialOut">
+		update MaterialOutDetail set
+		BackAmount =  
+		(select IfNull(sum(InAmount-OutAmount),0) from MaterialInventory where MaterialInventory.MaterId=MaterialOutDetail.materId
+		And ClientId= #{clientId})
+		,BackWeight = 
+		(select IfNull(sum(InWeight-OutWeight),0) from MaterialInventory where MaterialInventory.MaterId=MaterialOutDetail.materId
+		And ClientId= #{clientId} )						
+		where BillId=#{id};
+	</update>
+	<update id="updateBackMaterialToInventory" parameterType="long">
+		update MaterialInventory set
+		OutAmount = OutAmount + 
+		(select IfNull(Max(BackAmount),0) from MaterialOutDetail Left Join MaterialOut On  MaterialOutDetail.billId
+		=MaterialOut.id where MaterialOut.id=#{billId} and MaterialOutDetail.materId=MaterialInventory.materId
+		And MaterialOut.ClientId=MaterialInventory.ClientId Group By MaterialOutDetail.MaterId)
+		,OutWeight = OutWeight + 
+		(select IfNull(Max(BackWeight),0) from MaterialOutDetail Left Join MaterialOut On  MaterialOutDetail.billId
+		=MaterialOut.id where MaterialOut.id=#{billId} and MaterialOutDetail.materId=MaterialInventory.materId
+		And MaterialOut.ClientId=MaterialInventory.ClientId Group By MaterialOutDetail.MaterId)						
+		where 
+		exists(select 1 from MaterialOutDetail Left Join MaterialOut On  MaterialOutDetail.billId
+		=MaterialOut.id where MaterialOut.id=#{billId} and MaterialOutDetail.materId=MaterialInventory.materId
+		And MaterialOut.ClientId=MaterialInventory.ClientId);
+	</update>
+	<insert id="insertMaterialInventory" parameterType="com.flash.jewelry.model.MaterialInventory"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into MaterialInventory(
+		MaterId,
+		InAmount,
+		InWeight,
+		OutAmount,
+		OutWeight,	
+		Sort
+		) 
+		values(
+		#{materId},
+		#{inAmount}, 
+		#{inWeight},
+		#{outAmount}, 
+		#{outWeight},
+		#{sort}
+		);
+	</insert>
+</mapper>

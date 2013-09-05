@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flash.jewelry.dao.MaterialInMapper">
+	<!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> -->
+	
+	<resultMap type="com.flash.jewelry.model.MaterialIn" id="materialInMap">
+		<id column="id" property="id" />
+		<result column="BillNumber" property="billNumber" />
+		<result column="BizDate" property="bizDate" />
+		<result column="ClientId" property="clientId" />
+		<result column="ClientName" property="clientName" />
+		<result column="CreateTime" property="createTime" />		
+	</resultMap>
+	<resultMap type="com.flash.jewelry.model.MaterialIn" id="materialInQueryMap">
+		<id column="BillMain_id" property="id" />
+		<result column="BillMain_BillNumber" property="billNumber" />
+		<result column="BillMain_BizDate" property="bizDate" javaType="java.util.Date"/>
+		<result column="BillMain_CreateTime" property="createTime" javaType="java.util.Date"/>
+		<result column="BillMain_ClientId" property="clientId" />
+		<result column="Client_ClientName" property="clientName" />		
+		<result column="BaseData_Name" property="billStatus.name" />
+		<result column="BaseData_Number" property="billStatus.number" />		
+		<result column="BillDetail_Id" property="materialInDetail.id" />
+		<result column="BillDetail_Amount" property="materialInDetail.amount" />
+		<result column="BillDetail_Number" property="materialInDetail.materNum" />
+		<result column="BillDetail_Weight" property="materialInDetail.weight" />
+	</resultMap>
+	<select id="findMateriallIn" parameterType="com.flash.jewelry.model.MaterialInQueryParam" resultMap="materialInQueryMap">
+		SELECT
+		BillMain.id 			As BillMain_id,
+		BillMain.BillNumber 	As BillMain_BillNumber,
+		BillMain.BizDate 		As BillMain_BizDate,
+		BillMain.CreateTime		As BillMain_CreateTime,
+		BillMain.ClientId		AS BillMain_ClientId,
+		Client.Name				AS Client_ClientName,
+		BaseData.Name			As BaseData_Name,
+		BaseData.Number			As BaseData_Number,
+		Material.Number			As BillDetail_Number,
+		BillDetail.Id			As BillDetail_Id,
+		BillDetail.Amount		As BillDetail_Amount,
+		BillDetail.Weight		As BillDetail_Weight		
+		FROM MaterialInDetail As BillDetail
+		Left Join MaterialIn As BillMain On BillDetail.billId=BillMain.id
+		Left Join Material On BillDetail.MaterId=Material.Id
+		Left Join BaseData on BillMain.BillStatus=BaseData.Number
+		LEFT JOIN Client ON BillMain.ClientId = Client.id
+		where  BillDetail.Sort=0 And BaseData.TypeNum='01'
+		<if test="billNumber != null and billNumber.length()>0 ">
+    		And BillMain.BillNumber = #{billNumber}
+  		</if>
+  		<if test="bizBeginDate != null">
+    		And BillMain.BizDate>=#{bizBeginDate}
+  		</if>
+  		<if test="bizEndDate != null">
+    		And BillMain.BizDate &lt;=#{bizEndDate}
+  		</if>
+  		Order By BillMain.BizDate desc,BillMain.BillNumber
+	</select>
+	<select id="selectMaterialIn" parameterType="long" resultMap="materialInMap">
+		SELECT
+		id,
+		BillNumber,
+		BizDate,
+		CreateTime		
+		FROM MaterialIn	
+	</select>
+	<select id="selectMaterialInByNumber" parameterType="String" resultMap="materialInMap">
+		SELECT
+		MaterialIn.id,
+		MaterialIn.BillNumber,
+		MaterialIn.ClientId,
+		MaterialIn.BizDate,
+		MaterialIn.CreateTime,	
+		Client.Name As 	ClientName
+		FROM MaterialIn
+		LEFT JOIN Client ON MaterialIn.ClientId = Client.id
+		WHERE BillNumber=#{billNumber}
+		LIMIT 1	
+	</select>
+	<select id="selectMaterialInById" parameterType="long" resultMap="materialInMap">
+		SELECT
+		MaterialIn.id,
+		MaterialIn.BillNumber,
+		MaterialIn.ClientId,
+		MaterialIn.BizDate,
+		MaterialIn.CreateTime,
+		Client.Name As 	ClientName	
+		FROM MaterialIn
+		LEFT JOIN Client ON MaterialIn.ClientId = Client.id
+		WHERE MaterialIn.id=#{id}		
+	</select>
+	<select id="repeatRowByNumber" parameterType="com.flash.jewelry.model.MaterialIn" resultType="int">
+		SELECT
+		Count(1)
+		FROM MaterialIn
+		WHERE id!=#{id} And billNumber=#{billNumber}		
+	</select>	
+	<update id="updateMaterialIn" parameterType="com.flash.jewelry.model.MaterialIn">
+		update MaterialIn set
+		BillNumber =
+		#{billNumber},
+		ClientId=#{clientId},
+		BizDate = #{bizDate},
+		CreateTime = #{createTime}				
+		where
+		id = #{id};
+	</update>
+	<update id="submitBill" parameterType="long">
+		update MaterialIn set
+		BillStatus = 1						
+		where
+		id = #{billId};
+	</update>
+	<delete id="deleteMaterialIn" parameterType="long">
+		delete from MaterialIn where
+		id = #{id};
+	</delete>
+	<insert id="insertMaterialIn" parameterType="com.flash.jewelry.model.MaterialIn"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into MaterialIn(
+		BillNumber,
+		ClientId,
+		BizDate,
+		CreateTime
+		) 
+		values(
+		#{billNumber},
+		#{clientId},
+		#{bizDate}, 
+		#{createTime}
+		);
+	</insert>
+</mapper>

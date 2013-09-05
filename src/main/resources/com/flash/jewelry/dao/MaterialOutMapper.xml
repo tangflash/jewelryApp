@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flash.jewelry.dao.MaterialOutMapper">	
+	
+	<resultMap type="com.flash.jewelry.model.MaterialOut" id="materialOutMap">
+		<id column="MaterialOut_id" property="id" />
+		<result column="MaterialOut_BillNumber" property="billNumber" />
+		<result column="MaterialOut_BizDate" property="bizDate" />
+		<result column="MaterialOut_ClientId" property="clientId" />
+		<result column="Client_ClientName" property="clientName" />
+		<result column="MaterialOut_GoldPrice" property="goldPrice" />
+		<result column="MaterialOut_GoldTypeId" property="goldTypeId" />
+		<result column="GoldType_GoldTypeName" property="goldTypeName" />
+		<result column="MaterialOut_BillStatus" property="billStatus.number" />
+		<result column="MaterialOut_CreateTime" property="createTime" />			
+	</resultMap>	
+	<select id="selectMaterialOut" parameterType="long" resultMap="materialOutMap">
+		SELECT
+		MaterialOut.id					MaterialOut_id,
+		MaterialOut.BillNumber			MaterialOut_BillNumber,
+		MaterialOut.BizDate				MaterialOut_BizDate,
+		MaterialOut.ClientId			MaterialOut_ClientId,
+		Client.Name						Client_ClientName,
+		MaterialOut.GoldPrice			MaterialOut_goldPrice,
+		MaterialOut.goldTypeId			MaterialOut_goldTypeId,
+		GoldType.Name					GoldType_goldTypeName,
+		MaterialOut.BillStatus			MaterialOut_BillStatus,		
+		MaterialOut.CreateTime			MaterialOut_CreateTime		
+		FROM MaterialOut 
+		LEFT JOIN Client ON MaterialOut.ClientId = Client.id
+		LEFT JOIN GoldType ON MaterialOut.goldTypeId = GoldType.id	
+	</select>	
+	<select id="selectMaterialOutByNumber" parameterType="String" resultMap="materialOutMap">
+		SELECT
+		MaterialOut.id					MaterialOut_id,
+		MaterialOut.BillNumber			MaterialOut_BillNumber,
+		MaterialOut.BizDate				MaterialOut_BizDate,
+		MaterialOut.ClientId			MaterialOut_ClientId,
+		Client.Name						Client_ClientName,
+		MaterialOut.goldPrice			MaterialOut_goldPrice,
+		MaterialOut.goldTypeId			MaterialOut_goldTypeId,
+		GoldType.Name					GoldType_goldTypeName,
+		MaterialOut.BillStatus			MaterialOut_BillStatus,		
+		MaterialOut.CreateTime			MaterialOut_CreateTime		
+		FROM MaterialOut 
+		LEFT JOIN Client ON MaterialOut.ClientId = Client.id
+		LEFT JOIN GoldType ON MaterialOut.goldTypeId = GoldType.id
+		WHERE BillNumber=#{billNumber}
+		LIMIT 1	
+	</select>
+	<select id="selectMaterialOutById" parameterType="long" resultMap="materialOutMap">
+		SELECT
+		MaterialOut.id					MaterialOut_id,
+		MaterialOut.BillNumber			MaterialOut_BillNumber,
+		MaterialOut.BizDate				MaterialOut_BizDate,
+		MaterialOut.ClientId			MaterialOut_ClientId,
+		Client.Name						Client_ClientName,
+		MaterialOut.goldPrice			MaterialOut_goldPrice,
+		MaterialOut.goldTypeId			MaterialOut_goldTypeId,
+		GoldType.Name					GoldType_goldTypeName,
+		MaterialOut.BillStatus			MaterialOut_BillStatus,		
+		MaterialOut.CreateTime			MaterialOut_CreateTime		
+		FROM MaterialOut 
+		LEFT JOIN Client ON MaterialOut.ClientId = Client.id
+		LEFT JOIN GoldType ON MaterialOut.goldTypeId = GoldType.id
+		WHERE MaterialOut.id=#{id}		
+	</select>
+	<select id="repeatRowByNumber" parameterType="com.flash.jewelry.model.MaterialOut" resultType="int">
+		SELECT
+		Count(1)
+		FROM MaterialOut
+		WHERE id!=#{id} And billNumber=#{billNumber}		
+	</select>	
+	<update id="updateMaterialOut" parameterType="com.flash.jewelry.model.MaterialOut">
+		update MaterialOut set
+		BillNumber =
+		#{billNumber},
+		BizDate = #{bizDate},
+		ClientId = #{clientId},
+		goldPrice = #{goldPrice},
+		goldTypeId = #{goldTypeId},
+		BillStatus = #{billStatus.number},
+		CreateTime = #{createTime}				
+		where
+		id = #{id};
+	</update>
+	<update id="submitBill" parameterType="long">
+		update MaterialOut set
+		BillStatus = 1						
+		where
+		id = #{billId};
+	</update>
+	<delete id="deleteMaterialOut" parameterType="long">
+		delete from MaterialOut where
+		id = #{id};
+	</delete>
+	<insert id="insertMaterialOut" parameterType="com.flash.jewelry.model.MaterialOut"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into MaterialOut(
+		BillNumber,
+		BizDate,
+		ClientId,
+		goldPrice,
+		goldTypeId,
+		BillStatus,
+		CreateTime
+		) 
+		values(
+		#{billNumber},
+		#{bizDate},
+		#{clientId}, 
+		#{goldPrice},
+		#{goldTypeId},
+		#{billStatus.number},
+		#{createTime}
+		);
+	</insert>
+</mapper>

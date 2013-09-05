@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flash.jewelry.dao.ProductStyleMapper">
+	
+	<resultMap type="com.flash.jewelry.model.ProductStyle" id="productStyleMap">
+		<id column="id" property="id" />
+		<result column="number" property="number" />
+		<result column="name" property="name" />
+		<result column="productId" property="product.id" />		
+		<result column="remark" property="remark" />
+	</resultMap>
+	<resultMap type="com.flash.jewelry.model.ProductStyle" id="productStyleListMap">
+		<id column="id" property="id" />
+		<result column="number" property="number" />
+		<result column="name" property="name" />
+		<result column="productId" property="product.id" />	
+		<result column="Product_Name" property="product.name" />
+		<result column="Product_Number" property="product.number" />	
+		<result column="remark" property="remark" />
+	</resultMap>
+	<select id="selectProductStyle" parameterType="int" resultMap="productStyleListMap">
+		SELECT
+		ProductStyle.id,
+		ProductStyle.productId,
+		ProductStyle.number,
+		ProductStyle.name,
+		ProductStyle.remark,
+		product.name As Product_Name,
+		product.number As Product_Number
+		FROM ProductStyle Left Join Product on ProductStyle.productId=product.id
+	</select>
+	
+	<select id="selectProductStyleByNumber" parameterType="String" resultMap="productStyleMap">
+		SELECT
+		id,
+		productId,
+		number,
+		name,
+		remark
+		FROM ProductStyle
+		WHERE number=#{number}
+		LIMIT 1	
+	</select>
+	<select id="getStyleByNumOrName" parameterType="String" resultMap="productStyleMap">
+		SELECT
+		id,
+		productId,
+		number,
+		name,
+		remark
+		FROM ProductStyle
+		WHERE number=#{styleName} or name=#{styleName}
+		LIMIT 1	
+	</select>
+	<select id="selectProductStyleById" parameterType="int" resultMap="productStyleMap">
+		SELECT
+		id,
+		productId,
+		number,
+		name,
+		remark
+		FROM ProductStyle
+		WHERE id=#{id}		
+	</select>
+	<select id="repeatRowByNumber" parameterType="com.flash.jewelry.model.ProductStyle" resultType="int">
+		SELECT
+		Count(1)
+		FROM ProductStyle
+		WHERE id!=#{id} And number=#{number}		
+	</select>	
+	<select id="repeatRowByName" parameterType="com.flash.jewelry.model.ProductStyle" resultType="int">
+		SELECT
+		Count(1)
+		FROM ProductStyle
+		WHERE id!=#{id} And name=#{name}		
+	</select>
+	<update id="updateProductStyle" parameterType="com.flash.jewelry.model.ProductStyle">
+		update ProductStyle set
+		number =
+		#{number},
+		productId=#{product.id},
+		name = #{name},
+		remark = #{remark}				
+		where
+		id = #{id};
+	</update>
+	<delete id="deleteProductStyle" parameterType="int">
+		delete from ProductStyle where
+		id = #{id};
+	</delete>
+	<insert id="insertProductStyle" parameterType="com.flash.jewelry.model.ProductStyle"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into ProductStyle(
+		productId,
+		number,
+		name,
+		remark) 
+		values(
+		#{product.id},
+		#{number},
+		#{name}, 
+		#{remark}
+		);
+	</insert>
+</mapper>

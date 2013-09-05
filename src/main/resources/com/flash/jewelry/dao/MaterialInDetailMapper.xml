@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flash.jewelry.dao.MaterialInDetailMapper">
+	<!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> -->
+	
+	<resultMap type="com.flash.jewelry.model.MaterialInDetail" id="materialInDetailMap">
+		<id column="id" property="id" />
+		<result column="BillId" property="billId" />
+		<result column="MaterId" property="materId" />
+		<result column="MaterialNumber" property="materNum" />
+		<result column="Amount" property="amount" />
+		<result column="Weight" property="weight" />		
+		<result column="Sort" property="sort" />		
+	</resultMap>
+	<select id="selectMaterialInDetail" parameterType="long" resultMap="materialInDetailMap">
+		SELECT
+		Id,
+		BillId,
+		MaterId,
+		Weight,
+		Amount,
+		Sort		
+		FROM MaterialInDetail	
+	</select>
+	<select id="selectMaterialInDetailByBillId" parameterType="long" resultMap="materialInDetailMap">
+		SELECT
+		Id,
+		BillId,
+		MaterId,
+		Weight,
+		Amount,
+		Sort		
+		FROM MaterialInDetail
+		WHERE BillId=#{billId}		
+	</select>
+	<select id="selectMaterialInDetailById" parameterType="long" resultMap="materialInDetailMap">
+		SELECT
+		MaterialInDetail.Id,
+		MaterialInDetail.BillId,
+		MaterialInDetail.MaterId,
+		MaterialInDetail.Weight,
+		MaterialInDetail.Amount,
+		MaterialInDetail.Sort,
+		Material.number As MaterialNumber
+		FROM MaterialInDetail Left Join Material
+		On MaterialInDetail.MaterId = Material.id
+		WHERE MaterialInDetail.id=#{id}		
+	</select>	
+	<select id="isBillMaterialRepeat" parameterType="com.flash.jewelry.model.MaterialInDetail" resultType="int">
+		SELECT
+		Count(1)
+		FROM MaterialInDetail
+		WHERE id!=#{id} And billId=#{billId} And materId=#{materId} 		
+	</select>
+	<update id="updateMaterialInDetail" parameterType="com.flash.jewelry.model.MaterialInDetail">
+		update MaterialInDetail set
+		BillId = #{billId},
+		MaterId = #{materId},
+		Weight = #{weight},
+		Amount = #{amount},
+		Sort = #{sort}						
+		where
+		id = #{id};
+	</update>
+	<delete id="deleteMaterialInDetail" parameterType="long">
+		delete from MaterialInDetail where
+		id = #{id};
+	</delete>
+	<insert id="insertMaterialInDetail" parameterType="com.flash.jewelry.model.MaterialInDetail"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into MaterialInDetail(
+		BillId,
+		MaterId,
+		Amount,
+		Weight,
+		Sort
+		) 
+		values(
+		#{billId},
+		#{materId},
+		#{amount}, 
+		#{weight},		
+		#{sort}
+		);
+	</insert>
+</mapper>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flash.jewelry.dao.MaterialMapper">
+	
+	<resultMap type="com.flash.jewelry.model.Material" id="materialMap">
+		<id column="id" property="id" />
+		<result column="number" property="number" />
+		<result column="name" property="name" />
+		<result column="sort" property="sort" />
+		<result column="weight" property="weight" />
+	</resultMap>
+	<select id="selectMaterial" parameterType="int" resultMap="materialMap">
+		SELECT
+		id,
+		number,
+		name,
+		sort,
+		weight
+		FROM Material	
+	</select>
+	<select id="selectMaterialByNumber" parameterType="String" resultMap="materialMap">
+		SELECT
+		id,
+		number,
+		name,
+		sort,
+		weight
+		FROM Material
+		WHERE number=#{number}
+		LIMIT 1	
+	</select>
+	<select id="selectMaterialById" parameterType="int" resultMap="materialMap">
+		SELECT
+		id,
+		number,
+		name,
+		sort,
+		weight
+		FROM Material
+		WHERE id=#{id}		
+	</select>
+	<select id="repeatRowByNumber" parameterType="com.flash.jewelry.model.Material" resultType="int">
+		SELECT
+		Count(1)
+		FROM Material
+		WHERE id!=#{id} And number=#{number}		
+	</select>
+	<select id="repeatRowByName" parameterType="com.flash.jewelry.model.Material" resultType="int">
+		SELECT
+		Count(1)
+		FROM Material
+		WHERE id!=#{id} And name=#{name}		
+	</select>	
+	<update id="updateMaterial" parameterType="com.flash.jewelry.model.Material">
+		update Material set
+		number =
+		#{number},
+		name = #{name},
+		sort = #{sort},
+		weight = #{weight}		
+		where
+		id = #{id};
+	</update>
+	<delete id="deleteMaterial" parameterType="int">
+		delete from Material where
+		id = #{id};
+	</delete>
+	<insert id="insertMaterial" parameterType="com.flash.jewelry.model.Material"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into Material(
+		number,
+		name,
+		Sort,
+		weight) 
+		values(
+		#{number},
+		#{name}, 
+		#{Sort},
+		#{weight});
+	</insert>
+</mapper>
