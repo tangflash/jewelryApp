@@ -33,7 +33,32 @@
 			$("#billNumber").val("");
 			return false;
 		});
+		
+		//净金重计算公式
+		$("#input_productWeight").change(function(event){
+			calGoldWeight();	
+		});
+		$("#input_weight").change(function(event){
+			calGoldWeight();	
+		});
+		$("#input_secWeight").change(function(event){
+			calGoldWeight();	
+		});
 	});
+	
+	//计算净金重
+	function calGoldWeight(){
+		var productWeight = $("#input_productWeight").val().trim();
+		if (productWeight == "") return;
+		var weight = $("#input_weight").val().trim();
+		var seWeight = $("#input_secWeight").val().trim();
+		
+		if (weight == "") weight = "0"; 
+		if (seWeight == "") seWeight = "0"; 
+		
+		var goldWeight = parseFloat(productWeight) - parseFloat(weight) * 0.2 - parseFloat(seWeight) * 0.2;
+		$("#input_goldWeight").val("" + goldWeight.toFixed(3));
+	}
 	//flag = true;
 </script>
 </head>
@@ -144,13 +169,13 @@
 							<form:label path="materialOutDetail.productWeight">
 					  			货重: <form:errors path="materialOutDetail.productWeight" cssClass="error" />
 							</form:label>
-							<form:input path="materialOutDetail.productWeight" />	
+							<form:input id="input_productWeight" path="materialOutDetail.productWeight" />	
 						</td>
 						<td>
 							<form:label path="materialOutDetail.goldWeight">
 					  			净金重: <form:errors path="materialOutDetail.goldWeight" cssClass="error" />
 							</form:label>
-							<form:input path="materialOutDetail.goldWeight" />	
+							<form:input id="input_goldWeight" path="materialOutDetail.goldWeight" disabled="true"/>	
 						</td>
 					</tr>
 					<tr>						
@@ -159,7 +184,7 @@
 		  						含耗重: 
 		  						<form:errors path="materialOutDetail.consumeWeight"	cssClass="error" />
 							</form:label>
-							<form:input path="materialOutDetail.consumeWeight" />
+							<form:input path="materialOutDetail.consumeWeight" disabled="true"/>
 						</td>
 						<td>
 							<form:label path="">
@@ -207,7 +232,7 @@
 							<form:label path="materialOutDetail.weight">
 					  			主石重量: <form:errors path="materialOutDetail.weight" cssClass="error" />
 							</form:label>
-							<form:input path="materialOutDetail.weight" />	
+							<form:input id="input_weight" path="materialOutDetail.weight" />	
 						</td>
 						<td>
 							<form:label path="materialOutDetail.factoryAddMoney">
@@ -234,7 +259,7 @@
 							<form:label path="materialOutDetail.secWeight">
 					  			副石重量: <form:errors path="materialOutDetail.secWeight" cssClass="error" />
 							</form:label>
-							<form:input path="materialOutDetail.secWeight" />	
+							<form:input id="input_secWeight" path="materialOutDetail.secWeight" />	
 						</td>
 					</tr>
 					<tr>						
