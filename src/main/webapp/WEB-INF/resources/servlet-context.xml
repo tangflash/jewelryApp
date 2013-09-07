@@ -45,7 +45,7 @@
     <jdbc:initialize-database data-source="dataSource">
         <jdbc:script location="${jdbc.initLocation}"/>
         <jdbc:script location="${jdbc.dataBaseLocation}"/>
-        <!-- <jdbc:script location="${jdbc.dataTestLocation}"/> -->
+        <jdbc:script location="${jdbc.dataTestLocation}"/>
     </jdbc:initialize-database>
 
 	<bean id="transactionManager"

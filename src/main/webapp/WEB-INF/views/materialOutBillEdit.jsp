@@ -44,6 +44,22 @@
 		$("#input_secWeight").change(function(event){
 			calGoldWeight();	
 		});
+		
+		//计算含耗重
+		$("#input_loss").change(function(event){
+			calConsumeWeight();	
+		});
+		$("#input_goldWeight").change(function(event){
+			calConsumeWeight();	
+		});
+		
+		//计算金料额
+		$("#input_consumeWeight").change(function(event){
+			calGoldMoney();	
+		});
+		$("#input_goldPrice").change(function(event){
+			calGoldMoney();	
+		});
 	});
 	
 	//计算净金重
@@ -59,6 +75,26 @@
 		var goldWeight = parseFloat(productWeight) - parseFloat(weight) * 0.2 - parseFloat(seWeight) * 0.2;
 		$("#input_goldWeight").val("" + goldWeight.toFixed(3));
 	}
+	//计算含耗重
+	function calConsumeWeight(){
+		var loss = $("#input_loss").val().trim();		
+		var goldWeight = $("#input_goldWeight").val().trim();
+		if (loss == "" || goldWeight == "") return;
+		
+		
+		var consumeWeight =  parseFloat(goldWeight) * (1 + parseFloat(loss) / 100);
+		$("#input_consumeWeight").val("" + consumeWeight.toFixed(3)); 
+	}
+	//计算金料额
+	function calGoldMoney(){		
+		var consumeWeight = $("#input_consumeWeight").val().trim();
+		var goldPrice = $("#input_goldPrice").val().trim();
+		if (consumeWeight == "" || goldPrice == "") return;
+		
+		var goldMoney = parseFloat(consumeWeight) * parseFloat(goldPrice);
+		$("#input_goldMoney").val("" + goldMoney.toFixed(2));
+	}
+	
 	//flag = true;
 </script>
 </head>
@@ -114,7 +150,7 @@
 							<form:label path="goldPrice">
 					  			金单价: <form:errors path="goldPrice" cssClass="error" />
 							</form:label>
-							<form:input id="goldPrice" path="goldPrice" />
+							<form:input id="input_goldPrice" path="goldPrice" />
 						</td>
 						<td>
 							<form:label path="createTime">
@@ -178,28 +214,34 @@
 							<form:input id="input_goldWeight" path="materialOutDetail.goldWeight" disabled="true"/>	
 						</td>
 					</tr>
-					<tr>						
+					<tr>	
+						<td>
+							<form:label path="materialOutDetail.loss">
+					  			损耗(%): <form:errors path="materialOutDetail.loss" cssClass="error" />
+							</form:label>
+							<form:input id="input_loss" path="materialOutDetail.loss"/>	
+						</td>					
 						<td>
 							<form:label path="materialOutDetail.consumeWeight">
 		  						含耗重: 
 		  						<form:errors path="materialOutDetail.consumeWeight"	cssClass="error" />
 							</form:label>
-							<form:input path="materialOutDetail.consumeWeight" disabled="true"/>
+							<form:input id="input_consumeWeight" path="materialOutDetail.consumeWeight" disabled="true"/>
 						</td>
 						<td>
 							<form:label path="">
-					  			金料额: <form:errors path="" cssClass="error" />
+					  			金料额: <form:errors path="materialOutDetail.goldMoney" cssClass="error" />
 							</form:label>
-							<form:input path="" disabled="true"/>	
-						</td>
+							<form:input id="input_goldMoney" path="materialOutDetail.goldMoney" disabled="true"/>	
+						</td>						
+					</tr>
+					<tr>	
 						<td>
 							<form:label path="materialOutDetail.processCost">
 					  			工费: <form:errors path="materialOutDetail.processCost" cssClass="error" />
 							</form:label>
 							<form:input path="materialOutDetail.processCost" />	
-						</td>
-					</tr>
-					<tr>						
+						</td>					
 						<td>
 							<form:label path="materialOutDetail.addProcessCost">
 		  						附加工价: 
@@ -212,15 +254,15 @@
 					  			超镶工费: <form:errors path="materialOutDetail.superSetCost" cssClass="error" />
 							</form:label>
 							<form:input path="materialOutDetail.superSetCost" />	
-						</td>
+						</td>						
+					</tr>
+					<tr>	
 						<td>
 							<form:label path="materialOutDetail.materName">
 					  			主石号: <form:errors path="materialOutDetail.materName" cssClass="error" />
 							</form:label>
 							<form:input path="materialOutDetail.materName" />	
-						</td>
-					</tr>
-					<tr>						
+						</td>					
 						<td>
 							<form:label path="materialOutDetail.amount">
 		  						主石粒数: 
@@ -233,15 +275,15 @@
 					  			主石重量: <form:errors path="materialOutDetail.weight" cssClass="error" />
 							</form:label>
 							<form:input id="input_weight" path="materialOutDetail.weight" />	
-						</td>
+						</td>						
+					</tr>
+					<tr>	
 						<td>
 							<form:label path="materialOutDetail.factoryAddMoney">
 					  			厂配主额: <form:errors path="materialOutDetail.factoryAddMoney" cssClass="error" />
 							</form:label>
 							<form:input path="materialOutDetail.factoryAddMoney" />	
-						</td>
-					</tr>
-					<tr>						
+						</td>						
 						<td>
 							<form:label path="materialOutDetail.secMaterName">
 		  						副石号: 
@@ -254,18 +296,18 @@
 					  			副石粒数: <form:errors path="materialOutDetail.secAmount" cssClass="error" />
 							</form:label>
 							<form:input path="materialOutDetail.secAmount" />	
-						</td>
+						</td>						
+					</tr>
+					<tr>	
 						<td>
 							<form:label path="materialOutDetail.secWeight">
 					  			副石重量: <form:errors path="materialOutDetail.secWeight" cssClass="error" />
 							</form:label>
 							<form:input id="input_secWeight" path="materialOutDetail.secWeight" />	
-						</td>
-					</tr>
-					<tr>						
+						</td>					
 						<td>
 							<form:label path="materialOutDetail.secPrice">
-		  						石单价/元: 
+		  						副石单价/元: 
 		  						<form:errors path="materialOutDetail.secPrice"	cssClass="error" />
 							</form:label>
 							<form:input path="materialOutDetail.secPrice" />
@@ -275,13 +317,15 @@
 					  			副石额: <form:errors path="" cssClass="error" />
 							</form:label>
 							<form:input path="" disabled="true"/>	
-						</td>
+						</td>						
+					</tr>
+					<tr>						
 						<td>
 							<form:label path="">
 					  			金额小计: <form:errors path="" cssClass="error" />
 							</form:label>
 							<form:input path="" disabled="true"/>	
-						</td>
+						</td>	
 					</tr>
 				</table>				
 
