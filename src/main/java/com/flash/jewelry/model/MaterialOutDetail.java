@@ -2,6 +2,7 @@ package com.flash.jewelry.model;
 
 import java.math.BigDecimal;
 
+import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -77,8 +78,19 @@ public class MaterialOutDetail {
 	private int backAmount;
 	private BigDecimal backWeight;
 	
+	@DecimalMin(value="0",message=StrConstant.MESSAGE_GREATER_ZERO)
+	@DecimalMax(value="100",message=StrConstant.MESSAGE_LESS_THAN_HUNDRED)
+	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
+	private BigDecimal loss;
 	
 	
+	
+	public BigDecimal getLoss() {
+		return loss;
+	}
+	public void setLoss(BigDecimal loss) {
+		this.loss = loss;
+	}
 	/**
 	 * @return the backAmount
 	 */

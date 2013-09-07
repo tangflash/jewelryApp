@@ -29,7 +29,8 @@
 		<result column="SecMaterial_SecMaterName" property="secMaterName" />
 		<result column="Detail_SecAmount" property="secAmount" />
 		<result column="Detail_SecWeight" property="secWeight" />
-		<result column="Detail_SecPrice" property="secPrice" />		
+		<result column="Detail_SecPrice" property="secPrice" />	
+		<result column="Detail_Loss" property="loss" />		
 	</resultMap>
 	
 	<resultMap type="com.flash.jewelry.model.MaterialOutDetail" id="materialOutQueryMap">
@@ -44,6 +45,7 @@
 		<result column="Detail_ProductAmount" property="productAmount" />
 		<result column="Detail_ProductWeight" property="productWeight" />
 		<result column="Detail_GoldWeight" property="goldWeight" />
+		<result column="Detail_Loss" property="loss" />
 		<result column="Detail_ConsumeWeight" property="consumeWeight" />
 		<result column="Detail_GoldMoney" property="goldMoney" />
 		<result column="Detail_ProcessCost" property="processCost" />
@@ -64,6 +66,7 @@
 		<result column="Detail_SecPrice" property="secPrice" />
 		<result column="Detail_SecMaterMoney" property="secMaterMoney" />	
 		<result column="Detail_TotalMoney" property="totalMoney" />
+		
 		
 		
 		<result column="BillMain_id" property="materialOut.id" />	
@@ -93,6 +96,7 @@
 		Detail.ProductAmount	Detail_ProductAmount,
 		Detail.ProductWeight	Detail_ProductWeight,
 		Detail.goldWeight		Detail_goldWeight,
+		Detail.loss				Detail_Loss,
 		Detail.ConsumeWeight	Detail_ConsumeWeight,
 		Detail.ConsumeWeight * BillMain.goldPrice						Detail_GoldMoney,
 		Detail.ProcessCost		Detail_ProcessCost,
@@ -246,6 +250,7 @@
 		Detail.ProductAmount	Detail_ProductAmount,
 		Detail.ProductWeight	Detail_ProductWeight,
 		Detail.goldWeight		Detail_goldWeight,
+		Detail.Loss				Detail_Loss,
 		Detail.ConsumeWeight	Detail_ConsumeWeight,
 		Detail.ProcessCost		Detail_ProcessCost,
 		Detail.AddProcessCost	Detail_AddProcessCost,
@@ -279,6 +284,7 @@
 		Detail.ProductAmount	Detail_ProductAmount,
 		Detail.ProductWeight	Detail_ProductWeight,
 		Detail.goldWeight		Detail_goldWeight,
+		Detail.Loss				Detail_Loss,
 		Detail.ConsumeWeight	Detail_ConsumeWeight,
 		Detail.ProcessCost		Detail_ProcessCost,
 		Detail.AddProcessCost	Detail_AddProcessCost,
@@ -313,6 +319,7 @@
 		Detail.ProductAmount	Detail_ProductAmount,
 		Detail.ProductWeight	Detail_ProductWeight,
 		Detail.goldWeight		Detail_goldWeight,
+		Detail.Loss				Detail_Loss,
 		Detail.ConsumeWeight	Detail_ConsumeWeight,
 		Detail.ProcessCost		Detail_ProcessCost,
 		Detail.AddProcessCost	Detail_AddProcessCost,
@@ -350,6 +357,7 @@
 		productAmount=#{productAmount},
 		productWeight=#{productWeight},
 		goldWeight=#{goldWeight},
+		loss=#{loss},
 		consumeWeight=#{consumeWeight},
 		processCost=#{processCost},
 		addProcessCost=#{addProcessCost},
@@ -380,6 +388,7 @@
 		ProductAmount,
 		ProductWeight,
 		goldWeight,
+		Loss,
 		ConsumeWeight,
 		ProcessCost,
 		AddProcessCost,
@@ -402,6 +411,7 @@
 		#{productAmount},
 		#{productWeight},
 		#{goldWeight},
+		#{loss},
 		#{consumeWeight},
 		#{processCost},
 		#{addProcessCost},

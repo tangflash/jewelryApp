@@ -60,6 +60,32 @@
 		$("#input_goldPrice").change(function(event){
 			calGoldMoney();	
 		});
+		
+		//计算副石金额
+		$("#input_secWeight").change(function(event){
+			calSecMaterMoney();	
+		});
+		$("#input_secPrice").change(function(event){
+			calSecMaterMoney();	
+		});
+		
+		//计算金额小计
+		$("#input_goldMoney").change(function(event){
+			calTotalMoney();	
+		});
+		$("#input_processCost").change(function(event){
+			calTotalMoney();	
+		});		
+		$("#input_addProcessCost").change(function(event){
+			calTotalMoney();	
+		});
+		$("#input_superSetCost").change(function(event){
+			calTotalMoney();	
+		});
+		$("#input_secMaterMoney").change(function(event){
+			calTotalMoney();	
+		});
+		
 	});
 	
 	//计算净金重
@@ -73,8 +99,9 @@
 		if (seWeight == "") seWeight = "0"; 
 		
 		var goldWeight = parseFloat(productWeight) - parseFloat(weight) * 0.2 - parseFloat(seWeight) * 0.2;
-		$("#input_goldWeight").val("" + goldWeight.toFixed(3));
+		$("#input_goldWeight").val("" + goldWeight.toFixed(3)).trigger("change");
 	}
+	
 	//计算含耗重
 	function calConsumeWeight(){
 		var loss = $("#input_loss").val().trim();		
@@ -83,8 +110,9 @@
 		
 		
 		var consumeWeight =  parseFloat(goldWeight) * (1 + parseFloat(loss) / 100);
-		$("#input_consumeWeight").val("" + consumeWeight.toFixed(3)); 
+		$("#input_consumeWeight").val("" + consumeWeight.toFixed(3)).trigger("change");
 	}
+	
 	//计算金料额
 	function calGoldMoney(){		
 		var consumeWeight = $("#input_consumeWeight").val().trim();
@@ -92,7 +120,39 @@
 		if (consumeWeight == "" || goldPrice == "") return;
 		
 		var goldMoney = parseFloat(consumeWeight) * parseFloat(goldPrice);
-		$("#input_goldMoney").val("" + goldMoney.toFixed(2));
+		$("#input_goldMoney").val("" + goldMoney.toFixed(2)).trigger("change");
+	}
+	
+	//计算副石金额
+	function calSecMaterMoney(){
+		var secWeight = $("#input_secWeight").val().trim();
+		var secPrice = $("#input_secPrice").val().trim();
+		if (secWeight == "" || secPrice == "") return;
+		
+		var secMaterMoney = parseFloat(secWeight) * parseFloat(secPrice);
+		$("#input_secMaterMoney").val("" + secMaterMoney.toFixed(2)).trigger("change");		
+	}
+	
+	//计算金额小计
+	function calTotalMoney(){
+		var goldMoney = $("#input_goldMoney").val().trim();
+		goldMoney = goldMoney == ""? "0" : goldMoney; 
+		
+		var processCost = $("#input_processCost").val().trim();
+		processCost = processCost == ""? "0" : processCost; 
+		
+		var addProcessCost = $("#input_addProcessCost").val().trim();
+		addProcessCost = addProcessCost == ""? "0" : addProcessCost; 
+		
+		var superSetCost = $("#input_superSetCost").val().trim();
+		superSetCost = superSetCost == ""? "0" : superSetCost; 
+		
+		var secMaterMoney = $("#input_secMaterMoney").val().trim();
+		secMaterMoney = secMaterMoney == ""? "0" : secMaterMoney; 
+		
+		var totalMoney = parseFloat(goldMoney) + parseFloat(processCost) + parseFloat(addProcessCost) 
+			+ parseFloat(superSetCost) + parseFloat(secMaterMoney);
+		$("#input_totalMoney").val("" + totalMoney.toFixed(2)).trigger("change");
 	}
 	
 	//flag = true;
@@ -184,7 +244,7 @@
 							<form:label path="materialOutDetail.productName">
 					  			品名: <form:errors path="materialOutDetail.productName" cssClass="error" />
 							</form:label>
-							<form:input path="materialOutDetail.productName" disabled="true"/>	
+							<form:input path="materialOutDetail.productName" readonly="true"/>	
 						</td>
 						<td>
 							<form:label path="materialOutDetail.handSize">
@@ -211,7 +271,7 @@
 							<form:label path="materialOutDetail.goldWeight">
 					  			净金重: <form:errors path="materialOutDetail.goldWeight" cssClass="error" />
 							</form:label>
-							<form:input id="input_goldWeight" path="materialOutDetail.goldWeight" disabled="true"/>	
+							<form:input id="input_goldWeight" path="materialOutDetail.goldWeight" readonly="true"/>	
 						</td>
 					</tr>
 					<tr>	
@@ -226,13 +286,13 @@
 		  						含耗重: 
 		  						<form:errors path="materialOutDetail.consumeWeight"	cssClass="error" />
 							</form:label>
-							<form:input id="input_consumeWeight" path="materialOutDetail.consumeWeight" disabled="true"/>
+							<form:input id="input_consumeWeight" path="materialOutDetail.consumeWeight" readonly="true"/>
 						</td>
 						<td>
 							<form:label path="">
 					  			金料额: <form:errors path="materialOutDetail.goldMoney" cssClass="error" />
 							</form:label>
-							<form:input id="input_goldMoney" path="materialOutDetail.goldMoney" disabled="true"/>	
+							<form:input id="input_goldMoney" path="materialOutDetail.goldMoney" readonly="true"/>	
 						</td>						
 					</tr>
 					<tr>	
@@ -240,20 +300,20 @@
 							<form:label path="materialOutDetail.processCost">
 					  			工费: <form:errors path="materialOutDetail.processCost" cssClass="error" />
 							</form:label>
-							<form:input path="materialOutDetail.processCost" />	
+							<form:input id="input_processCost" path="materialOutDetail.processCost" />	
 						</td>					
 						<td>
 							<form:label path="materialOutDetail.addProcessCost">
 		  						附加工价: 
 		  						<form:errors path="materialOutDetail.addProcessCost"	cssClass="error" />
 							</form:label>
-							<form:input path="materialOutDetail.addProcessCost" />
+							<form:input id="input_addProcessCost" path="materialOutDetail.addProcessCost" />
 						</td>
 						<td>
 							<form:label path="materialOutDetail.superSetCost">
 					  			超镶工费: <form:errors path="materialOutDetail.superSetCost" cssClass="error" />
 							</form:label>
-							<form:input path="materialOutDetail.superSetCost" />	
+							<form:input id="input_superSetCost" path="materialOutDetail.superSetCost" />	
 						</td>						
 					</tr>
 					<tr>	
@@ -310,21 +370,21 @@
 		  						副石单价/元: 
 		  						<form:errors path="materialOutDetail.secPrice"	cssClass="error" />
 							</form:label>
-							<form:input path="materialOutDetail.secPrice" />
+							<form:input id="input_secPrice" path="materialOutDetail.secPrice" />
 						</td>
 						<td>
 							<form:label path="">
-					  			副石额: <form:errors path="" cssClass="error" />
+					  			副石额: <form:errors path="materialOutDetail.secMaterMoney" cssClass="error" />
 							</form:label>
-							<form:input path="" disabled="true"/>	
+							<form:input id="input_secMaterMoney" path="materialOutDetail.secMaterMoney" readonly="true"/>	
 						</td>						
 					</tr>
 					<tr>						
 						<td>
-							<form:label path="">
-					  			金额小计: <form:errors path="" cssClass="error" />
+							<form:label path="materialOutDetail.totalMoney">
+					  			金额小计: <form:errors path="materialOutDetail.totalMoney" cssClass="error" />
 							</form:label>
-							<form:input path="" disabled="true"/>	
+							<form:input id="input_totalMoney" path="materialOutDetail.totalMoney" readonly="true"/>	
 						</td>	
 					</tr>
 				</table>				
