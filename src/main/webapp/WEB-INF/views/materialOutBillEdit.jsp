@@ -61,6 +61,8 @@
 			calGoldMoney();	
 		});
 		
+		calGoldMoney();
+		
 		//计算副石金额
 		$("#input_secWeight").change(function(event){
 			calSecMaterMoney();	
@@ -68,6 +70,7 @@
 		$("#input_secPrice").change(function(event){
 			calSecMaterMoney();	
 		});
+		calSecMaterMoney();	
 		
 		//计算金额小计
 		$("#input_goldMoney").change(function(event){
@@ -85,6 +88,7 @@
 		$("#input_secMaterMoney").change(function(event){
 			calTotalMoney();	
 		});
+		calTotalMoney();
 		
 	});
 	

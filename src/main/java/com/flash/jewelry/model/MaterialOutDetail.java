@@ -8,6 +8,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 import com.flash.jewelry.common.StrConstant;
 
@@ -18,71 +20,108 @@ public class MaterialOutDetail {
 	
 	@Min(value=1,message=StrConstant.MESSAGE_GREATER_ZERO)
 	private int amount;
+	
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
+	@NumberFormat(style=Style.NUMBER, pattern="#,##0.000")
 	private BigDecimal weight;
+	
 	@NotEmpty(message=StrConstant.MESSAGE_NOT_EMPTY)
 	private String materName;
 	
 	@NotEmpty(message=StrConstant.MESSAGE_NOT_EMPTY)
 	private String styleName;
+	
 	private long styleId;
+	
 	private long ProductNameId;
 	//@NotEmpty(message=StrConstant.MESSAGE_NOT_EMPTY)
 	private String productName;
 	
 	@Min(value=0,message=StrConstant.MESSAGE_GREATER_ZERO)
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
+	@NumberFormat(style=Style.NUMBER, pattern="#,##0.00")
 	private BigDecimal handSize;
+	
 	private int sort;
+	
 	@Min(value=1,message=StrConstant.MESSAGE_GREATER_ZERO)
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
 	private int productAmount;
+	
 	@DecimalMin(value="0",message=StrConstant.MESSAGE_GREATER_ZERO)
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
+	@NumberFormat(style=Style.NUMBER, pattern="#,##0.000")
 	private BigDecimal productWeight;
+	
 	@DecimalMin(value="0",message=StrConstant.MESSAGE_GREATER_ZERO)
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
-	private BigDecimal goldWeight;	
-	private BigDecimal goldMoney;	
+	@NumberFormat(style=Style.NUMBER, pattern="#,##0.000")
+	private BigDecimal goldWeight;
+	
+	@NumberFormat(style=Style.NUMBER, pattern="#,##0.00")
+	private BigDecimal goldMoney;
+	
 	@DecimalMin(value="0",message=StrConstant.MESSAGE_GREATER_ZERO)
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
+	@NumberFormat(style=Style.NUMBER, pattern="#,##0.000")
 	private BigDecimal consumeWeight;
+	
 	@DecimalMin(value="0",message=StrConstant.MESSAGE_GREATER_ZERO)
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
+	@NumberFormat(style=Style.NUMBER, pattern="#,##0.00")
 	private BigDecimal processCost; 
+	
+	@NumberFormat(style=Style.NUMBER, pattern="#,##0.00")
 	private BigDecimal totalProcessCost; 
 	
 	@DecimalMin(value="0",message=StrConstant.MESSAGE_GREATER_ZERO)
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
+	@NumberFormat(style=Style.NUMBER, pattern="#,##0.00")
 	private BigDecimal addProcessCost;
+	
 	@DecimalMin(value="0",message=StrConstant.MESSAGE_GREATER_ZERO)
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
+	@NumberFormat(style=Style.NUMBER, pattern="#,##0.00")
 	private BigDecimal superSetCost;
+	
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
+	@NumberFormat(style=Style.NUMBER, pattern="#,##0.00")
 	private BigDecimal factoryAddMoney;
 	
 	private long secMaterId;
 	
 	private String secMaterName;	
+	
 	private int secAmount;
+	
 	@DecimalMin(value="0",message=StrConstant.MESSAGE_GREATER_ZERO)
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
+	@NumberFormat(style=Style.NUMBER, pattern="#,##0.000")
 	private BigDecimal secWeight;
+	
 	@DecimalMin(value="0",message=StrConstant.MESSAGE_GREATER_ZERO)
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
+	@NumberFormat(style=Style.NUMBER, pattern="#,##0.00")
 	private BigDecimal secPrice;
+	
+	@NumberFormat(style=Style.NUMBER, pattern="#,##0.00")
 	private BigDecimal secMaterMoney;
+	
+	@NumberFormat(style=Style.NUMBER, pattern="#,##0.00")
 	private BigDecimal totalMoney;	
 	
 	private MaterialOut materialOut;
+	
 	private int backAmount;
+	
+	@NumberFormat(style=Style.NUMBER, pattern="#,##0.000")
 	private BigDecimal backWeight;
 	
 	@DecimalMin(value="0",message=StrConstant.MESSAGE_GREATER_ZERO)
 	@DecimalMax(value="100",message=StrConstant.MESSAGE_LESS_THAN_HUNDRED)
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
-	private BigDecimal loss;
-	
+	@NumberFormat(style=Style.NUMBER, pattern="#,##0.00")
+	private BigDecimal loss;	
 	
 	
 	public BigDecimal getLoss() {

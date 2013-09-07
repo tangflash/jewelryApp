@@ -62,6 +62,7 @@ public class MaterialOutController {
 			materialOut.setBizDate(new Date());
 			materialOut.setCreateTime(new Date());
 			MaterialOutDetail materialOutDetail = new MaterialOutDetail();
+			materialOutDetail.setProductAmount(1);
 			materialOut.setMaterialOutDetail(materialOutDetail);
 		}
 		else{
@@ -146,7 +147,10 @@ public class MaterialOutController {
 		else
 			materialOutService.insertMaterialOutDetail(materialOutDetail);
 
-		materialOut.setMaterialOutDetail(new MaterialOutDetail());
+		MaterialOutDetail newMaterialOutDetail = new MaterialOutDetail();
+		newMaterialOutDetail.setProductAmount(1);
+		newMaterialOutDetail.setLoss(materialOutDetail.getLoss());
+		materialOut.setMaterialOutDetail(newMaterialOutDetail);
 		return errorMessage;
 	}
 

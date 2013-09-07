@@ -141,18 +141,18 @@
 					<tr>						
 						<td>${detail.productName}</td>						
 						<td>${detail.productAmount}</td>						
-						<td><fmt:formatNumber value="${detail.productWeight}" pattern="#,#00.00#"/></td>
+						<td><fmt:formatNumber value="${detail.productWeight}" pattern="#,##0.000"/></td>
 												
-						<td><fmt:formatNumber value="${detail.goldWeight}" pattern="#,#00.00#"/></td>						
-						<td><fmt:formatNumber value="${detail.consumeWeight}" pattern="#,#00.00#"/></td>						
-						<td><fmt:formatNumber value="${detail.goldMoney}" pattern="#,#00.00#"/></td>						
-						<td><fmt:formatNumber value="${detail.processCost}" pattern="#,#00.00#"/></td>						
-						<td><fmt:formatNumber value="${detail.addProcessCost}" pattern="#,#00.00#"/></td>						
-						<td><fmt:formatNumber value="${detail.superSetCost}" pattern="#,#00.00#"/></td>						
+						<td><fmt:formatNumber value="${detail.goldWeight}" pattern="#,##0.000"/></td>						
+						<td><fmt:formatNumber value="${detail.consumeWeight}" pattern="#,##0.000"/></td>						
+						<td><fmt:formatNumber value="${detail.goldMoney}" pattern="#,##0.00"/></td>						
+						<td><fmt:formatNumber value="${detail.processCost}" pattern="#,##0.00"/></td>						
+						<td><fmt:formatNumber value="${detail.addProcessCost}" pattern="#,##0.00"/></td>						
+						<td><fmt:formatNumber value="${detail.superSetCost}" pattern="#,##0.00"/></td>						
 						
-						<td><fmt:formatNumber value="${detail.totalProcessCost}" pattern="#,#00.00#"/></td>
+						<td><fmt:formatNumber value="${detail.totalProcessCost}" pattern="#,##0.00"/></td>
 												
-						<td><fmt:formatNumber value="${detail.totalMoney}" pattern="#,#00.00#"/></td>
+						<td><fmt:formatNumber value="${detail.totalMoney}" pattern="#,##0.00"/></td>
 								
 					</tr>
 				</c:forEach>
@@ -184,11 +184,11 @@
 					<tr>						
 						<td>${detail.materName}</td>	
 						<td>${detail.amount + detail.backAmount}</td>						
-						<td><fmt:formatNumber value="${detail.weight + detail.backWeight}" pattern="#,#00.000#"/></td>					
+						<td><fmt:formatNumber value="${detail.weight + detail.backWeight}" pattern="#,##0.000"/></td>					
 						<td>${detail.amount}</td>						
-						<td><fmt:formatNumber value="${detail.weight}" pattern="#,#00.000#"/></td>
+						<td><fmt:formatNumber value="${detail.weight}" pattern="#,##0.000"/></td>
 						<td>${detail.backAmount}</td>						
-						<td><fmt:formatNumber value="${detail.backWeight}" pattern="#,#00.000#"/></td>								
+						<td><fmt:formatNumber value="${detail.backWeight}" pattern="#,##0.000"/></td>								
 					</tr>
 				</c:forEach>
 				<!-- <tr total='aa'>
@@ -216,8 +216,8 @@
 					<tr>			
 						<td>${detail.secPrice}</td>			
 						<td>${detail.secAmount}</td>						
-						<td><fmt:formatNumber value="${detail.secWeight}" pattern="#,#00.000#"/></td>					
-						<td><fmt:formatNumber value="${detail.secMaterMoney}" pattern="#,#00.00#"/></td>								
+						<td><fmt:formatNumber value="${detail.secWeight}" pattern="#,##0.000"/></td>					
+						<td><fmt:formatNumber value="${detail.secMaterMoney}" pattern="#,##0.00"/></td>								
 					</tr>
 				</c:forEach>
 				<!-- <tr total='aa'>
@@ -244,11 +244,11 @@
 			<tbody>
 				<c:forEach items="${feeTotalList}" var="detail">
 					<tr>						
-						<td><fmt:formatNumber value="${detail.addProcessCost}" pattern="#,#00.00#"/></td>					
-						<td><fmt:formatNumber value="${detail.totalProcessCost}" pattern="#,#00.00#"/></td>
-						<td><fmt:formatNumber value="${detail.superSetCost}" pattern="#,#00.00#"/></td>
-						<td><fmt:formatNumber value="${detail.goldMoney}" pattern="#,#00.00#"/></td>						
-						<td><fmt:formatNumber value="${detail.secMaterMoney}" pattern="#,#00.00#"/></td>								
+						<td><fmt:formatNumber value="${detail.addProcessCost}" pattern="#,##0.00"/></td>					
+						<td><fmt:formatNumber value="${detail.totalProcessCost}" pattern="#,##0.00"/></td>
+						<td><fmt:formatNumber value="${detail.superSetCost}" pattern="#,##0.00"/></td>
+						<td><fmt:formatNumber value="${detail.goldMoney}" pattern="#,##0.00"/></td>						
+						<td><fmt:formatNumber value="${detail.secMaterMoney}" pattern="#,##0.00"/></td>								
 					</tr>
 				</c:forEach>
 				<!-- <tr total='aa'>

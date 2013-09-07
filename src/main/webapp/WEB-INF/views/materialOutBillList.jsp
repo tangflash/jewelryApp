@@ -151,6 +151,7 @@
 					<td>货重</td>
 					
 					<td>净金重</td>
+					<td>损耗(%)</td>
 					<td>含耗重</td>
 					<td>金料额</td>
 					<td>工费</td>
@@ -178,35 +179,36 @@
 						<td><fmt:formatDate value="${detail.materialOut.bizDate}" pattern="yyyy-MM-dd"/></td>							
 						<td>${detail.materialOut.billStatus.name}</td>
 						<td>${detail.materialOut.clientName}</td>
-						<td><fmt:formatNumber value="${detail.materialOut.goldPrice}" pattern="#,#00.00#"/></td>						
+						<td><fmt:formatNumber value="${detail.materialOut.goldPrice}" pattern="#,##0.00"/></td>						
 						<td>${detail.materialOut.goldTypeName}</td>
 						<td><fmt:formatDate value="${detail.materialOut.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						
 						
 						<td>${detail.styleName}</td>
 						<td>${detail.productName}</td>						
-						<td><fmt:formatNumber value="${detail.handSize}" pattern="#,#00.00#"/></td>
+						<td><fmt:formatNumber value="${detail.handSize}" pattern="#,##0.00"/></td>
 						<td>${detail.productAmount}</td>						
-						<td><fmt:formatNumber value="${detail.productWeight}" pattern="#,#00.00#"/></td>
+						<td><fmt:formatNumber value="${detail.productWeight}" pattern="#,##0.00"/></td>
 												
-						<td><fmt:formatNumber value="${detail.goldWeight}" pattern="#,#00.00#"/></td>						
-						<td><fmt:formatNumber value="${detail.consumeWeight}" pattern="#,#00.00#"/></td>						
-						<td><fmt:formatNumber value="${detail.goldMoney}" pattern="#,#00.00#"/></td>						
-						<td><fmt:formatNumber value="${detail.processCost}" pattern="#,#00.00#"/></td>						
-						<td><fmt:formatNumber value="${detail.addProcessCost}" pattern="#,#00.00#"/></td>						
-						<td><fmt:formatNumber value="${detail.superSetCost}" pattern="#,#00.00#"/></td>
+						<td><fmt:formatNumber value="${detail.goldWeight}" pattern="#,##0.00"/></td>	
+						<td><fmt:formatNumber value="${detail.loss}" pattern="#,##0.00"/></td>					
+						<td><fmt:formatNumber value="${detail.consumeWeight}" pattern="#,##0.00"/></td>						
+						<td><fmt:formatNumber value="${detail.goldMoney}" pattern="#,##0.00"/></td>						
+						<td><fmt:formatNumber value="${detail.processCost}" pattern="#,##0.00"/></td>						
+						<td><fmt:formatNumber value="${detail.addProcessCost}" pattern="#,##0.00"/></td>						
+						<td><fmt:formatNumber value="${detail.superSetCost}" pattern="#,##0.00"/></td>
 						
 						<td>${detail.materName}</td>
 						<td>${detail.amount}</td>						
-						<td><fmt:formatNumber value="${detail.weight}" pattern="#,#00.000#"/></td>						
-						<td><fmt:formatNumber value="${detail.factoryAddMoney}" pattern="#,#00.00#"/></td>
+						<td><fmt:formatNumber value="${detail.weight}" pattern="#,##0.000"/></td>						
+						<td><fmt:formatNumber value="${detail.factoryAddMoney}" pattern="#,##0.00"/></td>
 						<td>${detail.secMaterName}</td>
 						
 						<td>${detail.secAmount}</td>						
-						<td><fmt:formatNumber value="${detail.secWeight}" pattern="#,#00.000#"/></td>						
-						<td><fmt:formatNumber value="${detail.secPrice}" pattern="#,#00.000#"/></td>						
-						<td><fmt:formatNumber value="${detail.secMaterMoney}" pattern="#,#00.00#"/></td>						
-						<td><fmt:formatNumber value="${detail.totalMoney}" pattern="#,#00.00#"/></td>
+						<td><fmt:formatNumber value="${detail.secWeight}" pattern="#,##0.000"/></td>						
+						<td><fmt:formatNumber value="${detail.secPrice}" pattern="#,##0.00"/></td>						
+						<td><fmt:formatNumber value="${detail.secMaterMoney}" pattern="#,##0.00"/></td>						
+						<td><fmt:formatNumber value="${detail.totalMoney}" pattern="#,##0.00"/></td>
 						<td style= "word-break:keep-all;width:200px">					
 							<c:if test="${detail.materialOut.billStatus.number=='0'}">								
 								<a class="submitLinkClass"

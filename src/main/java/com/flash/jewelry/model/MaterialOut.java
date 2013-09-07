@@ -11,6 +11,8 @@ import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 import com.flash.jewelry.common.StrConstant;
 
@@ -32,12 +34,17 @@ public class MaterialOut implements Serializable {
 	
 	@NotEmpty(message=StrConstant.MESSAGE_NOT_EMPTY)
 	private String clientName;	
+	
 	private long clientId;
+	
 	@NotEmpty(message=StrConstant.MESSAGE_NOT_EMPTY)
 	private String goldTypeName;
+	
 	private long goldTypeId;
+	
 	@DecimalMin(value="0",message=StrConstant.MESSAGE_NOT_EMPTY)
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
+	@NumberFormat(style=Style.NUMBER, pattern="#,##0.00")
 	private BigDecimal goldPrice;	
 	
 	
