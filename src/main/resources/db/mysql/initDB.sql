@@ -118,6 +118,7 @@ create table if not exists materialOutDetail (
 	SecAmount int not null,				/*副石粒数*/
 	SecWeight Decimal(18,4) not null,	/*副石重量*/
 	SecPrice Decimal(18,4) not null,	/*副石单价/元*/
+	Loss Decimal(18,4) Not null Default 0, /*损耗*/
 	FOREIGN KEY Fk_materialOutDetail_MaterId (MaterId) 
 	REFERENCES material (Id) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY Fk_materialOutDetail_BillId (BillId) 
@@ -160,6 +161,21 @@ set @s = (SELECT IF(
     ) > 0,
     "SELECT 1",
     "ALTER TABLE materialOut ADD BillStatus Int(4) Not null Default 0"
+));
+
+PREPARE stmt FROM @s;
+EXECUTE stmt;
+
+/*增加字段  损耗_loss*/
+set @s = (SELECT IF(
+    (SELECT COUNT(*)
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE table_name = 'materialOutDetail'
+        AND table_schema = DATABASE()
+        AND column_name = 'Loss'
+    ) > 0,
+    "SELECT 1",
+    "ALTER TABLE materialOutDetail ADD Loss Decimal(18,4) Not null Default 0"
 ));
 
 PREPARE stmt FROM @s;
