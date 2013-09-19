@@ -45,4 +45,7 @@
 	
 	<bean id="productStyleService" class="com.flash.jewelry.serviceImpl.ProductStyleManager">		
 	</bean>
+	
+	<bean id="balanceBillService" class="com.flash.jewelry.serviceImpl.BalanceBillManager">		
+	</bean>
 </beans>

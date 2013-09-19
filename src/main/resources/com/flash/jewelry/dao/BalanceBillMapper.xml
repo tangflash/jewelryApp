@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flash.jewelry.dao.BalanceBillMapper">
+	<!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> -->
+	
+	<resultMap type="com.flash.jewelry.model.BalanceBill" id="balanceBillMap">
+		<id column="id" property="id" />
+		<result column="BillNumber" property="billNumber" />
+		<result column="BizDate" property="bizDate" />
+		<result column="ClientId" property="clientId" />
+		<result column="ClientName" property="clientName" />
+		<result column="CreateTime" property="createTime" />	
+		<result column="BillStatus" property="billStatus.number" />	
+		<result column="BaseData_BillStatusNumber" property="billStatus.number" />	
+		<result column="BaseData_BillStatusName" property="billStatus.name" />	
+	</resultMap>
+		
+	<select id="find" parameterType="com.flash.jewelry.model.BalanceBillQueryParam" resultMap="balanceBillMap">
+		SELECT
+		BillMain.id,
+		BillMain.BillNumber,
+		BillMain.ClientId,
+		BillMain.BizDate,
+		BillMain.CreateTime,		
+		Client.Name As 	ClientName,
+		BaseData.Name				BaseData_BillStatusName,
+		BaseData.Number				BaseData_BillStatusNumber	
+		FROM BalanceBill BillMain
+		LEFT JOIN Client ON BillMain.ClientId = Client.id
+		LEFT JOIN BaseData on BillMain.BillStatus=BaseData.Number
+		WHERE BaseData.TypeNum='01'
+		<if test="billNumber != null and billNumber.length()>0 ">
+    		And BillMain.BillNumber = #{billNumber}
+  		</if>
+  		<if test="bizBeginDate != null">
+    		And BillMain.BizDate>=#{bizBeginDate}
+  		</if>
+  		<if test="bizEndDate != null">
+    		And BillMain.BizDate &lt;=#{bizEndDate}
+  		</if>
+  		Order By BillMain.BizDate desc,BillMain.BillNumber
+	</select>	
+	
+	<select id="selectById" parameterType="long" resultMap="balanceBillMap">
+		SELECT
+		BalanceBill.id,
+		BalanceBill.BillNumber,
+		BalanceBill.ClientId,
+		BalanceBill.BizDate,
+		BalanceBill.CreateTime,
+		BalanceBill.BillStatus,
+		Client.Name As 	ClientName	
+		FROM BalanceBill
+		LEFT JOIN Client ON BalanceBill.ClientId = Client.id
+		WHERE BalanceBill.id=#{id}		
+	</select>
+	<select id="repeatRowByNumber" parameterType="com.flash.jewelry.model.BalanceBill" resultType="int">
+		SELECT
+		Count(1)
+		FROM BalanceBill
+		WHERE id!=#{id} And billNumber=#{billNumber}		
+	</select>		
+	<update id="submitBill" parameterType="long">
+		update BalanceBill set
+		BillStatus = 1						
+		where
+		id = #{billId};
+	</update>
+	<delete id="delete" parameterType="long">
+		delete from BalanceBill where
+		id = #{id};
+	</delete>
+	<insert id="insert" parameterType="com.flash.jewelry.model.BalanceBill"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into BalanceBill(
+		BillNumber,
+		ClientId,
+		BizDate,
+		CreateTime
+		) 
+		values(
+		#{billNumber},
+		#{clientId},
+		#{bizDate}, 
+		#{createTime}
+		);
+	</insert>
+	<select id="checkNoSubmitBillCount" parameterType="long" resultType="int">
+		SELECT 
+		COUNT(1)
+		FROM BalanceBill
+		WHERE ClientId = #{clientId} AND BillStatus = 0
+	</select>
+</mapper>

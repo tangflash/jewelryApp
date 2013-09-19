@@ -158,7 +158,8 @@ iframe {
 					<li><a class="openLinkMenu" href="<c:url value="/materialInBillList/showListPage"/>">钻石入库查询</a></li>
 					<li><a class="openLinkMenu" href="<c:url value="/materialOutBillEdit/showPage"/>">出货单</a></li>
 					<li><a class="openLinkMenu" href="<c:url value="/materialOutBillList/showListPage"/>">出货单查询</a></li>
-					<li><a class="openLinkMenu" href="<c:url value="/materialOutBillList/showTotalListPage"/>">出货结算单</a></li>					
+					<li><a class="openLinkMenu" href="<c:url value="/balanceBillEdit/showPage"/>">结算单生成</a></li>	
+					<li><a class="openLinkMenu" href="<c:url value="/balanceBillList/showListPage"/>">结算单查询</a></li>				
 				</ul>
 				<p></p>
 			</div>

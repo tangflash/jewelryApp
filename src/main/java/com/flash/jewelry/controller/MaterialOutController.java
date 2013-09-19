@@ -299,11 +299,8 @@ public class MaterialOutController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName(VIEW_TOTAL_LIST_PAGE);
 
-		/*if (result.hasErrors()) {
-			modelAndView.addObject("queryParam", queryParam);
-			return modelAndView;
-		}*/
-		if (queryParam.getBillNumber() == null || queryParam.getBillNumber().equals("")){
+		
+		/*if (queryParam.getBillNumber() == null || queryParam.getBillNumber().equals("")){
 			modelAndView.addObject("errorMessage", "单据编码不能为空!");
 			return modelAndView;
 		}
@@ -329,7 +326,7 @@ public class MaterialOutController {
 			modelAndView.addObject("mainMaterialTotalList", mainMaterialTotalList);
 			modelAndView.addObject("secMaterialTotalList", secMaterialTotalList);
 			modelAndView.addObject("feeTotalList", feeTotalList);
-		}
+		}*/
 		return modelAndView;
 	}
 

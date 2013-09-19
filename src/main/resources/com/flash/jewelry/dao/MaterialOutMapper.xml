@@ -66,6 +66,29 @@
 		LEFT JOIN Client ON MaterialOut.ClientId = Client.id
 		LEFT JOIN GoldType ON MaterialOut.goldTypeId = GoldType.id
 		WHERE MaterialOut.id=#{id}		
+	</select>	
+	<select id="selectByBalanceBillId" parameterType="long" resultMap="materialOutMap">
+		SELECT
+		MaterialOut.id					MaterialOut_id,
+		MaterialOut.BillNumber			MaterialOut_BillNumber			
+		FROM MaterialOut 		
+		WHERE BalanceBillId=#{id}		
+	</select>	
+	<select id="selectNoBalanceBill" parameterType="long" resultMap="materialOutMap">
+		SELECT
+		id					MaterialOut_id,
+		BillNumber			MaterialOut_BillNumber		
+		FROM MaterialOut 		
+		WHERE ClientId=#{clientId}	AND BalanceBillId=0 AND BillStatus=1	
+	</select>	
+	<select id="updateBalanceId" parameterType="java.util.Map" >
+		UPDATE MaterialOut SET
+		BalanceBillId = #{balanceBillId}		
+		WHERE ID IN
+		<foreach item="item" index="index" collection="materialOutBillIdList"
+             open="(" separator="," close=")">
+        	#{item}
+    	</foreach>
 	</select>
 	<select id="repeatRowByNumber" parameterType="com.flash.jewelry.model.MaterialOut" resultType="int">
 		SELECT
@@ -95,6 +118,9 @@
 	<delete id="deleteMaterialOut" parameterType="long">
 		delete from MaterialOut where
 		id = #{id};
+	</delete>
+	<delete id="deleteLinkedBalanceBills" parameterType="long">
+		UPDATE MaterialOut SET BalanceBillId = 0 WHERE BalanceBillId=#{billId}
 	</delete>
 	<insert id="insertMaterialOut" parameterType="com.flash.jewelry.model.MaterialOut"
 		useGeneratedKeys="true" keyProperty="id">

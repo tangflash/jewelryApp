@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="materialOutBillReport" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="04fb8892-293b-4775-91d7-acc13e58a5bf">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="3"/>
 	<style name="Text Body"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["E:\\workspace\\jewelryApp\\src\\main\\webapp\\WEB-INF\\reports\\"]]></defaultValueExpression>
@@ -35,13 +35,15 @@
 	<field name="secMaterMoney" class="java.math.BigDecimal"/>
 	<field name="totalMoney" class="java.math.BigDecimal"/>
 	<field name="materialOut" class="com.flash.jewelry.model.MaterialOut"/>
+	<field name="groupName" class="java.lang.String"/>
+	<field name="loss" class="java.math.BigDecimal"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="93" splitType="Stretch">
+		<band height="81" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="5c08e23c-45d9-4fd8-a918-62abe93a1841" x="325" y="-18" width="274" height="42"/>
+				<reportElement uuid="5c08e23c-45d9-4fd8-a918-62abe93a1841" x="326" y="11" width="274" height="42"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -55,7 +57,7 @@
 				<text><![CDATA[出货结算单]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="057f05a6-f0a7-44f8-a687-13d0e22e29eb" x="72" y="50" width="159" height="20"/>
+				<reportElement uuid="057f05a6-f0a7-44f8-a687-13d0e22e29eb" x="72" y="59" width="159" height="20"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -69,7 +71,7 @@
 				<textFieldExpression><![CDATA[$F{materialOut}.getClientName()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="d44ca328-0a85-418c-8aaa-af3fe6893c60" x="11" y="50" width="61" height="20"/>
+				<reportElement uuid="d44ca328-0a85-418c-8aaa-af3fe6893c60" x="11" y="59" width="61" height="20"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -83,7 +85,7 @@
 				<text><![CDATA[客户名称：]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="66a4ef61-4101-420a-ad90-7c8ec17ecb4d" x="11" y="30" width="61" height="20"/>
+				<reportElement uuid="7dc6e6d3-cf25-4c30-b4c5-4096d40fd0cf" x="231" y="59" width="61" height="20"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -94,94 +96,10 @@
 				<textElement>
 					<font fontName="宋体" size="14" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[出货单号:]]></text>
+				<text><![CDATA[日期:]]></text>
 			</staticText>
-			<staticText>
-				<reportElement uuid="7dc6e6d3-cf25-4c30-b4c5-4096d40fd0cf" x="231" y="30" width="61" height="20"/>
-				<box>
-					<pen lineWidth="0.2"/>
-					<topPen lineWidth="0.2"/>
-					<leftPen lineWidth="0.2"/>
-					<bottomPen lineWidth="0.2"/>
-					<rightPen lineWidth="0.2"/>
-				</box>
-				<textElement>
-					<font fontName="宋体" size="14" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[出货日期:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="1f99ef67-e446-4356-bfd5-c083dc7ff22f" x="231" y="50" width="61" height="20"/>
-				<box>
-					<pen lineWidth="0.2"/>
-					<topPen lineWidth="0.2"/>
-					<leftPen lineWidth="0.2"/>
-					<bottomPen lineWidth="0.2"/>
-					<rightPen lineWidth="0.2"/>
-				</box>
-				<textElement>
-					<font fontName="宋体" size="14" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[订单号:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="444568ea-8f91-4eea-bf04-d76f21af9099" x="11" y="70" width="61" height="20"/>
-				<box>
-					<pen lineWidth="0.2"/>
-					<topPen lineWidth="0.2"/>
-					<leftPen lineWidth="0.2"/>
-					<bottomPen lineWidth="0.2"/>
-					<rightPen lineWidth="0.2"/>
-				</box>
-				<textElement>
-					<font fontName="宋体" size="14" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[金成色:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="3958e9b5-c095-481c-8dc2-80ddd3448329" x="231" y="70" width="61" height="20"/>
-				<box>
-					<pen lineWidth="0.2"/>
-					<topPen lineWidth="0.2"/>
-					<leftPen lineWidth="0.2"/>
-					<bottomPen lineWidth="0.2"/>
-					<rightPen lineWidth="0.2"/>
-				</box>
-				<textElement>
-					<font fontName="宋体" size="14" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[金价:]]></text>
-			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="057f05a6-f0a7-44f8-a687-13d0e22e29eb" x="72" y="70" width="159" height="20"/>
-				<box>
-					<pen lineWidth="0.2"/>
-					<topPen lineWidth="0.2"/>
-					<leftPen lineWidth="0.2"/>
-					<bottomPen lineWidth="0.2"/>
-					<rightPen lineWidth="0.2"/>
-				</box>
-				<textElement>
-					<font fontName="宋体" size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{materialOut}.getGoldTypeName()]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="057f05a6-f0a7-44f8-a687-13d0e22e29eb" x="71" y="30" width="159" height="20"/>
-				<box>
-					<pen lineWidth="0.2"/>
-					<topPen lineWidth="0.2"/>
-					<leftPen lineWidth="0.2"/>
-					<bottomPen lineWidth="0.2"/>
-					<rightPen lineWidth="0.2"/>
-				</box>
-				<textElement>
-					<font fontName="宋体" size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{materialOut}.getBillNumber()]]></textFieldExpression>
-			</textField>
 			<textField pattern="yyyy/MM/dd" isBlankWhenNull="true">
-				<reportElement uuid="057f05a6-f0a7-44f8-a687-13d0e22e29eb" x="291" y="30" width="171" height="20"/>
+				<reportElement uuid="057f05a6-f0a7-44f8-a687-13d0e22e29eb" x="291" y="59" width="171" height="20"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -194,39 +112,12 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{materialOut}.getBizDate()]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="057f05a6-f0a7-44f8-a687-13d0e22e29eb" x="292" y="50" width="170" height="20"/>
-				<box>
-					<pen lineWidth="0.2"/>
-					<topPen lineWidth="0.2"/>
-					<leftPen lineWidth="0.2"/>
-					<bottomPen lineWidth="0.2"/>
-					<rightPen lineWidth="0.2"/>
-				</box>
-				<textElement>
-					<font fontName="宋体" size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
-				</textElement>
-			</textField>
-			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
-				<reportElement uuid="057f05a6-f0a7-44f8-a687-13d0e22e29eb" x="292" y="70" width="170" height="20"/>
-				<box>
-					<pen lineWidth="0.2"/>
-					<topPen lineWidth="0.2"/>
-					<leftPen lineWidth="0.2"/>
-					<bottomPen lineWidth="0.2"/>
-					<rightPen lineWidth="0.2"/>
-				</box>
-				<textElement>
-					<font fontName="宋体" size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{materialOut}.getGoldPrice()]]></textFieldExpression>
-			</textField>
 		</band>
 	</title>
 	<pageHeader>
 		<band height="36" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="33be5eab-41e0-4c46-8301-14da379fba71" x="72" y="2" width="30" height="34"/>
+				<reportElement uuid="33be5eab-41e0-4c46-8301-14da379fba71" x="176" y="2" width="30" height="34"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -240,7 +131,7 @@
 				<text><![CDATA[件数]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="3d1ef723-46e3-48fc-b176-eb75f35b8276" x="102" y="2" width="40" height="34"/>
+				<reportElement uuid="3d1ef723-46e3-48fc-b176-eb75f35b8276" x="206" y="2" width="40" height="34"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -255,7 +146,7 @@
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cc52e267-3616-4e4b-b9c5-ecd3a3f2259a" x="142" y="2" width="40" height="34"/>
+				<reportElement uuid="cc52e267-3616-4e4b-b9c5-ecd3a3f2259a" x="246" y="2" width="40" height="34"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -269,7 +160,7 @@
 				<text><![CDATA[净金重]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ac8ae854-bbd6-42bf-b26c-b45c5799f108" x="182" y="2" width="40" height="34"/>
+				<reportElement uuid="ac8ae854-bbd6-42bf-b26c-b45c5799f108" x="286" y="2" width="40" height="34"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -284,7 +175,7 @@
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="0f34066a-3bd9-4a84-af68-72707870be6d" x="332" y="2" width="30" height="34"/>
+				<reportElement uuid="0f34066a-3bd9-4a84-af68-72707870be6d" x="436" y="2" width="30" height="34"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -300,7 +191,7 @@
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1744e396-7777-477b-baab-01568f4fc633" x="12" y="2" width="60" height="34"/>
+				<reportElement uuid="1744e396-7777-477b-baab-01568f4fc633" x="116" y="2" width="60" height="34"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -314,7 +205,7 @@
 				<text><![CDATA[品名]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="180a3492-a7e3-4ca6-ab82-8441bc9e181b" x="262" y="2" width="40" height="34"/>
+				<reportElement uuid="180a3492-a7e3-4ca6-ab82-8441bc9e181b" x="366" y="2" width="40" height="34"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -329,7 +220,7 @@
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="faa9d3e6-cda1-4c92-8b92-3e0bd4d96727" x="302" y="2" width="30" height="34"/>
+				<reportElement uuid="faa9d3e6-cda1-4c92-8b92-3e0bd4d96727" x="406" y="2" width="30" height="34"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -344,7 +235,7 @@
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1ea63128-fb3c-4e71-abaa-bf868f71b202" x="422" y="2" width="60" height="34"/>
+				<reportElement uuid="1ea63128-fb3c-4e71-abaa-bf868f71b202" x="526" y="2" width="60" height="34"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -360,7 +251,7 @@
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="db576cd1-302a-4f54-a0ba-8209c137d4f8" x="362" y="2" width="30" height="34"/>
+				<reportElement uuid="db576cd1-302a-4f54-a0ba-8209c137d4f8" x="466" y="2" width="30" height="34"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -374,7 +265,7 @@
 				<text><![CDATA[工费单价]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ac8ae854-bbd6-42bf-b26c-b45c5799f108" x="222" y="2" width="40" height="34"/>
+				<reportElement uuid="ac8ae854-bbd6-42bf-b26c-b45c5799f108" x="326" y="2" width="40" height="34"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -389,7 +280,7 @@
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="db576cd1-302a-4f54-a0ba-8209c137d4f8" x="392" y="2" width="30" height="34"/>
+				<reportElement uuid="db576cd1-302a-4f54-a0ba-8209c137d4f8" x="496" y="2" width="30" height="34"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -402,15 +293,29 @@
 				</textElement>
 				<text><![CDATA[工费总额]]></text>
 			</staticText>
+			<staticText>
+				<reportElement uuid="15d4d951-66ce-40c2-9ddb-655e296ac979" x="12" y="2" width="104" height="34"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[分类]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="330" splitType="Stretch">
+		<band height="24" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="e0ff7238-1611-4c07-ab5e-1cb83805e093" x="12" y="0" width="60" height="24"/>
+				<reportElement uuid="e0ff7238-1611-4c07-ab5e-1cb83805e093" x="116" y="0" width="60" height="24"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -424,7 +329,7 @@
 				<textFieldExpression><![CDATA[$F{productName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="d8ad0f2d-3b6c-48a9-91ad-1354bae714e0" x="72" y="0" width="30" height="24"/>
+				<reportElement uuid="d8ad0f2d-3b6c-48a9-91ad-1354bae714e0" x="176" y="0" width="30" height="24"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -438,7 +343,7 @@
 				<textFieldExpression><![CDATA[$F{productAmount}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
-				<reportElement uuid="e9cd36cb-4e6f-4b4c-afcb-37e8da764706" x="102" y="0" width="40" height="24"/>
+				<reportElement uuid="e9cd36cb-4e6f-4b4c-afcb-37e8da764706" x="206" y="0" width="40" height="24"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -452,7 +357,7 @@
 				<textFieldExpression><![CDATA[$F{productWeight}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
-				<reportElement uuid="199b3005-b9f2-4aa8-9634-4dec80e47782" x="142" y="0" width="40" height="24"/>
+				<reportElement uuid="199b3005-b9f2-4aa8-9634-4dec80e47782" x="246" y="0" width="40" height="24"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -466,7 +371,7 @@
 				<textFieldExpression><![CDATA[$F{goldWeight}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
-				<reportElement uuid="1393cc7c-7291-49de-be31-6be2fc85a8e6" x="182" y="0" width="40" height="24"/>
+				<reportElement uuid="1393cc7c-7291-49de-be31-6be2fc85a8e6" x="286" y="0" width="40" height="24"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -480,7 +385,7 @@
 				<textFieldExpression><![CDATA[$F{consumeWeight}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
-				<reportElement uuid="a1d65999-1452-42b7-af95-fd03f3f0d27f" x="262" y="0" width="40" height="24"/>
+				<reportElement uuid="a1d65999-1452-42b7-af95-fd03f3f0d27f" x="366" y="0" width="40" height="24"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -494,7 +399,7 @@
 				<textFieldExpression><![CDATA[$F{goldMoney}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
-				<reportElement uuid="c7653de1-a99a-474c-a118-ea57eda8c413" x="302" y="0" width="30" height="24"/>
+				<reportElement uuid="c7653de1-a99a-474c-a118-ea57eda8c413" x="406" y="0" width="30" height="24"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -508,7 +413,7 @@
 				<textFieldExpression><![CDATA[$F{processCost}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
-				<reportElement uuid="8094b5d1-4e18-473e-91ee-9e48e39b6fd9" x="362" y="0" width="30" height="24"/>
+				<reportElement uuid="8094b5d1-4e18-473e-91ee-9e48e39b6fd9" x="466" y="0" width="30" height="24"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -522,7 +427,7 @@
 				<textFieldExpression><![CDATA[$F{addProcessCost}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
-				<reportElement uuid="985467ad-545e-48a9-9c8b-cfc83fe91a44" x="332" y="0" width="30" height="24"/>
+				<reportElement uuid="985467ad-545e-48a9-9c8b-cfc83fe91a44" x="436" y="0" width="30" height="24"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -536,7 +441,7 @@
 				<textFieldExpression><![CDATA[$F{superSetCost}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
-				<reportElement uuid="8e569f40-a771-4d0a-b813-979ad04f01f1" x="422" y="0" width="60" height="24"/>
+				<reportElement uuid="8e569f40-a771-4d0a-b813-979ad04f01f1" x="526" y="0" width="60" height="24"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -549,8 +454,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{totalMoney}]]></textFieldExpression>
 			</textField>
-			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
-				<reportElement uuid="1393cc7c-7291-49de-be31-6be2fc85a8e6" x="222" y="0" width="40" height="24"/>
+			<textField pattern="###0;-###0" isBlankWhenNull="true">
+				<reportElement uuid="1393cc7c-7291-49de-be31-6be2fc85a8e6" x="326" y="0" width="40" height="24"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -561,9 +466,10 @@
 				<textElement>
 					<font fontName="宋体" size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{loss}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
-				<reportElement uuid="8094b5d1-4e18-473e-91ee-9e48e39b6fd9" x="392" y="0" width="30" height="24"/>
+				<reportElement uuid="8094b5d1-4e18-473e-91ee-9e48e39b6fd9" x="496" y="0" width="30" height="24"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -576,32 +482,46 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{addProcessCost}]]></textFieldExpression>
 			</textField>
-			<subreport isUsingCache="false">
-				<reportElement uuid="b2a16755-cd19-42f6-8129-1d521c2ebafc" x="12" y="60" width="337" height="91"/>
-				<dataSourceExpression><![CDATA[$P{mainMaterSubReportDatasource}]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{mainMaterSubReportLocation}]]></subreportExpression>
-			</subreport>
-			<subreport isUsingCache="false" runToBottom="false">
-				<reportElement uuid="04bf707f-ac2e-4eac-b096-a99f8a59375a" x="12" y="170" width="200" height="142" isPrintWhenDetailOverflows="true"/>
-				<dataSourceExpression><![CDATA[$P{secMaterSubReportDatasource}]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{secMaterSubReportLocation}]]></subreportExpression>
-			</subreport>
-			<subreport isUsingCache="false">
-				<reportElement uuid="383f2dd6-37a0-4f64-a438-1189cf386010" x="231" y="170" width="251" height="142" isPrintWhenDetailOverflows="true"/>
-				<dataSourceExpression><![CDATA[$P{feeTotalMaterSubReportDatasource}]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{feeTotalMaterSubReportLocation}]]></subreportExpression>
-			</subreport>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="d2fd240c-18e3-42aa-9624-2c2a6647d68c" x="12" y="0" width="104" height="24"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{groupName}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="24" splitType="Stretch"/>
+		<band height="10" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="29" splitType="Stretch">
+		<band height="248" splitType="Stretch">
 			<elementGroup/>
+			<subreport isUsingCache="false" runToBottom="false">
+				<reportElement uuid="04bf707f-ac2e-4eac-b096-a99f8a59375a" positionType="Float" x="0" y="105" width="200" height="142" isPrintWhenDetailOverflows="true"/>
+				<dataSourceExpression><![CDATA[$P{secMaterSubReportDatasource}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{secMaterSubReportLocation}]]></subreportExpression>
+			</subreport>
+			<subreport isUsingCache="false">
+				<reportElement uuid="383f2dd6-37a0-4f64-a438-1189cf386010" positionType="Float" x="211" y="105" width="251" height="142" isPrintWhenDetailOverflows="true"/>
+				<dataSourceExpression><![CDATA[$P{feeTotalMaterSubReportDatasource}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{feeTotalMaterSubReportLocation}]]></subreportExpression>
+			</subreport>
+			<subreport isUsingCache="false">
+				<reportElement uuid="b2a16755-cd19-42f6-8129-1d521c2ebafc" positionType="Float" x="0" y="3" width="470" height="91"/>
+				<dataSourceExpression><![CDATA[$P{mainMaterSubReportDatasource}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{mainMaterSubReportLocation}]]></subreportExpression>
+			</subreport>
 		</band>
 	</summary>
 </jasperReport>

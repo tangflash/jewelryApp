@@ -8,7 +8,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>出货单查询</title>
+<title>生成结算单</title>
 <!-- <link href="<c:url value="/resources/form.css" />" rel="stylesheet"
 	type="text/css" /> -->
 <link rel="stylesheet"
@@ -56,11 +56,10 @@
 	
 	$(document).ready(function() {
 		$("input[type=submit],button").button();
-		$("#bizBeginDate").datepicker();
-		$("#bizEndDate").datepicker();
+		$("#bizDate").datepicker();		
 
-		$("#bizBeginDate").datepicker("option", "dateFormat", "yy-mm-dd");
-		$("#bizEndDate").datepicker("option", "dateFormat", "yy-mm-dd");
+		$("#bizDate").datepicker("option", "dateFormat", "yy-mm-dd");
+		
 		
 		iniDataTable();
 
@@ -84,34 +83,38 @@
 </head>
 <body>
 	<div id="formsFind">
-		<form:form id="billHeadForm" method="post" action="totalBillList"
-			modelAttribute="queryParam" cssClass="cleanform">
+		<form:form id="billHeadForm" method="post" action="makeNewTotalBill"
+			modelAttribute="balanceBill" cssClass="cleanform">
 			<div class="header">
 				<s:bind path="*">
 					<c:if test="${status.error}">
-						<div id="sysErrorMessage" class="error">查询出错</div>
+						<div id="sysErrorMessage" class="error">结算出错</div>
 					</c:if>
 					<c:if test="${not empty errorMessage}">
-						<div id="errorMessage" class="error">查询出错:${errorMessage}</div>
+						<div id="errorMessage" class="error">结算出错:${errorMessage}</div>
 					</c:if>
 				</s:bind>
 			</div>
 			<fieldset>
-				<legend>查询条件</legend>						
+				<legend>结算单</legend>	
 				<form:label path="billNumber">
-		  			单据编码: <form:errors path="billNumber" cssClass="error" />
+		  			结算单编码: <form:errors path="billNumber" cssClass="error" />
 				</form:label>
-				<form:input id="billNumber" path="billNumber" />				
+				<form:input id="billNumber" path="billNumber" tabindex="1"/>	
+								
+				<form:label path="clientName">
+		  			客户编码/名称: <form:errors path="clientName" cssClass="error" />
+				</form:label>
+				<form:input id="clientName" path="clientName" tabindex="1"/>
+
+				<form:label path="bizDate">
+					  结算日期: <form:errors path="bizDate" cssClass="error" />
+				</form:label>
+				<form:input id="bizDate" path="bizDate" tabindex="2" />				
+				
 
 				<p>
-					<form:button value="queryButton" name="queryButton" type="submit">查询</form:button>
-					<form:button value="exportButton" name="exportButton" type="submit">导出</form:button>
-					<form:select path="exportFormat">
-						<form:option value="pdf">Pdf</form:option>
-						<form:option value="xls">Excel</form:option>
-						<form:option value="html">Html</form:option>
-						<form:option value="csv">Csv</form:option>
-					</form:select>
+					<form:button value="queryButton" name="queryButton" type="submit">生成结算单</form:button>					
 				</p>
 			</fieldset>
 		</form:form>
@@ -119,7 +122,8 @@
 	<div id="formsContent">
 		<table id="produectTotalListTable" class="listTable" border="1">
 			<thead>
-				<tr>					
+				<tr>	
+					<td>分类统计</td>				
 					<td>品名</td>					
 					<td>件数</td>
 					<td>货重</td>
@@ -138,21 +142,22 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${produectTotalList}" var="detail">
-					<tr>						
+					<tr>	
+						<td>${detail.groupName}</td>					
 						<td>${detail.productName}</td>						
 						<td>${detail.productAmount}</td>						
-						<td><fmt:formatNumber value="${detail.productWeight}" pattern="#,##0.000"/></td>
+						<td align="right"><fmt:formatNumber value="${detail.productWeight}" pattern="#,##0.000"/></td>
 												
-						<td><fmt:formatNumber value="${detail.goldWeight}" pattern="#,##0.000"/></td>						
-						<td><fmt:formatNumber value="${detail.consumeWeight}" pattern="#,##0.000"/></td>						
-						<td><fmt:formatNumber value="${detail.goldMoney}" pattern="#,##0.00"/></td>						
-						<td><fmt:formatNumber value="${detail.processCost}" pattern="#,##0.00"/></td>						
-						<td><fmt:formatNumber value="${detail.addProcessCost}" pattern="#,##0.00"/></td>						
-						<td><fmt:formatNumber value="${detail.superSetCost}" pattern="#,##0.00"/></td>						
+						<td align="right"><fmt:formatNumber value="${detail.goldWeight}" pattern="#,##0.000"/></td>						
+						<td align="right"><fmt:formatNumber value="${detail.consumeWeight}" pattern="#,##0.000"/></td>						
+						<td align="right"><fmt:formatNumber value="${detail.goldMoney}" pattern="#,##0.00"/></td>						
+						<td align="right"><fmt:formatNumber value="${detail.processCost}" pattern="#,##0.00"/></td>						
+						<td align="right"><fmt:formatNumber value="${detail.addProcessCost}" pattern="#,##0.00"/></td>						
+						<td align="right"><fmt:formatNumber value="${detail.superSetCost}" pattern="#,##0.00"/></td>						
 						
-						<td><fmt:formatNumber value="${detail.totalProcessCost}" pattern="#,##0.00"/></td>
+						<td align="right"><fmt:formatNumber value="${detail.totalProcessCost}" pattern="#,##0.00"/></td>
 												
-						<td><fmt:formatNumber value="${detail.totalMoney}" pattern="#,##0.00"/></td>
+						<td align="right"><fmt:formatNumber value="${detail.totalMoney}" pattern="#,##0.00"/></td>
 								
 					</tr>
 				</c:forEach>
@@ -171,24 +176,26 @@
 			<thead>
 				<tr>					
 					<td>主石号</td>	
-					<td>粒数</td>
-					<td>重量</td>					
-					<td>领用粒数</td>					
-					<td>领用重量/ct</td>
-					<td>退回粒数</td>					
-					<td>退回重量/ct</td>						
+					<td>上存粒数</td>
+					<td>上存重量</td>
+					<td>领用粒数</td>
+					<td>领用重量</td>					
+					<td>存粒数</td>					
+					<td>存重量/ct</td>
+					<td>领用详细</td>											
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${mainMaterialTotalList}" var="detail">
 					<tr>						
 						<td>${detail.materName}</td>	
-						<td>${detail.amount + detail.backAmount}</td>						
-						<td><fmt:formatNumber value="${detail.weight + detail.backWeight}" pattern="#,##0.000"/></td>					
-						<td>${detail.amount}</td>						
-						<td><fmt:formatNumber value="${detail.weight}" pattern="#,##0.000"/></td>
-						<td>${detail.backAmount}</td>						
-						<td><fmt:formatNumber value="${detail.backWeight}" pattern="#,##0.000"/></td>								
+						<td>${detail.priorAmount}</td>						
+						<td align="right"><fmt:formatNumber value="${detail.priorWeight}" pattern="#,##0.000"/></td>					
+						<td>${detail.inAmount}</td>						
+						<td align="right"><fmt:formatNumber value="${detail.inWeight}" pattern="#,##0.000"/></td>
+						<td>${detail.curAmount}</td>						
+						<td align="right"><fmt:formatNumber value="${detail.curWeight}" pattern="#,##0.000"/></td>
+						<td>${detail.materUsedInfor}</td>								
 					</tr>
 				</c:forEach>
 				<!-- <tr total='aa'>
@@ -204,7 +211,8 @@
 		</table>
 		<table id="secMaterialTotalList" class="listTable" border="1">
 			<thead>
-				<tr>					
+				<tr>	
+					<td>成色</td>				
 					<td>副石单价</td>					
 					<td>粒数</td>					
 					<td>重量/ct</td>	
@@ -214,10 +222,11 @@
 			<tbody>
 				<c:forEach items="${secMaterialTotalList}" var="detail">
 					<tr>			
-						<td>${detail.secPrice}</td>			
+						<td>${detail.materialOut.goldTypeName}</td>							
+						<td align="right"><fmt:formatNumber value="${detail.secPrice}" pattern="#,##0.00"/></td>		
 						<td>${detail.secAmount}</td>						
-						<td><fmt:formatNumber value="${detail.secWeight}" pattern="#,##0.000"/></td>					
-						<td><fmt:formatNumber value="${detail.secMaterMoney}" pattern="#,##0.00"/></td>								
+						<td align="right"><fmt:formatNumber value="${detail.secWeight}" pattern="#,##0.000"/></td>					
+						<td align="right"><fmt:formatNumber value="${detail.secMaterMoney}" pattern="#,##0.00"/></td>								
 					</tr>
 				</c:forEach>
 				<!-- <tr total='aa'>
@@ -234,21 +243,13 @@
 		<table id="feeTotalList" class="listTable" border="1">
 			<thead>
 				<tr>					
-					<td>附加工费</td>					
-					<td>工费</td>					
-					<td>超镶工费</td>	
-					<td>金料额</td>
-					<td>副石额</td>						
+					<td></td>											
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${feeTotalList}" var="detail">
 					<tr>						
-						<td><fmt:formatNumber value="${detail.addProcessCost}" pattern="#,##0.00"/></td>					
-						<td><fmt:formatNumber value="${detail.totalProcessCost}" pattern="#,##0.00"/></td>
-						<td><fmt:formatNumber value="${detail.superSetCost}" pattern="#,##0.00"/></td>
-						<td><fmt:formatNumber value="${detail.goldMoney}" pattern="#,##0.00"/></td>						
-						<td><fmt:formatNumber value="${detail.secMaterMoney}" pattern="#,##0.00"/></td>								
+						<td>${detail.feeTotalInfor}</td>													
 					</tr>
 				</c:forEach>
 				<!-- <tr total='aa'>

@@ -121,9 +121,17 @@ public class MaterialOutDetail {
 	@DecimalMax(value="100",message=StrConstant.MESSAGE_LESS_THAN_HUNDRED)
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
 	@NumberFormat(style=Style.NUMBER, pattern="#,##0.00")
-	private BigDecimal loss;	
+	private BigDecimal loss;
+	
+	private String groupName;
 	
 	
+	public String getGroupName() {
+		return groupName;
+	}
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
 	public BigDecimal getLoss() {
 		return loss;
 	}

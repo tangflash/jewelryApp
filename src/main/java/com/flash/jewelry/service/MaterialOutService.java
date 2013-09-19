@@ -1,6 +1,7 @@
 package com.flash.jewelry.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import com.flash.jewelry.model.Client;
 import com.flash.jewelry.model.GoldType;
@@ -27,13 +28,13 @@ public interface MaterialOutService {
 	
 	Collection<MaterialOutDetail> findMateriallOut(MaterialInQueryParam queryParam);
 	
-	Collection<MaterialOutDetail> staticOutBillByProduct(MaterialInQueryParam queryParam);
+	Collection<MaterialOutDetail> staticOutBillByProduct(long outBillId);
 
-	Collection<MaterialOutDetail> staticOutBillByMainMaterial(MaterialInQueryParam queryParam);
+	Collection<MaterialOutDetail> staticOutBillByMainMaterial(long materialOutBillId);
 
-	Collection<MaterialOutDetail> staticOutBillBySecMaterial(MaterialInQueryParam queryParam);
+	Collection<MaterialOutDetail> staticOutBillBySecMaterial(long materialOutBillId);
 
-	Collection<MaterialOutDetail> staticOutBillByTotalFee(MaterialInQueryParam queryParam);
+	Collection<MaterialOutDetail> staticOutBillByTotalFee(long materialOutBillId);
 	
 	void submitBill(long billId);
 
@@ -50,4 +51,12 @@ public interface MaterialOutService {
 	MaterialOutDetail selectMaterialOutDetailById(String id);
 
 	MaterialOut selectMaterialOutById(String string);
+
+	Collection<MaterialOut> selectByBalanceBillId(long id);
+
+	Collection<MaterialOut> selectNoBalanceBill(long clientId);
+
+	void updateBalanceId(long balanceBillId, List materialOutBillIdList);
+
+	void deleteLinkedBalanceBills(long billId);
 }

@@ -6,7 +6,7 @@ import javax.validation.constraints.Past;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-public class MaterialInQueryParam {
+public class BalanceBillQueryParam {
 	private String billNumber;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	@Past

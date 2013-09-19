@@ -46,7 +46,7 @@
 				<text><![CDATA[工厂配副石]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2f0b9b13-bec2-43a8-b54a-a53c61f5cf7d" x="0" y="22" width="50" height="35"/>
+				<reportElement uuid="2f0b9b13-bec2-43a8-b54a-a53c61f5cf7d" x="52" y="22" width="50" height="35"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -60,7 +60,7 @@
 				<text><![CDATA[副石单价]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ab4c90ed-cf14-496c-90a1-838dfff51964" x="50" y="22" width="40" height="35"/>
+				<reportElement uuid="ab4c90ed-cf14-496c-90a1-838dfff51964" x="102" y="22" width="40" height="35"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -75,7 +75,7 @@
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b66f02b0-d285-4003-b3d9-15adb0685884" x="90" y="22" width="40" height="35"/>
+				<reportElement uuid="b66f02b0-d285-4003-b3d9-15adb0685884" x="142" y="22" width="40" height="35"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -90,7 +90,7 @@
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b66f02b0-d285-4003-b3d9-15adb0685884" x="131" y="22" width="40" height="35"/>
+				<reportElement uuid="b66f02b0-d285-4003-b3d9-15adb0685884" x="183" y="22" width="40" height="35"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -103,6 +103,20 @@
 				</textElement>
 				<text><![CDATA[副石额]]></text>
 			</staticText>
+			<staticText>
+				<reportElement uuid="8133f68b-61d9-4ee3-9603-ae875794e431" x="1" y="22" width="50" height="35"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[成色]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
@@ -114,7 +128,7 @@
 	<detail>
 		<band height="24" splitType="Stretch">
 			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
-				<reportElement uuid="3f2e883f-02a6-4b5c-9dc1-7a948909c277" x="0" y="0" width="50" height="24"/>
+				<reportElement uuid="3f2e883f-02a6-4b5c-9dc1-7a948909c277" x="52" y="0" width="50" height="24"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -128,7 +142,7 @@
 				<textFieldExpression><![CDATA[$F{secPrice}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="525e831a-1858-473e-9e32-205a1b001128" x="50" y="0" width="40" height="24"/>
+				<reportElement uuid="525e831a-1858-473e-9e32-205a1b001128" x="102" y="0" width="40" height="24"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -142,7 +156,7 @@
 				<textFieldExpression><![CDATA[$F{secAmount}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.000;-###0.000" isBlankWhenNull="true">
-				<reportElement uuid="eeacfb1f-fb17-466f-a615-d0a19a4114c6" x="90" y="0" width="40" height="24"/>
+				<reportElement uuid="eeacfb1f-fb17-466f-a615-d0a19a4114c6" x="142" y="0" width="40" height="24"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -156,7 +170,7 @@
 				<textFieldExpression><![CDATA[$F{secWeight}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
-				<reportElement uuid="eeacfb1f-fb17-466f-a615-d0a19a4114c6" x="131" y="0" width="40" height="24"/>
+				<reportElement uuid="eeacfb1f-fb17-466f-a615-d0a19a4114c6" x="183" y="0" width="40" height="24"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -168,6 +182,20 @@
 					<font fontName="宋体" size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{secMaterMoney}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
+				<reportElement uuid="703702e9-1151-49a5-a13f-7779713dd917" x="1" y="0" width="50" height="24"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{materialOut}.getGoldTypeName()]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

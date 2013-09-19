@@ -1,6 +1,9 @@
 package com.flash.jewelry.serviceImpl;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -84,20 +87,20 @@ public class MaterialOutManager implements MaterialOutService {
 			return materialOutDetailMapper.findMateriallOut(queryParam);
 	}
 	
-	public Collection<MaterialOutDetail> staticOutBillByProduct(MaterialInQueryParam queryParam){
-		return materialOutDetailMapper.staticOutBillByProduct(queryParam);
+	public Collection<MaterialOutDetail> staticOutBillByProduct(long outBillId){
+		return materialOutDetailMapper.staticOutBillByProduct(outBillId);
 	}
 
-	public Collection<MaterialOutDetail> staticOutBillByMainMaterial(MaterialInQueryParam queryParam){
-		return materialOutDetailMapper.staticOutBillByMainMaterial(queryParam);
+	public Collection<MaterialOutDetail> staticOutBillByMainMaterial(long materialOutBillId){
+		return materialOutDetailMapper.staticOutBillByMainMaterial(materialOutBillId);
 	}
 
-	public Collection<MaterialOutDetail> staticOutBillBySecMaterial(MaterialInQueryParam queryParam){
-		return materialOutDetailMapper.staticOutBillBySecMaterial(queryParam);
+	public Collection<MaterialOutDetail> staticOutBillBySecMaterial(long materialOutBillId){
+		return materialOutDetailMapper.staticOutBillBySecMaterial(materialOutBillId);
 	}
 
-	public Collection<MaterialOutDetail> staticOutBillByTotalFee(MaterialInQueryParam queryParam){
-		return materialOutDetailMapper.staticOutBillByTotalFee(queryParam);
+	public Collection<MaterialOutDetail> staticOutBillByTotalFee(long materialOutBillId){
+		return materialOutDetailMapper.staticOutBillByTotalFee(materialOutBillId);
 	}
 
 	public void submitBill(long billId) {
@@ -132,6 +135,25 @@ public class MaterialOutManager implements MaterialOutService {
 
 	public MaterialOut selectMaterialOutById(String id) {
 		return materialOutMapper.selectMaterialOutById(Long.valueOf(id));
+	}
+
+	public Collection<MaterialOut> selectByBalanceBillId(long id) {
+		return materialOutMapper.selectByBalanceBillId(id);
+	}
+
+	public Collection<MaterialOut> selectNoBalanceBill(long clientId) {
+		return materialOutMapper.selectNoBalanceBill(clientId);
+	}
+
+	public void updateBalanceId(long balanceBillId, List materialOutBillIdList) {
+		Map paramsMap = new HashMap<String, String>();
+		paramsMap.put("balanceBillId", balanceBillId);
+		paramsMap.put("materialOutBillIdList", materialOutBillIdList);
+		materialOutMapper.updateBalanceId(paramsMap);		
+	}
+
+	public void deleteLinkedBalanceBills(long billId) {
+		materialOutMapper.deleteLinkedBalanceBills(billId);	
 	}
 
 }

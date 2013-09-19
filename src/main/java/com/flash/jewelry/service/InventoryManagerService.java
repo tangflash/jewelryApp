@@ -13,4 +13,5 @@ public interface InventoryManagerService {
 	Collection<MaterialInventory> findMaterialInventory(ComQueryParam comQueryParam);
 	void submitMaterialIn(long billId);
 	void submitMaterialOut(MaterialOut materialOut);
+	void balanceInventory(long clientId);
 }

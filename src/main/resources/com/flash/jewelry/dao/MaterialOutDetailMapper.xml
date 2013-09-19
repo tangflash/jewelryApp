@@ -151,7 +151,7 @@
   		Order By BillMain.BizDate desc,BillMain.BillNumber
 	</select>
 	
-	<select id="staticOutBillByProduct" parameterType="com.flash.jewelry.model.MaterialInQueryParam" resultMap="materialOutQueryMap">
+	<select id="staticOutBillByProduct" parameterType="long" resultMap="materialOutQueryMap">
 		SELECT		
 		Product.Name			    Product_ProductName,
 		Sum(Detail.ProductAmount)	Detail_ProductAmount,
@@ -179,17 +179,17 @@
 		Left Join MaterialOut As BillMain on Detail.billId=BillMain.id		
 		LEFT JOIN Client ON BillMain.ClientId = Client.id
 		LEFT JOIN GoldType ON BillMain.goldTypeId = GoldType.id		
-		where Detail.Sort=0	And BillMain.billStatus=1
-		<if test="billNumber != null and billNumber.length()>0 ">
-    		And BillMain.BillNumber = #{billNumber}
-  		</if> 
+		where Detail.Sort=0	And BillMain.billStatus=1		
+    	And BillMain.id = #{materialOutBillId}  		
   		group by Product.Name,BillMain.BizDate,Client.Name,BillMain.goldPrice,GoldType.Name  		
   		
 	</select>
 	
 	<select id="staticOutBillByMainMaterial" parameterType="com.flash.jewelry.model.MaterialInQueryParam" resultMap="materialOutQueryMap">
 		SELECT		
+		Detail.MaterId				Detail_MaterId,
 		MainMaterial.Name			MainMaterial_MaterName,
+		GoldType.Name				GoldType_goldTypeName,
 		Sum(Detail.Amount)			Detail_Amount,
 		Sum(Detail.Weight)			Detail_Weight,
 		Sum(Detail.BackAmount)		Detail_BackAmount,
@@ -198,15 +198,15 @@
 		FROM MaterialOutDetail Detail			
 		Left Join MaterialOut As BillMain on Detail.billId=BillMain.id		
 		LEFT JOIN Material MainMaterial ON Detail.MaterId = MainMaterial.Id	
-		where Detail.Sort=0 And BillMain.billStatus=1
-		<if test="billNumber != null and billNumber.length()>0 ">
-    		And BillMain.BillNumber = #{billNumber}
-  		</if>   
-  		group by MainMaterial.Name		
+		LEFT JOIN GoldType ON BillMain.goldTypeId = GoldType.id
+		where Detail.Sort=0 And BillMain.billStatus=1		
+    	And BillMain.id = #{materialOutBillId}  		 
+  		group by Detail.MaterId, MainMaterial.Name,	GoldType.Name
 	</select>
 	
 	<select id="staticOutBillBySecMaterial" parameterType="com.flash.jewelry.model.MaterialInQueryParam" resultMap="materialOutQueryMap">
 		SELECT			
+		GoldType.Name				GoldType_goldTypeName,
 		Detail.SecPrice				Detail_SecPrice,
 		Sum(Detail.SecAmount)		Detail_SecAmount,
 		Sum(Detail.SecWeight)		Detail_SecWeight,
@@ -214,15 +214,15 @@
 				
 		FROM MaterialOutDetail Detail	
 		Left Join MaterialOut As BillMain on Detail.billId=BillMain.id	
+		LEFT JOIN GoldType ON BillMain.goldTypeId = GoldType.id
 		where Detail.Sort=0 And BillMain.billStatus=1
-		<if test="billNumber != null and billNumber.length()>0 ">
-    		And BillMain.BillNumber = #{billNumber}
-  		</if>   		
-  		group by Detail.SecPrice
+		And BillMain.id = #{materialOutBillId}  		
+  		group by GoldType.Name, Detail.SecPrice
 	</select>
 	
 	<select id="staticOutBillByTotalFee" parameterType="com.flash.jewelry.model.MaterialInQueryParam" resultMap="materialOutQueryMap">
-		SELECT			
+		SELECT	
+		GoldType.Name										GoldType_goldTypeName,		
 		Sum(Detail.AddProcessCost)							Detail_AddProcessCost,
 		Sum(Detail.ProcessCost * ProductAmount)				Detail_TotalProcessCost,
 		Sum(Detail.SuperSetCost)							Detail_SuperSetCost,
@@ -231,10 +231,10 @@
 				
 		FROM MaterialOutDetail Detail	
 		Left Join MaterialOut As BillMain on Detail.billId=BillMain.id
+		LEFT JOIN GoldType ON BillMain.goldTypeId = GoldType.id
 		where Detail.Sort=0 And BillMain.billStatus=1
-		<if test="billNumber != null and billNumber.length()>0 ">
-    		And BillMain.BillNumber = #{billNumber}
-  		</if>   		
+		And BillMain.id = #{materialOutBillId}
+		group by GoldType.Name    		
 	</select>
 	
 	<select id="selectMaterialOutDetail" parameterType="long" resultMap="materialOutDetailMap">

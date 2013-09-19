@@ -90,6 +90,7 @@ create table if not exists materialOut (
 	GoldPrice Decimal(18,6) not null default 0,	/*金价*/
 	GoldTypeId  BigInt(12) not null default 0,	/*金成色Id*/	
 	CreateTime DateTime not null,
+	BalanceBillId BigInt(12) not null default 0, /*关联的结算单Id*/
 	BillStatus Int(4) Not null Default 0
 ) engine=InnoDB CHARSET=UTF8;
 
@@ -125,6 +126,33 @@ create table if not exists materialOutDetail (
 	REFERENCES materialOut (Id) ON DELETE CASCADE ON UPDATE CASCADE
 ) engine=InnoDB CHARSET=UTF8;
 
+/*结算单据头*/
+create table if not exists balanceBill (
+	Id BigInt(12) not null auto_increment PRIMARY KEY,
+	BillNumber VarChar(32) not null, /*结算单号*/
+	BizDate DateTime not null,	/*结算日期*/
+	ClientId  BigInt(12) not null default 0,	/*客户Id*/	
+	CreateTime DateTime not null,
+	BillStatus Int(4) Not null Default 0
+) engine=InnoDB CHARSET=UTF8;
+
+/*结算单主石明细*/
+create table if not exists balanceMainMaterDetail (
+	Id BigInt(12) not null auto_increment PRIMARY KEY,
+	BillId BigInt(12) not null,		
+	MaterId BigInt(12) not null,		/*主石Id*/
+	PriorAmount int not null,				/*上存主石粒数*/
+	PriorWeight Decimal(18,4) not null,		/*上存主石重量*/
+	InAmount int not null,				/*本期入主石粒数*/
+	InWeight Decimal(18,4) not null,		/*本期入主石重量*/
+	CurAmount int not null default 0,	       /*当前主石数量*/
+	CurWeight Decimal(18,4) not null default 0.0,		/*当前主石重量*/	
+	FOREIGN KEY Fk_balanceMainMaterDetail_MaterId (MaterId) 
+	REFERENCES material (Id) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY Fk_balanceMainMaterDetail_BillId (BillId) 
+	REFERENCES balanceBill (Id) ON DELETE CASCADE ON UPDATE CASCADE
+) engine=InnoDB CHARSET=UTF8;
+
 /*钻石库存*/
 create table if not exists materialInventory (
 	Id BigInt(12) not null auto_increment PRIMARY KEY,	
@@ -135,6 +163,8 @@ create table if not exists materialInventory (
 	OutAmount int not null,	
 	OutWeight Decimal(18,4) not null,
 	Sort int(4) not null default 0,
+	BalanceAmount int not null,	/*结存数量*/
+	BalanceWeight Decimal(18,4) not null, /*结存重量*/
 	constraint IX_Inventory_MaterId unique (MaterId)
 ) engine=InnoDB CHARSET=UTF8;
 
@@ -180,3 +210,49 @@ set @s = (SELECT IF(
 
 PREPARE stmt FROM @s;
 EXECUTE stmt;
+
+/*增加字段  结存数量_BalanceAmount*/
+set @s = (SELECT IF(
+    (SELECT COUNT(*)
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE table_name = 'materialInventory'
+        AND table_schema = DATABASE()
+        AND column_name = 'BalanceAmount'
+    ) > 0,
+    "SELECT 1",
+    "ALTER TABLE materialInventory ADD BalanceAmount int Not null Default 0"
+));
+
+PREPARE stmt FROM @s;
+EXECUTE stmt;
+
+/*增加字段  结存重量_BalanceWeight*/
+set @s = (SELECT IF(
+    (SELECT COUNT(*)
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE table_name = 'materialInventory'
+        AND table_schema = DATABASE()
+        AND column_name = 'BalanceWeight'
+    ) > 0,
+    "SELECT 1",
+    "ALTER TABLE materialInventory ADD BalanceWeight Decimal(18,4) Not null Default 0"
+));
+
+PREPARE stmt FROM @s;
+EXECUTE stmt;
+
+/*增加字段  结算单Id_BalanceBillId*/
+set @s = (SELECT IF(
+    (SELECT COUNT(*)
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE table_name = 'materialOut'
+        AND table_schema = DATABASE()
+        AND column_name = 'BalanceBillId'
+    ) > 0,
+    "SELECT 1",
+    "ALTER TABLE materialOut ADD BalanceBillId BigInt(12) Not null Default 0"
+));
+
+PREPARE stmt FROM @s;
+EXECUTE stmt;
+	

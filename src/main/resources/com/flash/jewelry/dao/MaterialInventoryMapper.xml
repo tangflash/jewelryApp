@@ -169,4 +169,14 @@
 		#{sort}
 		);
 	</insert>
+	<update id="balanceInventory" parameterType="long">
+		UPDATE MaterialInventory SET 
+		BalanceAmount = BalanceAmount + InAmount - OutAmount,
+		BalanceWeight = BalanceWeight + InWeight - OutWeight,
+		InAmount = 0,
+		InWeight = 0,
+		OutAmount = 0,
+		OutWeight = 0
+		WHERE ClientId=#{clientId}
+	</update>
 </mapper>

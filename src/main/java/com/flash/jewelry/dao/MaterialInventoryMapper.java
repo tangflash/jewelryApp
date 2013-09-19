@@ -18,4 +18,5 @@ public interface MaterialInventoryMapper {
 	void submitMaterialOut(long billId);
 	void updateBackForMaterialOut(MaterialOut materialOut);
 	void updateBackMaterialToInventory(long billId);
+	void balanceInventory(long clientId);
 }

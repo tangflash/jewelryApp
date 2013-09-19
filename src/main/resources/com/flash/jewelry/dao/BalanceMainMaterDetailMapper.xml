@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flash.jewelry.dao.BalanceMainMaterDetailMapper">	
+	
+	<resultMap type="com.flash.jewelry.model.BalanceMainMaterDetail" id="BalanceMainMaterDetailMap">
+		<id column="Detail_Id" property="id" />
+		<result column="Detail_BillId" property="billId" />
+		<result column="Detail_MaterId" property="materId" />
+		<result column="Material_MaterName" property="materName" />
+		<result column="Detail_PriorAmount" property="priorAmount" />
+		<result column="Detail_PriorWeight" property="priorWeight" />		
+		<result column="Detail_InAmount" property="inAmount" />
+		<result column="Detail_InWeight" property="inWeight" />
+		<result column="Detail_CurAmount" property="curAmount" />
+		<result column="Detail_CurWeight" property="curWeight" />			
+	</resultMap>		
+			
+	
+	<select id="selectByBillId" parameterType="long" resultMap="BalanceMainMaterDetailMap">
+		SELECT
+		Detail.Id				Detail_Id,					
+		Detail.BillId			Detail_BillId,			
+		Detail.MaterId			Detail_MaterId,
+		Material.Name			Material_MaterName,
+		Detail.PriorAmount		Detail_PriorAmount,
+		Detail.PriorWeight		Detail_PriorWeight,
+		Detail.InAmount			Detail_InAmount,
+		Detail.InWeight			Detail_InWeight,		
+		Detail.CurAmount		Detail_CurAmount,
+		Detail.CurWeight		Detail_CurWeight		
+		FROM BalanceMainMaterDetail Detail		
+		LEFT JOIN Material ON Detail.MaterId = Material.Id		
+		WHERE Detail.BillId = #{billId}		
+	</select>
+	<select id="selectById" parameterType="long" resultMap="BalanceMainMaterDetailMap">
+		SELECT
+		Detail.Id				Detail_Id,					
+		Detail.BillId			Detail_BillId,			
+		Detail.MaterId			Detail_MaterId,
+		Material.Name			Material_MaterName,
+		Detail.PriorAmount		Detail_PriorAmount,
+		Detail.PriorWeight		Detail_PriorWeight,
+		Detail.InAmount			Detail_InAmount,
+		Detail.InWeight			Detail_InWeight,		
+		Detail.CurAmount		Detail_CurAmount,
+		Detail.CurWeight		Detail_CurWeight		
+		FROM BalanceMainMaterDetail Detail		
+		LEFT JOIN Material ON Detail.MaterId = Material.Id			
+		WHERE Detail.Id = #{id}		
+	</select>		
+	<insert id="insert" parameterType="com.flash.jewelry.model.BalanceMainMaterDetail"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into BalanceMainMaterDetail(
+		BillId,			
+		MaterId,		
+		PriorAmount,
+		PriorWeight,
+		InAmount,
+		InWeight,
+		CurAmount,
+		CurWeight		
+		) 
+		values(
+		#{billId},		
+		#{materId},
+		#{amount},
+		#{priorAmount},
+		#{priorWeight},
+		#{curAmount},
+		#{curWeight}		
+		);
+	</insert>
+	<insert id="iniMainMaterDetail" parameterType="java.util.Map">
+		INSERT INTO BalanceMainMaterDetail(
+		BillId,			
+		MaterId,		
+		PriorAmount,
+		PriorWeight,
+		InAmount,
+		InWeight,
+		CurAmount,
+		CurWeight		
+		)
+		SELECT
+			#{balanceBillId},
+			MaterId,
+			BalanceAmount,
+			BalanceWeight,
+			InAmount,
+			InWeight,
+			(BalanceAmount + InAmount) - OutAmount,
+			(BalanceWeight + InWeight) - OutWeight 
+		FROM materialInventory
+		WHERE ClientId = #{clientId}			
+	</insert>
+</mapper>

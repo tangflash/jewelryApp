@@ -69,8 +69,12 @@ public class InventoryManager implements InventoryManagerService {
 	public void submitMaterialOut(MaterialOut  materialOut) {
 		materialInventoryMapper.insertMaterialFromMaterialOut(materialOut.getId());
 		materialInventoryMapper.submitMaterialOut(materialOut.getId());			
-		materialInventoryMapper.updateBackForMaterialOut(materialOut);
-		materialInventoryMapper.updateBackMaterialToInventory(materialOut.getId());
+		//materialInventoryMapper.updateBackForMaterialOut(materialOut);
+		//materialInventoryMapper.updateBackMaterialToInventory(materialOut.getId());
+	}
+
+	public void balanceInventory(long clientId) {
+		materialInventoryMapper.balanceInventory(clientId);		
 	}
 	
 }
