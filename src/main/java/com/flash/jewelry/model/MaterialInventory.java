@@ -16,6 +16,21 @@ public class MaterialInventory implements Serializable {
 	private BigDecimal outWeight;
 	private int sort;
 	private String clientName;
+	private int balanceAmount;
+	private BigDecimal balanceWeight;
+	
+	public int getBalanceAmount() {
+		return balanceAmount;
+	}
+	public void setBalanceAmount(int balanceAmount) {
+		this.balanceAmount = balanceAmount;
+	}
+	public BigDecimal getBalanceWeight() {
+		return balanceWeight;
+	}
+	public void setBalanceWeight(BigDecimal balanceWeight) {
+		this.balanceWeight = balanceWeight;
+	}
 	
 	
 	/**

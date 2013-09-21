@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.flash.jewelry.common.StringUtil;
 import com.flash.jewelry.model.Client;
 import com.flash.jewelry.model.GoldType;
 import com.flash.jewelry.model.Material;
@@ -63,6 +64,9 @@ public class MaterialOutController {
 			materialOut.setCreateTime(new Date());
 			MaterialOutDetail materialOutDetail = new MaterialOutDetail();
 			materialOutDetail.setProductAmount(1);
+			materialOutDetail.setWeight(new BigDecimal(0));
+			materialOutDetail.setSecWeight(new BigDecimal(0));
+			materialOutDetail.setSecPrice(new BigDecimal(0));
 			materialOut.setMaterialOutDetail(materialOutDetail);
 		}
 		else{
@@ -165,7 +169,13 @@ public class MaterialOutController {
 			modelAndView.addObject("materialOut", materialOut);
 			return modelAndView;
 		}
-
+		
+		if (StringUtil.isEmpty(materialOut.getMaterialOutDetail().getMaterName())
+			&& StringUtil.isEmpty(materialOut.getMaterialOutDetail().getSecMaterName())){
+			modelAndView.addObject("errorMessage", "主石号和副石号不能都为为空!");
+			return modelAndView;
+		}
+		
 		String errorMessage = null;
 		errorMessage = saveBillHead(materialOut);
 		if (errorMessage != null) {

@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.flash.jewelry.common.StrConstant;
+import com.flash.jewelry.common.StringUtil;
 import com.flash.jewelry.model.BalanceBill;
 import com.flash.jewelry.model.BalanceBillQueryParam;
 import com.flash.jewelry.model.BalanceMainMaterDetail;
@@ -35,6 +36,7 @@ import com.flash.jewelry.model.MaterialOut;
 import com.flash.jewelry.model.MaterialOutDetail;
 import com.flash.jewelry.model.ProductStyle;
 import com.flash.jewelry.service.BalanceBillService;
+import com.flash.jewelry.service.BaseDataService;
 import com.flash.jewelry.service.ClientService;
 import com.flash.jewelry.service.InventoryManagerService;
 import com.flash.jewelry.service.MaterialManagerService;
@@ -59,6 +61,8 @@ public class BalanceBillController {
 	private MaterialOutService materialOutService;
 	@Autowired
 	private ClientService clientService;
+	@Autowired
+	private BaseDataService baseDataService;
 
 	
 
@@ -121,8 +125,9 @@ public class BalanceBillController {
 				modelAndView.addObject("secMaterSubReportDatasource", secMaterialTotalList);
 				modelAndView.addObject("feeTotalMaterSubReportDatasource", feeTotalList);
 				modelAndView.addObject("format", exportFormat);	
-				modelAndView.addObject("factoryName","名福加工厂");
+				modelAndView.addObject("factoryName",baseDataService.getFactoryName());
 				modelAndView.addObject("printTime", new Date());
+				modelAndView.addObject("makeBillPerson", baseDataService.getMakeBillPerson());
 				modelAndView.setViewName(VIEW_LIST_TOTAL_REPORT_PAGE);	
 				return modelAndView;
 			}
@@ -202,32 +207,7 @@ public class BalanceBillController {
 		return balanceBillList;
 	}
 
-	private String makeSpace(String str,int length, String addedStr){
-		if (addedStr == null) addedStr = "_";
-		int strLen = str.length();
-		if (strLen == length) return str;
-		
-		StringBuffer stringBuffer = new StringBuffer();
-		
-		if (length > 0){
-			if (strLen < length){
-				for (int i = 0; i < (length - strLen); i++) {
-					stringBuffer.append(addedStr);
-				}
-			}
-			stringBuffer.append(str);
-		}
-		else{
-			length = Math.abs(length);
-			stringBuffer.append(str);
-			if (strLen < length){
-				for (int i = 0; i < (length - strLen); i++) {
-					stringBuffer.append(addedStr);
-				}
-			}			
-		}
-		return stringBuffer.toString();
-	}
+	
 	
 	private Map<String, String> staticOutBillByTotalFee(Map<String, String> feeInforMap, long id) {
 		if (feeInforMap == null)
@@ -250,34 +230,34 @@ public class BalanceBillController {
 		BigDecimal feeTotal = new BigDecimal(0);
 		for (MaterialOutDetail materialOutDetail : materialOutDetailList) {		
 			feeTotal = feeTotal.add(materialOutDetail.getSuperSetCost());
-			feeString = makeSpace(String.format("%.2f", materialOutDetail.getSuperSetCost()), feeStrLen, null);
-			itemName = makeSpace(String.format("%s超镶工费", materialOutDetail.getMaterialOut().getGoldTypeName()), -feeStrLen,addedStr);
+			feeString = StringUtil.makeAddedStr(String.format("%.2f", materialOutDetail.getSuperSetCost()), feeStrLen, null);
+			itemName = StringUtil.makeAddedStr(String.format("%s超镶工费", materialOutDetail.getMaterialOut().getGoldTypeName()), -feeStrLen,addedStr);
 			feeInforMap.put("SuperSetCost", String.format("%s  %s", 
 					feeInforMap.get("SuperSetCost"), itemName
 					) + feeString);
 			//feeInforMap.put("SuperSetCost", feeString);
 			
 			feeTotal = feeTotal.add(materialOutDetail.getTotalProcessCost());
-			feeString = makeSpace(String.format("%.2f", materialOutDetail.getTotalProcessCost()), feeStrLen, null);
-			itemName = makeSpace(String.format("%s工费", materialOutDetail.getMaterialOut().getGoldTypeName()), -feeStrLen, addedStr);
+			feeString = StringUtil.makeAddedStr(String.format("%.2f", materialOutDetail.getTotalProcessCost()), feeStrLen, null);
+			itemName = StringUtil.makeAddedStr(String.format("%s工费", materialOutDetail.getMaterialOut().getGoldTypeName()), -feeStrLen, addedStr);
 			feeInforMap.put("TotalProcessCost", String.format("%s  %s", 
 					feeInforMap.get("TotalProcessCost"), itemName) + feeString);
 			
 			feeTotal = feeTotal.add(materialOutDetail.getGoldMoney());
-			feeString = makeSpace(String.format("%.2f", materialOutDetail.getGoldMoney()), feeStrLen, null);
-			itemName = makeSpace(String.format("%s金料额", materialOutDetail.getMaterialOut().getGoldTypeName()), -feeStrLen, addedStr);
+			feeString = StringUtil.makeAddedStr(String.format("%.2f", materialOutDetail.getGoldMoney()), feeStrLen, null);
+			itemName = StringUtil.makeAddedStr(String.format("%s金料额", materialOutDetail.getMaterialOut().getGoldTypeName()), -feeStrLen, addedStr);
 			feeInforMap.put("GoldMoney", String.format("%s  %s", 
 					feeInforMap.get("GoldMoney"), itemName) + feeString);
 			
 			feeTotal = feeTotal.add(materialOutDetail.getSecMaterMoney());
-			feeString = makeSpace(String.format("%.2f", materialOutDetail.getSecMaterMoney()), feeStrLen, null);
-			itemName = makeSpace(String.format("%s副石额", materialOutDetail.getMaterialOut().getGoldTypeName()), -feeStrLen, addedStr);
+			feeString = StringUtil.makeAddedStr(String.format("%.2f", materialOutDetail.getSecMaterMoney()), feeStrLen, null);
+			itemName = StringUtil.makeAddedStr(String.format("%s副石额", materialOutDetail.getMaterialOut().getGoldTypeName()), -feeStrLen, addedStr);
 			feeInforMap.put("SecMaterMoney", String.format("%s  %s", 
 					feeInforMap.get("SecMaterMoney"), itemName) + feeString);
 			
 			feeTotal = feeTotal.add(materialOutDetail.getAddProcessCost());
-			feeString = makeSpace(String.format("%.2f", materialOutDetail.getAddProcessCost()), feeStrLen, null);
-			itemName = makeSpace(String.format("%s附加工费", materialOutDetail.getMaterialOut().getGoldTypeName()), -feeStrLen, addedStr);
+			feeString = StringUtil.makeAddedStr(String.format("%.2f", materialOutDetail.getAddProcessCost()), feeStrLen, null);
+			itemName = StringUtil.makeAddedStr(String.format("%s附加工费", materialOutDetail.getMaterialOut().getGoldTypeName()), -feeStrLen, addedStr);
 			feeInforMap.put("AddProcessCost", String.format("%s  %s", 
 					feeInforMap.get("AddProcessCost"), itemName) + feeString);			
 			

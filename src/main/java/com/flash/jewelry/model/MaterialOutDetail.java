@@ -18,14 +18,14 @@ public class MaterialOutDetail {
 	private long billId;	
 	private long materId;
 	
-	@Min(value=1,message=StrConstant.MESSAGE_GREATER_ZERO)
+	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
 	private int amount;
 	
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
 	@NumberFormat(style=Style.NUMBER, pattern="#,##0.000")
 	private BigDecimal weight;
 	
-	@NotEmpty(message=StrConstant.MESSAGE_NOT_EMPTY)
+	//@NotEmpty(message=StrConstant.MESSAGE_NOT_EMPTY)
 	private String materName;
 	
 	@NotEmpty(message=StrConstant.MESSAGE_NOT_EMPTY)

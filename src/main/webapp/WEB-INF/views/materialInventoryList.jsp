@@ -59,11 +59,11 @@
 				});
 		//var trElement = $('tr:last', tableName);
 		$('td:eq(2)', $('tr:last', tableName)).html(source1);
-		$('td:eq(3)', $('tr:last', tableName)).html(source2);
+		$('td:eq(3)', $('tr:last', tableName)).html(source2.toFixed(3));
 		$('td:eq(4)', $('tr:last', tableName)).html(source3);
-		$('td:eq(5)', $('tr:last', tableName)).html(source4);
+		$('td:eq(5)', $('tr:last', tableName)).html(source4.toFixed(3));
 		$('td:eq(6)', $('tr:last', tableName)).html(source5);
-		$('td:eq(7)', $('tr:last', tableName)).html(source6);
+		$('td:eq(7)', $('tr:last', tableName)).html(source6.toFixed(3));
 	}
 	
 	$(document).ready(function() {
@@ -75,7 +75,7 @@
 		$("#bizEndDate").datepicker("option", "dateFormat", "yy-mm-dd");
 		
 		iniDataTable();
-		//totalCol();
+		totalCol();
 	});
 	//flag = true;
 </script>
@@ -118,8 +118,8 @@
 					<td>入库重量</td>
 					<td>出库数量</td>
 					<td>出库重量</td>
-					<td>库存数量</td>
-					<td>库存重量</td>
+					<td>结存数量</td>
+					<td>结存重量</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -127,15 +127,15 @@
 					<tr>
 						<td>${materialInventory.clientName}</td>
 						<td>${materialInventory.materNum}</td>						
-						<td>${materialInventory.inAmount}</td>							
-						<td>${materialInventory.inWeight}</td>
-						<td>${materialInventory.outAmount}</td>
-						<td>${materialInventory.outWeight}</td>
-						<td>${materialInventory.inAmount-materialInventory.outAmount}</td>
-						<td>${materialInventory.inWeight-materialInventory.outWeight}</td>						
+						<td>${materialInventory.inAmount}</td>
+						<td><fmt:formatNumber value="${materialInventory.inWeight}" pattern="#,##0.000"/></td>						
+						<td>${materialInventory.outAmount}</td>						
+						<td><fmt:formatNumber value="${materialInventory.outWeight}" pattern="#,##0.000"/></td>
+						<td>${materialInventory.balanceAmount}</td>						
+						<td><fmt:formatNumber value="${materialInventory.balanceWeight}" pattern="#,##0.000"/></td>				
 					</tr>
 				</c:forEach>
-				<!-- <tr total='aa'>
+				<tr total='aa'>
 					<td>合计</td>
 					<td></td>
 					<td>0</td>
@@ -144,7 +144,7 @@
 					<td>0</td>
 					<td>0</td>
 					<td>0</td>
-				</tr> -->
+				</tr>
 			</tbody>
 		</table>
 	</div>

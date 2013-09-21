@@ -15,6 +15,7 @@
 	<parameter name="feeTotalMaterSubReportDatasource" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
 	<parameter name="factoryName" class="java.lang.String"/>
 	<parameter name="printTime" class="java.util.Date"/>
+	<parameter name="makeBillPerson" class="java.lang.String"/>
 	<field name="styleName" class="java.lang.String"/>
 	<field name="productName" class="java.lang.String"/>
 	<field name="handSize" class="java.math.BigDecimal"/>
@@ -531,7 +532,7 @@
 				<subreportExpression><![CDATA[$P{mainMaterSubReportLocation}]]></subreportExpression>
 			</subreport>
 			<staticText>
-				<reportElement uuid="0bb0df16-107b-4f9f-9077-22f28366a34f" positionType="FixRelativeToBottom" x="20" y="256" width="114" height="20"/>
+				<reportElement uuid="0bb0df16-107b-4f9f-9077-22f28366a34f" positionType="FixRelativeToBottom" x="20" y="256" width="56" height="20"/>
 				<box>
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -542,7 +543,7 @@
 				<textElement>
 					<font fontName="宋体" size="14" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[制单人：李宇静]]></text>
+				<text><![CDATA[制单人:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="c40a0e20-6bae-4258-a24c-3768f4f63e21" positionType="FixRelativeToBottom" x="255" y="256" width="80" height="20"/>
@@ -578,6 +579,13 @@
 					<font fontName="宋体" size="14" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{printTime}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="657199f1-f370-45d0-9f6b-778bec3ee5ff" positionType="FixRelativeToBottom" x="77" y="256" width="100" height="20"/>
+				<textElement>
+					<font fontName="宋体" size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{makeBillPerson}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

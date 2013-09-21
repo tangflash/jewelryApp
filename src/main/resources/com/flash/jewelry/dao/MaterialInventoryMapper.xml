@@ -22,6 +22,8 @@
 		<result column="InWeight" property="inWeight" />		
 		<result column="OutAmount" property="outAmount" />
 		<result column="OutWeight" property="outWeight" />
+		<result column="BalanceAmount" property="balanceAmount" />
+		<result column="BalanceWeight" property="balanceWeight" />
 		<result column="Sort" property="sort" />
 	</resultMap>
 	<select id="findMaterialInventory" parameterType="com.flash.jewelry.model.ComQueryParam" resultMap="findMaterialInventoryMap">
@@ -32,7 +34,9 @@
 		MaterialInventory.InAmount	As InAmount,	
 		MaterialInventory.InWeight 	As InWeight,
 		MaterialInventory.OutAmount As OutAmount,
-		MaterialInventory.OutWeight As OutWeight,	
+		MaterialInventory.OutWeight As OutWeight,
+		MaterialInventory.BalanceAmount As BalanceAmount,
+		MaterialInventory.BalanceWeight As BalanceWeight,
 		MaterialInventory.Sort		As Sort,
 		Client.Name 				AS ClientName	
 		FROM MaterialInventory Left Join Material		

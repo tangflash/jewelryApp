@@ -48,4 +48,7 @@
 	
 	<bean id="balanceBillService" class="com.flash.jewelry.serviceImpl.BalanceBillManager">		
 	</bean>
+	
+	<bean id="baseDataService" class="com.flash.jewelry.serviceImpl.BaseDataManager">		
+	</bean>
 </beans>
