@@ -97,6 +97,8 @@
 			</div>
 			<fieldset>
 				<legend>结算单</legend>	
+				<form:hidden path="id"></form:hidden>
+				<form:hidden path="billStatus.number"></form:hidden>
 				<form:label path="billNumber">
 		  			结算单编码: <form:errors path="billNumber" cssClass="error" />
 				</form:label>
@@ -114,7 +116,16 @@
 				
 
 				<p>
-					<form:button value="queryButton" name="queryButton" type="submit">生成结算单</form:button>					
+					<form:button value="queryButton" name="queryButton" type="submit">生成结算单</form:button>	
+					<c:if test="${balanceBill.billStatus.number == '1'}">
+						<form:button value="exportButton" name="exportButton" type="submit">导出</form:button>
+						<form:select path="exportFormat">
+							<form:option value="pdf">Pdf</form:option>
+							<form:option value="xls">Excel</form:option>
+							<form:option value="html">Html</form:option>
+							<form:option value="csv">Csv</form:option>
+						</form:select>
+					</c:if>				
 				</p>
 			</fieldset>
 		</form:form>
@@ -126,17 +137,15 @@
 					<td>分类统计</td>				
 					<td>品名</td>					
 					<td>件数</td>
-					<td>货重</td>
-					
+					<td>货重</td>					
 					<td>净金重</td>
 					<td>含耗重</td>
 					<td>金料额</td>
-					<td>工费</td>
-					<td>附加工价</td>
-					<td>超镶工费</td>
-					
-					<td>工费总额</td>
-					
+					<td>损耗%</td>					
+					<td>附加工费</td>
+					<td>超镶工费</td>					
+					<td>工费单价</td>
+					<td>工费总额</td>					
 					<td>金额小计</td>					
 				</tr>
 			</thead>
@@ -151,10 +160,10 @@
 						<td align="right"><fmt:formatNumber value="${detail.goldWeight}" pattern="#,##0.000"/></td>						
 						<td align="right"><fmt:formatNumber value="${detail.consumeWeight}" pattern="#,##0.000"/></td>						
 						<td align="right"><fmt:formatNumber value="${detail.goldMoney}" pattern="#,##0.00"/></td>						
-						<td align="right"><fmt:formatNumber value="${detail.processCost}" pattern="#,##0.00"/></td>						
+						<td align="right"><fmt:formatNumber value="${detail.loss}" pattern="#,##0"/></td>					
 						<td align="right"><fmt:formatNumber value="${detail.addProcessCost}" pattern="#,##0.00"/></td>						
 						<td align="right"><fmt:formatNumber value="${detail.superSetCost}" pattern="#,##0.00"/></td>						
-						
+						<td align="right"><fmt:formatNumber value="${detail.processCost}" pattern="#,##0.00"/></td>	
 						<td align="right"><fmt:formatNumber value="${detail.totalProcessCost}" pattern="#,##0.00"/></td>
 												
 						<td align="right"><fmt:formatNumber value="${detail.totalMoney}" pattern="#,##0.00"/></td>

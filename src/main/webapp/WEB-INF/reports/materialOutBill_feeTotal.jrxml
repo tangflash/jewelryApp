@@ -9,9 +9,9 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="58" splitType="Stretch">
+		<band height="23" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="2f0b9b13-bec2-43a8-b54a-a53c61f5cf7d" x="0" y="0" width="210" height="22"/>
+				<reportElement uuid="2f0b9b13-bec2-43a8-b54a-a53c61f5cf7d" x="0" y="0" width="210" height="23"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -20,23 +20,9 @@
 					<rightPen lineWidth="0.2"/>
 				</box>
 				<textElement>
-					<font fontName="宋体" size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<font fontName="宋体" size="14" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[现金汇总]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="2f0b9b13-bec2-43a8-b54a-a53c61f5cf7d" x="0" y="22" width="661" height="35"/>
-				<box>
-					<pen lineWidth="0.2"/>
-					<topPen lineWidth="0.2"/>
-					<leftPen lineWidth="0.2"/>
-					<bottomPen lineWidth="0.2"/>
-					<rightPen lineWidth="0.2"/>
-				</box>
-				<textElement>
-					<font fontName="宋体" size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
-				</textElement>
-				<text><![CDATA[总合计:]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -49,7 +35,7 @@
 	<detail>
 		<band height="24" splitType="Stretch">
 			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
-				<reportElement uuid="3f2e883f-02a6-4b5c-9dc1-7a948909c277" x="0" y="-1" width="661" height="24"/>
+				<reportElement uuid="3f2e883f-02a6-4b5c-9dc1-7a948909c277" x="0" y="0" width="791" height="24"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>

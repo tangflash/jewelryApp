@@ -5,6 +5,7 @@ function iniDataTable() {
 		"bProcessing" : true,
 		"iDisplayLength": 50,
 		"bLengthChange": true,
+		"aaSorting" : [],
 		"oLanguage" : {
 			"sLengthMenu" : "每页显示 _MENU_ 行",
 			"sZeroRecords" : "没有记录",
@@ -13,7 +14,7 @@ function iniDataTable() {
 			"sInfoFiltered" : "(从 _MAX_ 条记录中搜索)",
 			"sLoadingRecords" : "正在加载数据...",
 			"sProcessing" : "正在处理数据...",
-			"sSearch" : "搜索:",
+			"sSearch" : "搜索:",			
 			"oPaginate" : {
 				"sFirst" : "首页",
 				"sPrevious" : "上一页",

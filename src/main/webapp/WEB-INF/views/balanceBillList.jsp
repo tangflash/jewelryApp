@@ -114,14 +114,7 @@
 				<form:input id="bizEndDate" path="bizEndDate" />				
 
 				<p>
-					<form:button value="queryButton" name="queryButton" type="submit">查询</form:button>
-					<form:button value="exportButton" name="exportButton" type="submit">导出</form:button>
-					<form:select path="exportFormat">
-						<form:option value="pdf">Pdf</form:option>
-						<form:option value="xls">Excel</form:option>
-						<form:option value="html">Html</form:option>
-						<form:option value="csv">Csv</form:option>
-					</form:select>
+					<form:button value="queryButton" name="queryButton" type="submit">查询</form:button>					
 				</p>
 			</fieldset>
 		</form:form>
@@ -147,10 +140,10 @@
 						<td>${detail.billStatus.name}</td>
 						<td>${detail.clientName}</td>						
 						<td><fmt:formatDate value="${detail.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>						
-						<td style= "word-break:keep-all;width:200px">					
+						<td style= "word-break:keep-all;width:200px">		
+							<a class="editDetailLinkClass"
+									href="<c:url value="/balanceBillList/showPage?id=${detail.id}"/>">查看单据</a>			
 							<c:if test="${detail.billStatus.number=='0'}">								
-								<a class="editDetailLinkClass"
-									href="<c:url value="/balanceBillList/showPage?id=${detail.id}"/>">查看单据</a>
 								<a class="submitLinkClass"
 									href="<c:url value="/balanceBillList/doDelBill?id=${detail.id}"/>">删除单据</a>
 								<a class="submitLinkClass"

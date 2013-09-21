@@ -159,7 +159,8 @@
 		Sum(Detail.goldWeight)		Detail_goldWeight,
 		Sum(Detail.ConsumeWeight)	Detail_ConsumeWeight,
 		Sum(Detail.ConsumeWeight * BillMain.goldPrice)								Detail_GoldMoney,
-		Sum(Detail.ProcessCost)		Detail_ProcessCost,
+		Detail.ProcessCost			Detail_ProcessCost,
+		Detail.Loss					Detail_Loss,
 		Sum(Detail.AddProcessCost)	Detail_AddProcessCost,
 		Sum(Detail.SuperSetCost)		Detail_SuperSetCost,	
 		Sum(Detail.ProcessCost * Detail.ProductAmount) 								Detail_TotalProcessCost,
@@ -181,7 +182,7 @@
 		LEFT JOIN GoldType ON BillMain.goldTypeId = GoldType.id		
 		where Detail.Sort=0	And BillMain.billStatus=1		
     	And BillMain.id = #{materialOutBillId}  		
-  		group by Product.Name,BillMain.BizDate,Client.Name,BillMain.goldPrice,GoldType.Name  		
+  		group by Product.Name,BillMain.BizDate,Client.Name,BillMain.goldPrice,GoldType.Name, Detail.ProcessCost, Detail.Loss  		
   		
 	</select>
 	
