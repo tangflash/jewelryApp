@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flash.jewelry.dao.BaseDataMapper">	
+	<resultMap type="com.flash.jewelry.model.BaseData" id="baseDataMap">
+		<id column="Id" property="id" />
+		<result column="Number" property="number" />
+		<result column="Name" property="name" />	
+		<result column="Remark" property="remark"/>	
+	</resultMap>
+	<select id="selectByTypeNum" parameterType="String" resultMap="baseDataMap">
+		SELECT
+		Id,
+		Number,
+		Name,
+		Remark
+		FROM BaseData
+		WHERE
+		TypeNum = #{typeNum}		
+	</select>	
+</mapper>
