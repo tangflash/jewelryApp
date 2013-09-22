@@ -54,15 +54,17 @@
 		WHERE number=#{styleName} or name=#{styleName}
 		LIMIT 1	
 	</select>
-	<select id="selectProductStyleById" parameterType="int" resultMap="productStyleMap">
+	<select id="selectProductStyleById" parameterType="int" resultMap="productStyleListMap">
 		SELECT
-		id,
-		productId,
-		number,
-		name,
-		remark
-		FROM ProductStyle
-		WHERE id=#{id}		
+		ProductStyle.id,
+		ProductStyle.productId,
+		ProductStyle.number,
+		ProductStyle.name,
+		ProductStyle.remark,
+		product.name As Product_Name,
+		product.number As Product_Number
+		FROM ProductStyle Left Join Product on ProductStyle.productId=product.id
+		WHERE ProductStyle.id=#{id}		
 	</select>
 	<select id="repeatRowByNumber" parameterType="com.flash.jewelry.model.ProductStyle" resultType="int">
 		SELECT
