@@ -54,7 +54,7 @@ create table if not exists ProductStyle (
 	Name VarChar(128) not null,
     Remark VarChar(256) null,
     FOREIGN KEY Fk_ProductStyle_ProductId (ProductId) 
-	REFERENCES Product (Id) ON DELETE CASCADE ON UPDATE CASCADE
+	REFERENCES Product (Id) ON UPDATE CASCADE
 ) engine=InnoDB CHARSET=UTF8;
 
 /*钻石入库单据头*/
@@ -76,7 +76,7 @@ create table if not exists materialInDetail (
 	Weight Decimal(18,4) not null,
 	Sort int(4) not null default 0,
 	FOREIGN KEY Fk_materialInDetail_MaterId (MaterId) 
-	REFERENCES material (Id) ON DELETE CASCADE ON UPDATE CASCADE,
+	REFERENCES material (Id) ON UPDATE CASCADE,
 	FOREIGN KEY Fk_materialInDetail_BillId (BillId) 
 	REFERENCES materialIn (Id) ON DELETE CASCADE ON UPDATE CASCADE
 ) engine=InnoDB CHARSET=UTF8;
@@ -107,7 +107,7 @@ create table if not exists materialOutDetail (
 	GoldWeight Decimal(18,6) not null default 0,	/*净金重*/
 	ConsumeWeight Decimal(18,6) not null default 0,	/*含耗重*/
 	ProcessCost Decimal(18,6) not null default 0,	/*工费*/
-	AddProcessCost Decimal(18,6) not null default 0,	/*附加工价*/
+	AddProcessCost Decimal(18,6) not null default 0,	/*附加工费*/
 	SuperSetCost Decimal(18,6) not null default 0,	/*超镶工费*/
 	MaterId BigInt(12) not null,		/*主石Id*/
 	Amount int not null,				/*主石粒数*/
@@ -119,9 +119,7 @@ create table if not exists materialOutDetail (
 	SecAmount int not null,				/*副石粒数*/
 	SecWeight Decimal(18,4) not null,	/*副石重量*/
 	SecPrice Decimal(18,4) not null,	/*副石单价/元*/
-	Loss Decimal(18,4) Not null Default 0, /*损耗*/
-	FOREIGN KEY Fk_materialOutDetail_MaterId (MaterId) 
-	REFERENCES material (Id) ON DELETE CASCADE ON UPDATE CASCADE,
+	Loss Decimal(18,4) Not null Default 0, /*损耗*/	
 	FOREIGN KEY Fk_materialOutDetail_BillId (BillId) 
 	REFERENCES materialOut (Id) ON DELETE CASCADE ON UPDATE CASCADE
 ) engine=InnoDB CHARSET=UTF8;
@@ -148,7 +146,7 @@ create table if not exists balanceMainMaterDetail (
 	CurAmount int not null default 0,	       /*当前主石数量*/
 	CurWeight Decimal(18,4) not null default 0.0,		/*当前主石重量*/	
 	FOREIGN KEY Fk_balanceMainMaterDetail_MaterId (MaterId) 
-	REFERENCES material (Id) ON DELETE CASCADE ON UPDATE CASCADE,
+	REFERENCES material (Id) ON UPDATE CASCADE,
 	FOREIGN KEY Fk_balanceMainMaterDetail_BillId (BillId) 
 	REFERENCES balanceBill (Id) ON DELETE CASCADE ON UPDATE CASCADE
 ) engine=InnoDB CHARSET=UTF8;
@@ -255,4 +253,16 @@ set @s = (SELECT IF(
 
 PREPARE stmt FROM @s;
 EXECUTE stmt;
-	
+
+/*删除外键 materialoutdetail_ibfk_1*/
+set @s = (SELECT IF(
+    (SELECT COUNT(1)
+        FROM information_schema.REFERENTIAL_CONSTRAINTS 
+        WHERE table_name = 'materialOutDetail'
+        AND CONSTRAINT_SCHEMA = DATABASE()
+        AND CONSTRAINT_NAME = 'materialoutdetail_ibfk_1') < 1,
+    "SELECT 1",
+    "ALTER TABLE materialOutDetail DROP FOREIGN KEY materialoutdetail_ibfk_1"
+));
+PREPARE stmt FROM @s;
+EXECUTE stmt;

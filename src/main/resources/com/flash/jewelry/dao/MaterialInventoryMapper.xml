@@ -110,7 +110,7 @@
 		Sort
 		)
 		select MaterId,ClientId,0,0,0,0,0 from MaterialOutDetail Left Join MaterialOut On  MaterialOutDetail.billId
-		=MaterialOut.id where MaterialOut.id=#{billId} and 
+		=MaterialOut.id where MaterialOut.id=#{billId} and MaterialOutDetail.MaterId > 0
 		not exists(select 1 from MaterialInventory where MaterialInventory.materId=MaterialOutDetail.materId and 
 		MaterialInventory.ClientId=MaterialOut.ClientId);	
 	</update>

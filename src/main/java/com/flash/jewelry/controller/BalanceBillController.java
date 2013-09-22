@@ -166,7 +166,7 @@ public class BalanceBillController {
 	private void sumBalanceMainMaterDetail(
 			Collection<BalanceMainMaterDetail> balanceMainMaterDetailList) {
 		BalanceMainMaterDetail balanceMainMaterDetailTotal = new BalanceMainMaterDetail();
-		balanceMainMaterDetailTotal.setMaterId(0);
+		balanceMainMaterDetailTotal.setMaterId(-1);
 		balanceMainMaterDetailTotal.setCurAmount(0);
 		balanceMainMaterDetailTotal.setCurWeight(new BigDecimal(0));
 		balanceMainMaterDetailTotal.setPriorAmount(0);
@@ -289,17 +289,19 @@ public class BalanceBillController {
 		}
 		
 		//汇总
-		for (MaterialOutDetail materialOutDetail : tempList) {
-			for (BalanceMainMaterDetail balanceMainMaterDetail : balanceMainMaterDetailList) {
-				if (balanceMainMaterDetail.getMaterId() == 0){
-					balanceMainMaterDetail.setMaterUsedInfor(String.format("%s  %s汇总: 数量: %d,重量: %.3f",
-							balanceMainMaterDetail.getMaterUsedInfor() == null ? "" : balanceMainMaterDetail.getMaterUsedInfor(),
-									materialOutDetail.getMaterialOut().getGoldTypeName(), 
-									totalAmount, totalWeight));
-					break;
+		if (totalAmount > 0){
+			for (MaterialOutDetail materialOutDetail : tempList) {
+				for (BalanceMainMaterDetail balanceMainMaterDetail : balanceMainMaterDetailList) {
+					if (balanceMainMaterDetail.getMaterId() == -1){
+						balanceMainMaterDetail.setMaterUsedInfor(String.format("%s  %s汇总: 数量: %d,重量: %.3f",
+								balanceMainMaterDetail.getMaterUsedInfor() == null ? "" : balanceMainMaterDetail.getMaterUsedInfor(),
+										materialOutDetail.getMaterialOut().getGoldTypeName(), 
+										totalAmount, totalWeight));
+						break;
+					}
 				}
+				break;
 			}
-			break;
 		}
 	}		
 

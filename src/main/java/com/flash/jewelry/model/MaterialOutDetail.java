@@ -50,12 +50,12 @@ public class MaterialOutDetail {
 	
 	@DecimalMin(value="0",message=StrConstant.MESSAGE_GREATER_ZERO)
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
-	@NumberFormat(style=Style.NUMBER, pattern="#,##0.000")
+	@NumberFormat(style=Style.NUMBER, pattern="#,##0.00")
 	private BigDecimal productWeight;
 	
 	@DecimalMin(value="0",message=StrConstant.MESSAGE_GREATER_ZERO)
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
-	@NumberFormat(style=Style.NUMBER, pattern="#,##0.000")
+	@NumberFormat(style=Style.NUMBER, pattern="#,##0.00")
 	private BigDecimal goldWeight;
 	
 	@NumberFormat(style=Style.NUMBER, pattern="#,##0.00")
@@ -63,7 +63,7 @@ public class MaterialOutDetail {
 	
 	@DecimalMin(value="0",message=StrConstant.MESSAGE_GREATER_ZERO)
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
-	@NumberFormat(style=Style.NUMBER, pattern="#,##0.000")
+	@NumberFormat(style=Style.NUMBER, pattern="#,##0.00")
 	private BigDecimal consumeWeight;
 	
 	@DecimalMin(value="0",message=StrConstant.MESSAGE_GREATER_ZERO)

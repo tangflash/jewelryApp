@@ -93,6 +93,6 @@
 			(BalanceAmount + InAmount) - OutAmount,
 			(BalanceWeight + InWeight) - OutWeight 
 		FROM materialInventory
-		WHERE ClientId = #{clientId}			
+		WHERE ClientId = #{clientId} And MaterId > 0			
 	</insert>
 </mapper>

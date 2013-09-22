@@ -100,6 +100,7 @@
 		Detail.ConsumeWeight	Detail_ConsumeWeight,
 		Detail.ConsumeWeight * BillMain.goldPrice						Detail_GoldMoney,
 		Detail.ProcessCost		Detail_ProcessCost,
+		Detail.ProcessCost * Detail.ProductAmount 						Detail_TotalProcessCost,
 		Detail.AddProcessCost	Detail_AddProcessCost,
 		Detail.SuperSetCost		Detail_SuperSetCost,
 		Detail.MaterId			Detail_MaterId,
@@ -113,7 +114,7 @@
 		Detail.SecWeight		Detail_SecWeight,
 		Detail.SecPrice			Detail_SecPrice,
 		Detail.SecWeight * Detail.SecPrice						Detail_SecMaterMoney,
-		Detail.ConsumeWeight * BillMain.goldPrice + Detail.ProcessCost + Detail.AddProcessCost
+		Detail.ConsumeWeight * BillMain.goldPrice + Detail.ProcessCost * Detail.ProductAmount + Detail.AddProcessCost
 		+ Detail.SuperSetCost + Detail.FactoryAddMoney + Detail.SecWeight * Detail.SecPrice		Detail_TotalMoney,
 		
 		BillMain.id					BillMain_id,

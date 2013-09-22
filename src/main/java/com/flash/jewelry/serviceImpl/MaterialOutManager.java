@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.flash.jewelry.common.StringUtil;
 import com.flash.jewelry.dao.MaterialMapper;
 import com.flash.jewelry.dao.MaterialOutDetailMapper;
 import com.flash.jewelry.dao.MaterialOutMapper;
@@ -49,7 +50,7 @@ public class MaterialOutManager implements MaterialOutService {
 	}
 	
 	public void setMaterialId(MaterialOutDetail materialOutDetail){
-		if ((materialOutDetail.getMaterId() == 0) && (materialOutDetail.getMaterName() != null)) {
+		if ((materialOutDetail.getMaterId() == 0) && (!StringUtil.isEmpty(materialOutDetail.getMaterName()))) {
 			Material materialOutfo = materialMapper.selectMaterialByNumber(materialOutDetail.getMaterName().trim());
 			materialOutDetail.setMaterId(materialOutfo.getId());
 		}

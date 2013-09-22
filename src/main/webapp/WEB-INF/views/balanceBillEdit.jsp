@@ -9,8 +9,8 @@
 <html>
 <head>
 <title>生成结算单</title>
-<!-- <link href="<c:url value="/resources/form.css" />" rel="stylesheet"
-	type="text/css" /> -->
+	<link href="<c:url value="/resources/messages/messages.css" />" rel="stylesheet"
+	type="text/css" />
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/themename/jquery.dataTables.css"/>"
 	type="text/css" />
@@ -155,10 +155,10 @@
 						<td>${detail.groupName}</td>					
 						<td>${detail.productName}</td>						
 						<td>${detail.productAmount}</td>						
-						<td align="right"><fmt:formatNumber value="${detail.productWeight}" pattern="#,##0.000"/></td>
+						<td align="right"><fmt:formatNumber value="${detail.productWeight}" pattern="#,##0.00"/></td>
 												
-						<td align="right"><fmt:formatNumber value="${detail.goldWeight}" pattern="#,##0.000"/></td>						
-						<td align="right"><fmt:formatNumber value="${detail.consumeWeight}" pattern="#,##0.000"/></td>						
+						<td align="right"><fmt:formatNumber value="${detail.goldWeight}" pattern="#,##0.00"/></td>						
+						<td align="right"><fmt:formatNumber value="${detail.consumeWeight}" pattern="#,##0.00"/></td>						
 						<td align="right"><fmt:formatNumber value="${detail.goldMoney}" pattern="#,##0.00"/></td>						
 						<td align="right"><fmt:formatNumber value="${detail.loss}" pattern="#,##0"/></td>					
 						<td align="right"><fmt:formatNumber value="${detail.addProcessCost}" pattern="#,##0.00"/></td>						

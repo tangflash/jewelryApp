@@ -29,6 +29,7 @@ import com.flash.jewelry.model.MaterialInQueryParam;
 import com.flash.jewelry.model.MaterialOut;
 import com.flash.jewelry.model.MaterialOutDetail;
 import com.flash.jewelry.model.ProductStyle;
+import com.flash.jewelry.service.BaseDataService;
 import com.flash.jewelry.service.InventoryManagerService;
 import com.flash.jewelry.service.MaterialManagerService;
 import com.flash.jewelry.service.MaterialOutService;
@@ -47,6 +48,8 @@ public class MaterialOutController {
 	private MaterialOutService materialOutService;
 	@Autowired
 	private MaterialManagerService materialManagerService;
+	@Autowired
+	BaseDataService baseDataService;
 
 	
 
@@ -64,6 +67,7 @@ public class MaterialOutController {
 			materialOut.setCreateTime(new Date());
 			MaterialOutDetail materialOutDetail = new MaterialOutDetail();
 			materialOutDetail.setProductAmount(1);
+			materialOutDetail.setFactoryAddMoney(new BigDecimal(0));
 			materialOutDetail.setWeight(new BigDecimal(0));
 			materialOutDetail.setSecWeight(new BigDecimal(0));
 			materialOutDetail.setSecPrice(new BigDecimal(0));
@@ -128,15 +132,17 @@ public class MaterialOutController {
 		materialOutDetail.setProductNameId(productStyle.getProduct().getId());
 		
 		
-		Material material = materialManagerService.selectMaterialByNum(materialOutDetail.getMaterName());
-		if (material == null) {
-			errorMessage = "主石编码/名称" + materialOutDetail.getMaterName() + "不存在!";
-			return errorMessage;
+		if (!StringUtil.isEmpty(materialOutDetail.getMaterName())){
+			Material material = materialManagerService.selectMaterialByNum(materialOutDetail.getMaterName());
+			if (material == null) {
+				errorMessage = "主石编码/名称" + materialOutDetail.getMaterName() + "不存在!";
+				return errorMessage;
+			}
+			materialOutDetail.setMaterId(material.getId());
 		}
-		materialOutDetail.setMaterId(material.getId());
 		
 		if (materialOutDetail.getSecMaterName() != null && !materialOutDetail.getSecMaterName().trim().equals("")){
-			material = materialManagerService.selectMaterialByNum(materialOutDetail.getSecMaterName());
+			Material material = materialManagerService.selectMaterialByNum(materialOutDetail.getSecMaterName());
 			if (material == null) {
 				errorMessage = "副石编码/名称" + materialOutDetail.getSecMaterName() + "不存在!";
 				return errorMessage;
@@ -237,6 +243,9 @@ public class MaterialOutController {
 			modelAndView.addObject("datasource", list);
 			modelAndView.addObject("format", queryParam.getExportFormat());	
 			modelAndView.setViewName(VIEW_LIST_REPORT_PAGE);
+			modelAndView.addObject("factoryName",baseDataService.getFactoryName());
+			modelAndView.addObject("printTime", new Date());
+			modelAndView.addObject("makeBillPerson", baseDataService.getMakeBillPerson());
 			//modelAndView.setViewName("simpleReport");
 		}
 		return modelAndView;
@@ -261,6 +270,7 @@ public class MaterialOutController {
 		totalMaterialOutDetail.setSecWeight(new BigDecimal(0));
 		totalMaterialOutDetail.setSecMaterMoney(new BigDecimal(0));
 		totalMaterialOutDetail.setTotalMoney(new BigDecimal(0));
+		totalMaterialOutDetail.setTotalProcessCost(new BigDecimal(0));
 		totalMaterialOutDetail.getMaterialOut().setBillNumber("合计");
 		totalMaterialOutDetail.setStyleName("合计:");
 		
@@ -277,8 +287,8 @@ public class MaterialOutController {
 					materialOutDetail.getConsumeWeight().add(totalMaterialOutDetail.getConsumeWeight()));
 			totalMaterialOutDetail.setGoldMoney(
 					materialOutDetail.getGoldMoney().add(totalMaterialOutDetail.getGoldMoney()));
-			totalMaterialOutDetail.setProcessCost(
-					materialOutDetail.getProcessCost().add(totalMaterialOutDetail.getProcessCost()));
+			totalMaterialOutDetail.setTotalProcessCost(
+					materialOutDetail.getTotalProcessCost().add(totalMaterialOutDetail.getTotalProcessCost()));
 			totalMaterialOutDetail.setAddProcessCost(
 					materialOutDetail.getAddProcessCost().add(totalMaterialOutDetail.getAddProcessCost()));
 			totalMaterialOutDetail.setSuperSetCost(
