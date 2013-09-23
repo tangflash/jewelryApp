@@ -37,7 +37,7 @@ public class BalanceBill implements Serializable {
 	
 	private String feeTotalInfor;
 	
-	private String exportFormat = "pdf";
+	private String exportFormat = "xls";
 	
 	
 	public String getExportFormat() {

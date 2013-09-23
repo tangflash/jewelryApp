@@ -163,7 +163,7 @@
 			return;
 
 		var goldMoney = parseFloat(consumeWeight) * parseFloat(goldPrice);
-		$("#input_goldMoney").val("" + goldMoney.toFixed(2)).trigger("change");
+		$("#input_goldMoney").val("" + goldMoney.toFixed(0)).trigger("change");
 	}
 
 	//计算副石金额
@@ -174,7 +174,7 @@
 			return;
 
 		var secMaterMoney = parseFloat(secWeight) * parseFloat(secPrice);
-		$("#input_secMaterMoney").val("" + secMaterMoney.toFixed(2)).trigger(
+		$("#input_secMaterMoney").val("" + secMaterMoney.toFixed(0)).trigger(
 				"change");
 	}
 
@@ -201,7 +201,7 @@
 		var totalMoney = parseFloat(goldMoney) + parseFloat(processCost) * parseFloat(productAmount)
 				+ parseFloat(addProcessCost) + parseFloat(superSetCost)
 				+ parseFloat(secMaterMoney);
-		$("#input_totalMoney").val("" + totalMoney.toFixed(2))
+		$("#input_totalMoney").val("" + totalMoney.toFixed(0))
 				.trigger("change");
 	}
 	
@@ -214,7 +214,7 @@
 		productAmount = productAmount == "" ? "0" : productAmount;		
 
 		var totalProcessCost = parseFloat(processCost) * parseFloat(productAmount);
-		$("#input_totalProcessCost").val("" + totalProcessCost.toFixed(2)).trigger("change");
+		$("#input_totalProcessCost").val("" + totalProcessCost.toFixed(0)).trigger("change");
 	}
 
 	//flag = true;

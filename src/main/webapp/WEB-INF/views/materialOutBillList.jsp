@@ -123,8 +123,8 @@
 					<form:button value="queryButton" name="queryButton" type="submit">查询</form:button>
 					<form:button value="exportButton" name="exportButton" type="submit">导出</form:button>
 					<form:select path="exportFormat">
-						<form:option value="pdf">Pdf</form:option>
 						<form:option value="xls">Excel</form:option>
+						<form:option value="pdf">Pdf</form:option>						
 						<form:option value="html">Html</form:option>
 						<form:option value="csv">Csv</form:option>
 					</form:select>
@@ -186,29 +186,29 @@
 						
 						<td>${detail.styleName}</td>
 						<td>${detail.productName}</td>						
-						<td align="right"><fmt:formatNumber value="${detail.handSize}" pattern="#,##0.00"/></td>
+						<td align="right"><fmt:formatNumber value="${detail.handSize}" pattern="#,##0.##"/></td>
 						<td>${detail.productAmount}</td>						
 						<td align="right"><fmt:formatNumber value="${detail.productWeight}" pattern="#,##0.00"/></td>
 												
 						<td align="right"><fmt:formatNumber value="${detail.goldWeight}" pattern="#,##0.00"/></td>	
-						<td align="right"><fmt:formatNumber value="${detail.loss}" pattern="#,##0.00"/></td>					
+						<td align="right"><fmt:formatNumber value="${detail.loss}" pattern="#,##0"/></td>					
 						<td align="right"><fmt:formatNumber value="${detail.consumeWeight}" pattern="#,##0.00"/></td>						
-						<td align="right"><fmt:formatNumber value="${detail.goldMoney}" pattern="#,##0.00"/></td>						
-						<td align="right"><fmt:formatNumber value="${detail.totalProcessCost}" pattern="#,##0.00"/></td>						
-						<td align="right"><fmt:formatNumber value="${detail.addProcessCost}" pattern="#,##0.00"/></td>						
-						<td align="right"><fmt:formatNumber value="${detail.superSetCost}" pattern="#,##0.00"/></td>
+						<td align="right"><fmt:formatNumber value="${detail.goldMoney}" pattern="#,##0"/></td>						
+						<td align="right"><fmt:formatNumber value="${detail.totalProcessCost}" pattern="#,##0"/></td>						
+						<td align="right"><fmt:formatNumber value="${detail.addProcessCost}" pattern="#,##0"/></td>						
+						<td align="right"><fmt:formatNumber value="${detail.superSetCost}" pattern="#,##0"/></td>
 						
 						<td>${detail.materName}</td>
 						<td>${detail.amount}</td>						
 						<td align="right"><fmt:formatNumber value="${detail.weight}" pattern="#,##0.000"/></td>						
-						<td align="right"><fmt:formatNumber value="${detail.factoryAddMoney}" pattern="#,##0.00"/></td>
+						<td align="right"><fmt:formatNumber value="${detail.factoryAddMoney}" pattern="#,##0"/></td>
 						<td>${detail.secMaterName}</td>
 						
 						<td>${detail.secAmount}</td>						
 						<td align="right"><fmt:formatNumber value="${detail.secWeight}" pattern="#,##0.000"/></td>						
-						<td align="right"><fmt:formatNumber value="${detail.secPrice}" pattern="#,##0.00"/></td>						
-						<td align="right"><fmt:formatNumber value="${detail.secMaterMoney}" pattern="#,##0.00"/></td>						
-						<td align="right"><fmt:formatNumber value="${detail.totalMoney}" pattern="#,##0.00"/></td>
+						<td align="right"><fmt:formatNumber value="${detail.secPrice}" pattern="#,##0"/></td>						
+						<td align="right"><fmt:formatNumber value="${detail.secMaterMoney}" pattern="#,##0"/></td>						
+						<td align="right"><fmt:formatNumber value="${detail.totalMoney}" pattern="#,##0"/></td>
 						<td style= "word-break:keep-all;width:200px">					
 							<c:if test="${detail.materialOut.billStatus.number=='0'}">								
 								<a class="submitLinkClass"
