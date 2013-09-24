@@ -62,7 +62,12 @@ public class BalanceBillManager implements BalanceBillService {
 
 	public void delete(long billId) {		
 		materialOutService.deleteLinkedBalanceBills(billId);
+		materialOutService.updateStatusByBalanceBillId(billId);
 		balanceBillMapper.delete(billId);		
+	}
+
+	public void updateInventoryByDelBalanceBill(long balanceBillId) {
+		balanceBillMapper.updateInventoryByDelBalanceBill(balanceBillId);		
 	}
 
 }

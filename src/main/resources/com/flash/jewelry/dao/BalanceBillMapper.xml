@@ -68,6 +68,18 @@
 		where
 		id = #{billId};
 	</update>
+	<update id="updateInventoryByDelBalanceBill" parameterType="long">
+		update materialInventory set
+		BalanceAmount = (select SUM(PriorAmount) from balanceMainMaterDetail detail  where detail.BillId = #{balanceBillId} and detail.materId=materialInventory.materId),
+		BalanceWeight = (select SUM(PriorWeight) from balanceMainMaterDetail detail  where detail.BillId = #{balanceBillId} and detail.materId=materialInventory.materId),
+		InAmount = (select SUM(InAmount) from balanceMainMaterDetail detail  where detail.BillId = #{balanceBillId} and detail.materId=materialInventory.materId),
+		InWeight = (select SUM(InWeight) from balanceMainMaterDetail detail  where detail.BillId = #{balanceBillId} and detail.materId=materialInventory.materId),
+		OutAmount = 0,
+		OutWeight = 0				
+		where
+		exists(select 1 from balanceMainMaterDetail detail  where detail.BillId = #{balanceBillId} and detail.materId > 0 
+		and detail.materId=materialInventory.materId);
+	</update>
 	<delete id="delete" parameterType="long">
 		delete from BalanceBill where
 		id = #{id};
@@ -78,13 +90,15 @@
 		BillNumber,
 		ClientId,
 		BizDate,
-		CreateTime
+		CreateTime,
+		BillStatus
 		) 
 		values(
 		#{billNumber},
 		#{clientId},
 		#{bizDate}, 
-		#{createTime}
+		#{createTime},
+		#{billStatus.number}
 		);
 	</insert>
 	<select id="checkNoSubmitBillCount" parameterType="long" resultType="int">

@@ -79,7 +79,7 @@
 		id					MaterialOut_id,
 		BillNumber			MaterialOut_BillNumber		
 		FROM MaterialOut 		
-		WHERE ClientId=#{clientId}	AND BalanceBillId=0 AND BillStatus=1	
+		WHERE ClientId=#{clientId}	AND BalanceBillId=0	
 	</select>	
 	<select id="updateBalanceId" parameterType="java.util.Map" >
 		UPDATE MaterialOut SET
@@ -115,12 +115,21 @@
 		where
 		id = #{billId};
 	</update>
+	<update id="unSubmitBill" parameterType="long">
+		update MaterialOut set
+		BillStatus = 0						
+		where
+		id = #{billId};
+	</update>
 	<delete id="deleteMaterialOut" parameterType="long">
 		delete from MaterialOut where
 		id = #{id};
 	</delete>
 	<delete id="deleteLinkedBalanceBills" parameterType="long">
 		UPDATE MaterialOut SET BalanceBillId = 0 WHERE BalanceBillId=#{billId}
+	</delete>	
+	<delete id="updateStatusByBalanceBillId" parameterType="long">
+		UPDATE MaterialOut SET BillStatus = 0 WHERE BalanceBillId=#{billId}
 	</delete>
 	<insert id="insertMaterialOut" parameterType="com.flash.jewelry.model.MaterialOut"
 		useGeneratedKeys="true" keyProperty="id">

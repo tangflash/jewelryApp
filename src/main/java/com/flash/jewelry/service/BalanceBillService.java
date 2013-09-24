@@ -23,5 +23,7 @@ public interface BalanceBillService {
 	void submitBill(long billId);
 
 	void delete(long billId);
+	
+	void updateInventoryByDelBalanceBill(long balanceBillId);
 
 }

@@ -217,8 +217,8 @@
 									href="<c:url value="/materialOutBillEdit/showPage?id=${detail.id}"/>">编辑明细</a>
 								<a class="submitLinkClass"
 									href="<c:url value="doDelBill?id=${detail.materialOut.id}"/>">删除单据</a>
-								<a class="submitLinkClass"
-									href="<c:url value="doSubmit?id=${detail.materialOut.id}"/>">提交单据</a>
+								<!-- <a class="submitLinkClass"
+									href="<c:url value="doSubmit?id=${detail.materialOut.id}"/>">提交单据</a> -->
 							</c:if>	
 						</td>					
 					</tr>

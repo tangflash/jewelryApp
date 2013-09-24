@@ -218,7 +218,7 @@
 		Left Join MaterialOut As BillMain on Detail.billId=BillMain.id	
 		LEFT JOIN GoldType ON BillMain.goldTypeId = GoldType.id
 		where Detail.Sort=0 And BillMain.billStatus=1
-		And BillMain.id = #{materialOutBillId}  		
+		And BillMain.id = #{materialOutBillId} And Detail.SecWeight > 0 And Detail.SecPrice > 0 		
   		group by GoldType.Name, Detail.SecPrice
 	</select>
 	

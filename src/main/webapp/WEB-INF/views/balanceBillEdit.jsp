@@ -112,7 +112,14 @@
 				<form:label path="bizDate">
 					  结算日期: <form:errors path="bizDate" cssClass="error" />
 				</form:label>
-				<form:input id="bizDate" path="bizDate" tabindex="2" />				
+				<form:input id="bizDate" path="bizDate" tabindex="2" />	
+				<br/>
+				<br/>
+				<form:label path="linkedBillNumbers">
+					  关联的出货单: <form:errors path="linkedBillNumbers" cssClass="error" />
+				</form:label>
+				<form:input width="600px" id="linkedBillNumbers" path="linkedBillNumbers" tabindex="2" readonly="true"/>	
+							
 				
 
 				<p>

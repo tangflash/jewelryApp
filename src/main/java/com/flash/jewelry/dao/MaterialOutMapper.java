@@ -19,6 +19,8 @@ public interface MaterialOutMapper {
 	int repeatRowByNumber(MaterialOut MaterialOut);
 	Collection<MaterialOut> selectMaterialOut();	
 	void submitBill(long billId);
+	
+	void unSubmitBill(long billId);
 	/**
 	 * 按结算单Id查询
 	 * @param id
@@ -42,4 +44,9 @@ public interface MaterialOutMapper {
 	 * @param billId
 	 */
 	void deleteLinkedBalanceBills(long billId);
+	/**
+	 * 
+	 * @param billId
+	 */
+	void updateStatusByBalanceBillId(long billId);
 }

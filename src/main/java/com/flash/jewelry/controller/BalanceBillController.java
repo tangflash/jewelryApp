@@ -26,6 +26,7 @@ import com.flash.jewelry.common.StringUtil;
 import com.flash.jewelry.model.BalanceBill;
 import com.flash.jewelry.model.BalanceBillQueryParam;
 import com.flash.jewelry.model.BalanceMainMaterDetail;
+import com.flash.jewelry.model.BillStatus;
 import com.flash.jewelry.model.Client;
 import com.flash.jewelry.model.GoldType;
 import com.flash.jewelry.model.Material;
@@ -102,6 +103,7 @@ public class BalanceBillController {
 			Collection<BalanceBill> feeTotalList = null;
 			
 			Map feeInforMap = null;
+			String linkedBillNumbers = "";
 			for (MaterialOut materialOut : materialOutList) {
 				Collection<MaterialOutDetail> tempProduectTotalList = staticOutBillByProduct(materialOut.getId());
 				sumMaterialOutDetail(tempProduectTotalList);
@@ -113,11 +115,14 @@ public class BalanceBillController {
 				Collection<MaterialOutDetail> tempSecMaterialTotalList = materialOutService.staticOutBillBySecMaterial(materialOut.getId());				
 				secMaterialTotalList.addAll(tempSecMaterialTotalList);
 				
-				feeInforMap = staticOutBillByTotalFee(feeInforMap, materialOut.getId());											
+				feeInforMap = staticOutBillByTotalFee(feeInforMap, materialOut.getId());
+				
+				linkedBillNumbers = String.format("%s,%s", linkedBillNumbers, materialOut.getBillNumber());
 			}
 			
 			sumSecMaterial(secMaterialTotalList);
 			feeTotalList = ConvertFeeMapInforToList(feeInforMap);
+			balanceBill.setLinkedBillNumbers(linkedBillNumbers);
 			
 			if (isExport){
 				modelAndView.addObject("datasource", produectTotalList);
@@ -428,13 +433,16 @@ public class BalanceBillController {
 			return modelAndView;
 		}
 		balanceBill.setClientId(client.getId());
+		BillStatus billStatus = new BillStatus();
+		billStatus.setNumber("1");
+		balanceBill.setBillStatus(billStatus);
 		balanceBill.setClientName(client.getName());
 		
-		boolean isExistNoSubmitBill = balanceBillService.isExistNoSubmitBill(balanceBill.getClientId());
+		/*boolean isExistNoSubmitBill = balanceBillService.isExistNoSubmitBill(balanceBill.getClientId());
 		if (isExistNoSubmitBill){			
 			modelAndView.addObject(StrConstant.ERROR_MESSAGE_KEY, "此客户有未提交的结算单，不能生成 新的结算单。请先处理存在的结算单。");
 			return modelAndView;
-		}
+		}*/
 		
 		Collection<MaterialOut>  materialOutList = materialOutService.selectNoBalanceBill(balanceBill.getClientId());
 		if (materialOutList.size() < 1){			
@@ -446,14 +454,22 @@ public class BalanceBillController {
 		balanceBillService.insert(balanceBill);
 		
 		List materialOutBillIdList = getMaterialOutBillIds(materialOutList);
-		materialOutService.updateBalanceId(balanceBill.getId(), materialOutBillIdList);		
+		materialOutService.updateBalanceId(balanceBill.getId(), materialOutBillIdList);
+		submitMaterialOutBill(materialOutList);
 		
 		balanceBillService.iniMainMaterDetail(balanceBill.getId(), balanceBill.getClientId());
+		balanceBillService.submitBill(balanceBill.getId());
 		
 		modelAndView.addObject(BALANCE_BILL_KEY, balanceBill);
 		modelAndView = getShowPageModelAndView("" + balanceBill.getId(), false , "");	
 
 		return modelAndView;		
+	}
+
+	private void submitMaterialOutBill(Collection<MaterialOut> materialOutList) {
+		for (MaterialOut materialOut : materialOutList) {
+			materialOutService.submitBill(materialOut.getId());
+		}		
 	}
 
 	private List getMaterialOutBillIds(Collection<MaterialOut> materialOutList) {	
@@ -473,9 +489,9 @@ public class BalanceBillController {
 	
 
 	@RequestMapping(value = "/doDelBill", method = RequestMethod.GET)
-	public void doDelBill(@Valid String id) {
+	public void doDelBill(@Valid String id) {		
+		balanceBillService.updateInventoryByDelBalanceBill(Long.valueOf(id));
 		balanceBillService.delete(Long.valueOf(id));
-
 	}
 	
 	public static void main(String[] args){

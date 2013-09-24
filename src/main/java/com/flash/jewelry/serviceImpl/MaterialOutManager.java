@@ -157,4 +157,12 @@ public class MaterialOutManager implements MaterialOutService {
 		materialOutMapper.deleteLinkedBalanceBills(billId);	
 	}
 
+	public void unSubmitBill(long billId) {
+		materialOutMapper.unSubmitBill(billId);		
+	}
+
+	public void updateStatusByBalanceBillId(long billId) {
+		materialOutMapper.updateStatusByBalanceBillId(billId);	
+	}
+
 }

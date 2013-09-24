@@ -19,4 +19,6 @@ public interface BalanceBillMapper {
 	void submitBill(long billId);
 
 	int checkNoSubmitBillCount(long clientId);
+	
+	void updateInventoryByDelBalanceBill(long balanceBillId);
 }

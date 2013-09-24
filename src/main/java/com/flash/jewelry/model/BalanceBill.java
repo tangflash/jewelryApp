@@ -39,7 +39,17 @@ public class BalanceBill implements Serializable {
 	
 	private String exportFormat = "xls";
 	
+	private String LinkedBillNumbers = "";
 	
+	
+	public String getLinkedBillNumbers() {
+		return LinkedBillNumbers;
+	}
+
+	public void setLinkedBillNumbers(String linkedBillNumbers) {
+		LinkedBillNumbers = linkedBillNumbers;
+	}
+
 	public String getExportFormat() {
 		return exportFormat;
 	}

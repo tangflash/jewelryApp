@@ -257,7 +257,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{priorAmount}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="###0.000;-###0.000" isBlankWhenNull="true">
+			<textField pattern="###0.000;-###0.000" isBlankWhenNull="true">
 				<reportElement uuid="2500e1dc-00a1-4852-b7bd-c3cbb6245971" stretchType="RelativeToTallestObject" x="278" y="0" width="471" height="20" isPrintWhenDetailOverflows="true"/>
 				<box>
 					<pen lineWidth="0.5"/>

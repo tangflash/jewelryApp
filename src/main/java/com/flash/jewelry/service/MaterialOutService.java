@@ -37,6 +37,8 @@ public interface MaterialOutService {
 	Collection<MaterialOutDetail> staticOutBillByTotalFee(long materialOutBillId);
 	
 	void submitBill(long billId);
+	
+	void unSubmitBill(long billId);
 
 	void deleteMaterialOut(Long billId);
 	
@@ -59,4 +61,6 @@ public interface MaterialOutService {
 	void updateBalanceId(long balanceBillId, List materialOutBillIdList);
 
 	void deleteLinkedBalanceBills(long billId);
+	
+	void updateStatusByBalanceBillId(long billId);
 }

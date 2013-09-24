@@ -54,6 +54,12 @@
 		$('td:eq(5)', $(trElement)).html(source2);
 	}
 	
+	function deleteBalanceBill(billNumber){
+		var answerResult = window.confirm("确认要删除结算单号为:" + billNumber + "的结算单吗?");
+		 if (answerResult) return true;
+		 else return false;		 
+	}
+	
 	$(document).ready(function() {
 		$("input[type=submit],button").button();
 		$("#bizBeginDate").datepicker();
@@ -64,8 +70,11 @@
 		
 		iniDataTable();
 
-		$(".submitLinkClass").click(function(){
+		$(".deleteBillLinkClass").click(function(){			
 			var link = $(this);
+			var answerResult = window.confirm("确认要删除结算单号为:" + link.attr("name") + "的结算单吗?");
+			 if (!answerResult) return false;				 
+			
 			$.ajax({ url: link.attr("href"), 
 				dataType: "text", 
 				success: function(text) { $("#queryButton").click(); }, 
@@ -75,8 +84,8 @@
 				 }
 				});			 	
 			return false;
-		});
-
+		});	
+		
 		//totalCol();
 	});
 	//flag = true;
@@ -144,11 +153,10 @@
 							<a class="editDetailLinkClass"
 									href="<c:url value="/balanceBillList/showPage?id=${detail.id}"/>">查看单据</a>			
 							<c:if test="${detail.billStatus.number=='0'}">								
-								<a class="submitLinkClass"
-									href="<c:url value="/balanceBillList/doDelBill?id=${detail.id}"/>">删除单据</a>
-								<a class="submitLinkClass"
-									href="<c:url value="/balanceBillList/doSubmit?id=${detail.id}"/>">提交单据</a>
+								<!-- <a class="submitLinkClass"
+									href="<c:url value="/balanceBillList/doSubmit?id=${detail.id}"/>">提交单据</a> -->
 							</c:if>	
+							<a id="deleteBillLink" name="${detail.billNumber}" class="deleteBillLinkClass" href="<c:url value="/balanceBillList/doDelBill?id=${detail.id}"/>">删除单据</a>
 						</td>					
 					</tr>
 				</c:forEach>
