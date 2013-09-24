@@ -225,12 +225,12 @@ public class BalanceBillController {
 		Collection<MaterialOutDetail> materialOutDetailList = materialOutService.staticOutBillByTotalFee(id);
 		String feeString = null;
 		String itemName = null;
-		int feeStrLen = 10;
+		int feeStrLen = 8;
 		String addedStr = "__";
 		BigDecimal feeTotal = new BigDecimal(0);
 		for (MaterialOutDetail materialOutDetail : materialOutDetailList) {		
 			feeTotal = feeTotal.add(materialOutDetail.getSuperSetCost());
-			feeString = StringUtil.makeAddedStr(String.format("%.2f", materialOutDetail.getSuperSetCost()), feeStrLen, null);
+			feeString = StringUtil.makeAddedStr(String.format("%.0f", materialOutDetail.getSuperSetCost()), feeStrLen, null);
 			itemName = StringUtil.makeAddedStr(String.format("%s超镶工费", materialOutDetail.getMaterialOut().getGoldTypeName()), -feeStrLen,addedStr);
 			feeInforMap.put("SuperSetCost", String.format("%s  %s", 
 					feeInforMap.get("SuperSetCost"), itemName
@@ -238,25 +238,25 @@ public class BalanceBillController {
 			//feeInforMap.put("SuperSetCost", feeString);
 			
 			feeTotal = feeTotal.add(materialOutDetail.getTotalProcessCost());
-			feeString = StringUtil.makeAddedStr(String.format("%.2f", materialOutDetail.getTotalProcessCost()), feeStrLen, null);
+			feeString = StringUtil.makeAddedStr(String.format("%.0f", materialOutDetail.getTotalProcessCost()), feeStrLen, null);
 			itemName = StringUtil.makeAddedStr(String.format("%s工费", materialOutDetail.getMaterialOut().getGoldTypeName()), -feeStrLen, addedStr);
 			feeInforMap.put("TotalProcessCost", String.format("%s  %s", 
 					feeInforMap.get("TotalProcessCost"), itemName) + feeString);
 			
 			feeTotal = feeTotal.add(materialOutDetail.getGoldMoney());
-			feeString = StringUtil.makeAddedStr(String.format("%.2f", materialOutDetail.getGoldMoney()), feeStrLen, null);
+			feeString = StringUtil.makeAddedStr(String.format("%.0f", materialOutDetail.getGoldMoney()), feeStrLen, null);
 			itemName = StringUtil.makeAddedStr(String.format("%s金料额", materialOutDetail.getMaterialOut().getGoldTypeName()), -feeStrLen, addedStr);
 			feeInforMap.put("GoldMoney", String.format("%s  %s", 
 					feeInforMap.get("GoldMoney"), itemName) + feeString);
 			
 			feeTotal = feeTotal.add(materialOutDetail.getSecMaterMoney());
-			feeString = StringUtil.makeAddedStr(String.format("%.2f", materialOutDetail.getSecMaterMoney()), feeStrLen, null);
+			feeString = StringUtil.makeAddedStr(String.format("%.0f", materialOutDetail.getSecMaterMoney()), feeStrLen, null);
 			itemName = StringUtil.makeAddedStr(String.format("%s副石额", materialOutDetail.getMaterialOut().getGoldTypeName()), -feeStrLen, addedStr);
 			feeInforMap.put("SecMaterMoney", String.format("%s  %s", 
 					feeInforMap.get("SecMaterMoney"), itemName) + feeString);
 			
 			feeTotal = feeTotal.add(materialOutDetail.getAddProcessCost());
-			feeString = StringUtil.makeAddedStr(String.format("%.2f", materialOutDetail.getAddProcessCost()), feeStrLen, null);
+			feeString = StringUtil.makeAddedStr(String.format("%.0f", materialOutDetail.getAddProcessCost()), feeStrLen, null);
 			itemName = StringUtil.makeAddedStr(String.format("%s附加工费", materialOutDetail.getMaterialOut().getGoldTypeName()), -feeStrLen, addedStr);
 			feeInforMap.put("AddProcessCost", String.format("%s  %s", 
 					feeInforMap.get("AddProcessCost"), itemName) + feeString);			
@@ -264,7 +264,7 @@ public class BalanceBillController {
 		}
 		String feeTotalStr = feeInforMap.get("Total");
 		feeTotal = feeTotal.add(new BigDecimal(feeTotalStr));
-		feeInforMap.put("Total", String.format("%.2f", feeTotal));
+		feeInforMap.put("Total", String.format("%.0f", feeTotal));
 		return feeInforMap;
 	}
 	
