@@ -516,12 +516,12 @@
 	<summary>
 		<band height="271">
 			<subreport isUsingCache="false" runToBottom="false">
-				<reportElement uuid="04bf707f-ac2e-4eac-b096-a99f8a59375a" positionType="Float" isPrintRepeatedValues="false" x="-9" y="94" width="219" height="156"/>
+				<reportElement uuid="04bf707f-ac2e-4eac-b096-a99f8a59375a" positionType="Float" isPrintRepeatedValues="false" x="-9" y="94" width="254" height="156"/>
 				<dataSourceExpression><![CDATA[$P{secMaterSubReportDatasource}]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{secMaterSubReportLocation}]]></subreportExpression>
 			</subreport>
 			<subreport isUsingCache="false">
-				<reportElement uuid="383f2dd6-37a0-4f64-a438-1189cf386010" positionType="Float" x="210" y="94" width="541" height="156" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="383f2dd6-37a0-4f64-a438-1189cf386010" positionType="Float" x="245" y="94" width="506" height="156" isPrintWhenDetailOverflows="true"/>
 				<dataSourceExpression><![CDATA[$P{feeTotalMaterSubReportDatasource}]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{feeTotalMaterSubReportLocation}]]></subreportExpression>
 			</subreport>
