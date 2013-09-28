@@ -30,6 +30,7 @@
 	<field name="totalMoney" class="java.math.BigDecimal"/>
 	<field name="materialOut" class="com.flash.jewelry.model.MaterialOut"/>
 	<field name="totalProcessCost" class="java.math.BigDecimal"/>
+	<field name="number" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -586,7 +587,7 @@
 				<textElement>
 					<font fontName="宋体" size="11" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{REPORT_COUNT}.toString()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{number}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="139ec512-2bb9-4abf-8cb5-7cba327b6979" x="14" y="0" width="49" height="20"/>

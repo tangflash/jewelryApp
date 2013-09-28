@@ -294,13 +294,20 @@
 				<legend>单据明细信息</legend>
 				<form:hidden path="materialOutDetail.id" />
 				<table class="formTable">
-					<tr>						
+					<tr>	
 						<td>
+							<form:label path="materialOutDetail.number">
+		  						序号: 
+		  						<form:errors path="materialOutDetail.number"	cssClass="error" />
+							</form:label>
+							<form:input path="materialOutDetail.number" required="true" tabindex="6"/>
+						</td>					
+						<td>							
 							<form:label path="materialOutDetail.styleName">
 		  						款号: 
 		  						<form:errors path="materialOutDetail.styleName"	cssClass="error" />
 							</form:label>
-							<form:input path="materialOutDetail.styleName" required="true" tabindex="6"/>
+							<form:input path="materialOutDetail.styleName" required="true" tabindex="7"/>
 						</td>
 						<td>
 							<form:label path="materialOutDetail.productName">
@@ -308,40 +315,41 @@
 							</form:label>
 							<form:input path="materialOutDetail.productName" readonly="true"/>	
 						</td>
+						
+					</tr>
+					<tr>	
 						<td>
 							<form:label path="materialOutDetail.handSize">
 					  			手寸: <form:errors path="materialOutDetail.handSize" cssClass="error" />
 							</form:label>
-							<form:input path="materialOutDetail.handSize" tabindex="7"/>	
-						</td>
-					</tr>
-					<tr>						
+							<form:input path="materialOutDetail.handSize" tabindex="8"/>	
+						</td>					
 						<td>
 							<form:label path="materialOutDetail.productAmount">
 		  						件数: 
 		  						<form:errors path="materialOutDetail.productAmount"	cssClass="error" />
 							</form:label>
-							<form:input id="input_productAmount" path="materialOutDetail.productAmount" tabindex="8"/>
+							<form:input id="input_productAmount" path="materialOutDetail.productAmount" tabindex="9"/>
 						</td>
 						<td>
 							<form:label path="materialOutDetail.productWeight">
 					  			货重: <form:errors path="materialOutDetail.productWeight" cssClass="error" />
 							</form:label>
-							<form:input id="input_productWeight" path="materialOutDetail.productWeight" tabindex="9"/>	
-						</td>
+							<form:input id="input_productWeight" path="materialOutDetail.productWeight" tabindex="10"/>	
+						</td>						
+					</tr>
+					<tr>	
 						<td>
 							<form:label path="materialOutDetail.goldWeight">
 					  			净金重: <form:errors path="materialOutDetail.goldWeight" cssClass="error" />
 							</form:label>
 							<form:input id="input_goldWeight" path="materialOutDetail.goldWeight" readonly="true"/>	
 						</td>
-					</tr>
-					<tr>	
 						<td>
 							<form:label path="materialOutDetail.loss">
 					  			损耗(%): <form:errors path="materialOutDetail.loss" cssClass="error" />
 							</form:label>
-							<form:input id="input_loss" path="materialOutDetail.loss" tabindex="10"/>	
+							<form:input id="input_loss" path="materialOutDetail.loss" tabindex="11"/>	
 						</td>					
 						<td>
 							<form:label path="materialOutDetail.consumeWeight">
@@ -350,98 +358,103 @@
 							</form:label>
 							<form:input id="input_consumeWeight" path="materialOutDetail.consumeWeight" readonly="true"/>
 						</td>
+												
+					</tr>
+					<tr>	
 						<td>
 							<form:label path="">
 					  			金料额: <form:errors path="materialOutDetail.goldMoney" cssClass="error" />
 							</form:label>
 							<form:input id="input_goldMoney" path="materialOutDetail.goldMoney" readonly="true"/>	
-						</td>						
-					</tr>
-					<tr>	
+						</td>
 						<td>
 							<form:label path="materialOutDetail.processCost">
 					  			工费单价: <form:errors path="materialOutDetail.processCost" cssClass="error" />
 							</form:label>
-							<form:input id="input_processCost" path="materialOutDetail.processCost" tabindex="11"/>	
+							<form:input id="input_processCost" path="materialOutDetail.processCost" tabindex="12"/>	
 						</td>
 						<td>
 							<form:label path="materialOutDetail.totalProcessCost">
 					  			工费: <form:errors path="materialOutDetail.totalProcessCost" cssClass="error" />
 							</form:label>
 							<form:input id="input_totalProcessCost" path="materialOutDetail.totalProcessCost" readonly="true"/>	
-						</td>					
+						</td>		
+																	
+					</tr>
+					<tr>	
 						<td>
 							<form:label path="materialOutDetail.addProcessCost">
 		  						附加工费: 
 		  						<form:errors path="materialOutDetail.addProcessCost"	cssClass="error" />
 							</form:label>
-							<form:input id="input_addProcessCost" path="materialOutDetail.addProcessCost" tabindex="12"/>
-						</td>												
-					</tr>
-					<tr>	
+							<form:input id="input_addProcessCost" path="materialOutDetail.addProcessCost" tabindex="13"/>
+						</td>	
 						<td>
 							<form:label path="materialOutDetail.superSetCost">
 					  			超镶工费: <form:errors path="materialOutDetail.superSetCost" cssClass="error" />
 							</form:label>
-							<form:input id="input_superSetCost" path="materialOutDetail.superSetCost" tabindex="13"/>	
+							<form:input id="input_superSetCost" path="materialOutDetail.superSetCost" tabindex="14"/>	
 						</td>
 						<td>
 							<form:label path="materialOutDetail.materName">
 					  			主石号: <form:errors path="materialOutDetail.materName" cssClass="error" />
 							</form:label>
-							<form:input path="materialOutDetail.materName" tabindex="14"/>	
+							<form:input path="materialOutDetail.materName" tabindex="15"/>	
 						</td>					
+																	
+					</tr>
+					<tr>	
 						<td>
 							<form:label path="materialOutDetail.amount">
 		  						主石粒数: 
 		  						<form:errors path="materialOutDetail.amount"	cssClass="error" />
 							</form:label>
-							<form:input path="materialOutDetail.amount" tabindex="15"/>
-						</td>											
-					</tr>
-					<tr>	
+							<form:input path="materialOutDetail.amount" tabindex="16"/>
+						</td>
 						<td>
 							<form:label path="materialOutDetail.weight">
 					  			主石重量: <form:errors path="materialOutDetail.weight" cssClass="error" />
 							</form:label>
-							<form:input id="input_weight" path="materialOutDetail.weight" tabindex="16"/>	
+							<form:input id="input_weight" path="materialOutDetail.weight" tabindex="17"/>	
 						</td>	
 						<td>
 							<form:label path="materialOutDetail.factoryAddMoney">
 					  			厂配主额: <form:errors path="materialOutDetail.factoryAddMoney" cssClass="error" />
 							</form:label>
-							<form:input path="materialOutDetail.factoryAddMoney" tabindex="17"/>	
-						</td>						
+							<form:input path="materialOutDetail.factoryAddMoney" tabindex="18"/>	
+						</td>					
+																		
+					</tr>
+					<tr>
 						<td>
 							<form:label path="materialOutDetail.secMaterName">
 		  						副石号: 
 		  						<form:errors path="materialOutDetail.secMaterName"	cssClass="error" />
 							</form:label>
-							<form:input path="materialOutDetail.secMaterName" tabindex="18"/>
-						</td>												
-					</tr>
-					<tr>	
+							<form:input path="materialOutDetail.secMaterName" tabindex="19"/>
+						</td>	
 						<td>
 							<form:label path="materialOutDetail.secAmount">
 					  			副石粒数: <form:errors path="materialOutDetail.secAmount" cssClass="error" />
 							</form:label>
-							<form:input path="materialOutDetail.secAmount" tabindex="19"/>	
+							<form:input path="materialOutDetail.secAmount" tabindex="20"/>	
 						</td>
 						<td>
 							<form:label path="materialOutDetail.secWeight">
 					  			副石重量: <form:errors path="materialOutDetail.secWeight" cssClass="error" />
 							</form:label>
-							<form:input id="input_secWeight" path="materialOutDetail.secWeight" tabindex="20"/>	
+							<form:input id="input_secWeight" path="materialOutDetail.secWeight" tabindex="21"/>	
 						</td>					
+																		
+					</tr>
+					<tr>	
 						<td>
 							<form:label path="materialOutDetail.secPrice">
 		  						副石单价/元: 
 		  						<form:errors path="materialOutDetail.secPrice"	cssClass="error" />
 							</form:label>
-							<form:input id="input_secPrice" path="materialOutDetail.secPrice" tabindex="21"/>
-						</td>												
-					</tr>
-					<tr>	
+							<form:input id="input_secPrice" path="materialOutDetail.secPrice" tabindex="22"/>
+						</td>
 						<td>
 							<form:label path="">
 					  			副石额: <form:errors path="materialOutDetail.secMaterMoney" cssClass="error" />

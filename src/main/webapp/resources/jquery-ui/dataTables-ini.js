@@ -1,5 +1,5 @@
 function iniDataTable() {
-	$(".listTable").dataTable({
+	var oTable= $(".listTable").dataTable({
 		"sPaginationType" : "full_numbers",
 		"bJQueryUI" : true,
 		"bProcessing" : true,
@@ -23,4 +23,14 @@ function iniDataTable() {
 			}
 		},
 	});
+	
+	$(".listTable tbody tr").click( function( e ) {
+        if ( $(this).hasClass('row_selected') ) {
+            $(this).removeClass('row_selected');
+        }
+        else {
+            oTable.$('tr.row_selected').removeClass('row_selected');
+            $(this).addClass('row_selected');
+        }
+    });
 }

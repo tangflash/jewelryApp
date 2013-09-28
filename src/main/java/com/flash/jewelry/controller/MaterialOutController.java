@@ -66,6 +66,7 @@ public class MaterialOutController {
 			materialOut.setBizDate(new Date());
 			materialOut.setCreateTime(new Date());
 			MaterialOutDetail materialOutDetail = new MaterialOutDetail();
+			materialOutDetail.setNumber(1);
 			materialOutDetail.setProductAmount(1);
 			materialOutDetail.setFactoryAddMoney(new BigDecimal(0));
 			materialOutDetail.setWeight(new BigDecimal(0));
@@ -157,9 +158,15 @@ public class MaterialOutController {
 		else
 			materialOutService.insertMaterialOutDetail(materialOutDetail);
 
-		MaterialOutDetail newMaterialOutDetail = new MaterialOutDetail();
+		MaterialOutDetail newMaterialOutDetail = new MaterialOutDetail();		
+		newMaterialOutDetail.setNumber(materialOutDetail.getNumber() + 1);
 		newMaterialOutDetail.setProductAmount(1);
+		newMaterialOutDetail.setFactoryAddMoney(new BigDecimal(0));
+		newMaterialOutDetail.setWeight(new BigDecimal(0));
+		newMaterialOutDetail.setSecWeight(new BigDecimal(0));
+		newMaterialOutDetail.setSecPrice(new BigDecimal(0));
 		newMaterialOutDetail.setLoss(materialOutDetail.getLoss());
+		newMaterialOutDetail.setProcessCost(materialOutDetail.getProcessCost());
 		materialOut.setMaterialOutDetail(newMaterialOutDetail);
 		return errorMessage;
 	}
@@ -258,6 +265,7 @@ public class MaterialOutController {
 		materialOut.getBillStatus().setName("");
 		materialOut.setCreateTime(null);
 		totalMaterialOutDetail.setMaterialOut(materialOut);
+		totalMaterialOutDetail.setNumber(null);
 		totalMaterialOutDetail.setProductWeight(new BigDecimal(0));
 		totalMaterialOutDetail.setGoldWeight(new BigDecimal(0));
 		totalMaterialOutDetail.setConsumeWeight(new BigDecimal(0));

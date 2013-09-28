@@ -15,6 +15,9 @@
 	href="<c:url value="/resources/css/themename/jquery.dataTables.css"/>"
 	type="text/css" />
 <link rel="stylesheet"
+	href="<c:url value="/resources/css/themename/jquery.dataTables.ext.css"/>"
+	type="text/css" />
+<link rel="stylesheet"
 	href="<c:url value="/resources/css/themename/jquery.dataTables_themeroller.css"/>"
 	type="text/css" />
 

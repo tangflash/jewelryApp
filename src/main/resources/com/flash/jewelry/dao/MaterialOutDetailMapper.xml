@@ -5,7 +5,8 @@
 <mapper namespace="com.flash.jewelry.dao.MaterialOutDetailMapper">	
 	
 	<resultMap type="com.flash.jewelry.model.MaterialOutDetail" id="materialOutDetailMap">
-		<id column="Detail_Id" property="id" />
+		<id column="Detail_Id" property="id" />		
+		<result column="Detail_Number" property="Number" />
 		<result column="Detail_BillId" property="billId" />
 		<result column="Detail_Sort" property="sort" />
 		<result column="Detail_ProductNameId" property="productNameId" />
@@ -34,7 +35,8 @@
 	</resultMap>
 	
 	<resultMap type="com.flash.jewelry.model.MaterialOutDetail" id="materialOutQueryMap">
-		<id column="Detail_Id" property="id" />
+		<id column="Detail_Id" property="id" />		
+		<result column="Detail_Number" property="number" />
 		<result column="Detail_BillId" property="billId" />
 		<result column="Detail_Sort" property="sort" />
 		<result column="Detail_ProductNameId" property="productNameId" />
@@ -85,7 +87,8 @@
 	
 	<select id="findMateriallOut" parameterType="com.flash.jewelry.model.MaterialInQueryParam" resultMap="materialOutQueryMap">
 		SELECT
-		Detail.Id				Detail_Id,					
+		Detail.Id				Detail_Id,
+		Detail.Number 			Detail_Number,					
 		Detail.BillId			Detail_BillId,	
 		Detail.Sort				Detail_Sort,
 		Detail.ProductNameId	Detail_ProductNameId,
@@ -149,7 +152,7 @@
   		<if test="bizEndDate != null">
     		And BillMain.BizDate &lt;=#{bizEndDate}
   		</if>
-  		Order By BillMain.BizDate desc,BillMain.BillNumber
+  		Order By BillMain.BizDate desc,BillMain.BillNumber, Detail.Number
 	</select>
 	
 	<select id="staticOutBillByProduct" parameterType="long" resultMap="materialOutQueryMap">
@@ -310,7 +313,8 @@
 	</select>
 	<select id="selectMaterialOutDetailById" parameterType="long" resultMap="materialOutDetailMap">
 		SELECT
-		Detail.Id				Detail_Id,					
+		Detail.Id				Detail_Id,	
+		Detail.Number			Detail_Number,				
 		Detail.BillId			Detail_BillId,	
 		Detail.Sort				Detail_Sort,
 		Detail.ProductNameId	Detail_ProductNameId,
@@ -382,6 +386,7 @@
 	<insert id="insertMaterialOutDetail" parameterType="com.flash.jewelry.model.MaterialOutDetail"
 		useGeneratedKeys="true" keyProperty="id">
 		insert into MaterialOutDetail(
+		Number,
 		BillId,	
 		Sort,
 		ProductNameId,
@@ -405,6 +410,7 @@
 		SecPrice
 		) 
 		values(
+		#{number},
 		#{billId},	
 		#{sort},
 		#{productNameId},

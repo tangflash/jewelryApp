@@ -97,6 +97,7 @@ create table if not exists materialOut (
 /*出货单明细*/
 create table if not exists materialOutDetail (
 	Id BigInt(12) not null auto_increment PRIMARY KEY,
+	Number int not null default 0,   	/*序号*/
 	BillId BigInt(12) not null,	
 	Sort int(4) not null default 0,
 	ProductNameId BigInt(12) not null default 0, /*品名Id*/
@@ -264,5 +265,21 @@ set @s = (SELECT IF(
     "SELECT 1",
     "ALTER TABLE materialOutDetail DROP FOREIGN KEY materialoutdetail_ibfk_1"
 ));
+PREPARE stmt FROM @s;
+EXECUTE stmt;
+
+
+/*增加字段  Number_序号*/
+set @s = (SELECT IF(
+    (SELECT COUNT(*)
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE table_name = 'materialOutDetail'
+        AND table_schema = DATABASE()
+        AND column_name = 'Number'
+    ) > 0,
+    "SELECT 1",
+    "ALTER TABLE materialOutDetail ADD Number int Not null Default 0"
+));
+
 PREPARE stmt FROM @s;
 EXECUTE stmt;

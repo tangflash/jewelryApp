@@ -15,6 +15,9 @@ import com.flash.jewelry.common.StrConstant;
 
 public class MaterialOutDetail {
 	private long id;	
+	@Min(value=0,message=StrConstant.MESSAGE_GREATER_ZERO)
+	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
+	private Integer number;	
 	private long billId;	
 	private long materId;
 	
@@ -201,6 +204,9 @@ public class MaterialOutDetail {
 	public void setStyleName(String styleName) {
 		this.styleName = styleName;
 	}
+	
+	
+	
 	/**
 	 * @return the styleId
 	 */
@@ -490,5 +496,12 @@ public class MaterialOutDetail {
 	 */
 	public void setTotalProcessCost(BigDecimal totalProcessCost) {
 		this.totalProcessCost = totalProcessCost;
+	}
+	
+	public Integer getNumber() {
+		return number;
+	}
+	public void setNumber(Integer number) {
+		this.number = number;
 	}
 }

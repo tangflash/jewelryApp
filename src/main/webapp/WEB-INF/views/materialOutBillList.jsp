@@ -15,6 +15,9 @@
 	href="<c:url value="/resources/css/themename/jquery.dataTables.css"/>"
 	type="text/css" />
 <link rel="stylesheet"
+	href="<c:url value="/resources/css/themename/jquery.dataTables.ext.css"/>"
+	type="text/css" />
+<link rel="stylesheet"
 	href="<c:url value="/resources/css/themename/jquery.dataTables_themeroller.css"/>"
 	type="text/css" />
 
@@ -63,6 +66,7 @@
 		$("#bizEndDate").datepicker("option", "dateFormat", "yy-mm-dd");
 		
 		iniDataTable();
+				
 		
 		$(".submitLinkClass").click(function(){
 			var link = $(this);
@@ -83,7 +87,7 @@
 			return false;			
 		});		
 
-		//totalCol();
+		//totalCol();		
 	});
 	//flag = true;
 </script>
@@ -135,8 +139,9 @@
 	<div id="formsContent">
 		<table id="materialInListTable" class="listTable" border="1">
 			<thead>
-				<tr>
+				<tr>					
 					<td>单据编码</td>
+					<td>序号</td>
 					<td style= "word-break:keep-all;width:350px">业务日期</td>
 					<td>单据状态</td>
 					<td>客户</td>
@@ -174,8 +179,9 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${list}" var="detail">
-					<tr>
-						<td>${detail.materialOut.billNumber}</td>						
+					<tr>						
+						<td>${detail.materialOut.billNumber}</td>
+						<td>${detail.number}</td>						
 						<td style= "word-break:keep-all;width:350px"><fmt:formatDate value="${detail.materialOut.bizDate}" pattern="yyyy-MM-dd"/></td>							
 						<td>${detail.materialOut.billStatus.name}</td>
 						<td>${detail.materialOut.clientName}</td>
