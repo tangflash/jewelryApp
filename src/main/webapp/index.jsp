@@ -79,7 +79,7 @@ iframe {
 						 .replace( /#\{label\}/g, label ).replace(/#\{aLinkId\}/g,"tab_link_" + id) ),
 				 tabContentHtml = "<iframe src='"+ url +"'></iframe>";
 				 tabs.find( ".ui-tabs-nav" ).append( li );
-				 tabs.append( "<div id='" + id + "'><p>" + tabContentHtml + "</p></div>" );
+				 tabs.append( "<div id='" + id + "' style='padding:0.5em 0.5em'><p>" + tabContentHtml + "</p></div>" );
 				 tabs.tabs( "refresh" );				 				 
 				 tabCounter++;	
 				 $("#tab_link_" + id).click();
@@ -117,12 +117,16 @@ iframe {
 <style type="text/css">
 #div_menu {
 	float: left;
-	width: 20%
+	width: 15%
 }
 
 #div_tabs {
 	float: left;
-	width: 75%
+	width: 80%
+}
+
+#div_menu div {	
+	padding: 0.5em 0.5em;
 }
 
 .clear {

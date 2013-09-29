@@ -117,7 +117,7 @@
 				 && srcObj.type != "textarea" && srcObj.type != "") {
 				// get tabindex from which element keypressed
 				var ntabindex = parseInt($(this).attr("tabindex")) + 1;
-				$("[tabindex=" + ntabindex + "]").focus();
+				$("[tabindex=" + ntabindex + "]").focus().select();
 				return false;
 			}
 		});
@@ -468,9 +468,17 @@
 							<form:input id="input_totalMoney" path="materialOutDetail.totalMoney" readonly="true"/>	
 						</td>	
 					</tr>
-				</table>				
-
-				
+					<tr>
+						<td>
+							<form:label path="materialOutDetail.templateFree">
+		  						版费: 
+		  						<form:errors path="materialOutDetail.templateFree"	cssClass="error" />
+							</form:label>
+							<form:input id="input_templateFree" path="materialOutDetail.templateFree" tabindex="23"/>
+						</td>	
+					</tr>
+				</table>
+								
 				<p>
 					<button type="submit" tabindex="22">保存</button>
 					<button id="newBill" type="submit">新增单据</button>

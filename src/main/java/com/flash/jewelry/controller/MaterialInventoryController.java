@@ -15,12 +15,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.flash.jewelry.common.StrConstant;
+import com.flash.jewelry.common.StringUtil;
+import com.flash.jewelry.model.Client;
 import com.flash.jewelry.model.ComQueryParam;
 import com.flash.jewelry.model.MaterialIn;
 import com.flash.jewelry.model.MaterialInQueryParam;
 import com.flash.jewelry.model.MaterialInventory;
 import com.flash.jewelry.model.MaterialOut;
 import com.flash.jewelry.model.MaterialOutDetail;
+import com.flash.jewelry.service.ClientService;
 import com.flash.jewelry.service.InventoryManagerService;
 import com.flash.jewelry.service.MaterialManagerService;
 import com.flash.jewelry.service.MaterialOutService;
@@ -33,6 +37,8 @@ public class MaterialInventoryController {
 	
 	@Autowired
 	private InventoryManagerService inventoryManagerService;
+	@Autowired
+	private ClientService clientService;
 	
 	
 	@RequestMapping("/showListPage")
@@ -54,6 +60,15 @@ public class MaterialInventoryController {
 		if (result.hasErrors()){
 			modelAndView.addObject("comQueryParam", comQueryParam);
 			return modelAndView;
+		}
+		
+		if (!StringUtil.isEmpty(comQueryParam.getClientName())){
+			Client client = clientService.getClientByNumOrName(comQueryParam.getClientName());
+			if (client == null || client.getId() == 0){
+				modelAndView.addObject(StrConstant.ERROR_MESSAGE_KEY, "客户编码/名称:" + comQueryParam.getClientName() + "不存在!");
+				return modelAndView;
+			}
+			comQueryParam.setClientId(client.getId());
 		}
 		
 		if ((comQueryParam.getMaterNum() == null) || (comQueryParam.getMaterNum().equals("")))

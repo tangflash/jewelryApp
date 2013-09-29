@@ -155,7 +155,8 @@
 					<td>附加工费</td>
 					<td>超镶工费</td>					
 					<td>工费单价</td>
-					<td>工费总额</td>					
+					<td>工费总额</td>
+					<td>版费</td>					
 					<td>金额小计</td>					
 				</tr>
 			</thead>
@@ -175,7 +176,7 @@
 						<td align="right"><fmt:formatNumber value="${detail.superSetCost}" pattern="#,##0"/></td>						
 						<td align="right"><fmt:formatNumber value="${detail.processCost}" pattern="#,##0"/></td>	
 						<td align="right"><fmt:formatNumber value="${detail.totalProcessCost}" pattern="#,##0"/></td>
-												
+						<td align="right"><fmt:formatNumber value="${detail.templateFree}" pattern="#,##0"/></td>						
 						<td align="right"><fmt:formatNumber value="${detail.totalMoney}" pattern="#,##0"/></td>
 								
 					</tr>

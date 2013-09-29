@@ -72,6 +72,8 @@ public class MaterialOutController {
 			materialOutDetail.setWeight(new BigDecimal(0));
 			materialOutDetail.setSecWeight(new BigDecimal(0));
 			materialOutDetail.setSecPrice(new BigDecimal(0));
+			materialOutDetail.setTemplateFree(new BigDecimal(0));
+			materialOutDetail.setAmount(1);
 			materialOut.setMaterialOutDetail(materialOutDetail);
 		}
 		else{
@@ -167,6 +169,8 @@ public class MaterialOutController {
 		newMaterialOutDetail.setSecPrice(new BigDecimal(0));
 		newMaterialOutDetail.setLoss(materialOutDetail.getLoss());
 		newMaterialOutDetail.setProcessCost(materialOutDetail.getProcessCost());
+		newMaterialOutDetail.setTemplateFree(new BigDecimal(0));
+		newMaterialOutDetail.setAmount(1);
 		materialOut.setMaterialOutDetail(newMaterialOutDetail);
 		return errorMessage;
 	}
@@ -238,7 +242,7 @@ public class MaterialOutController {
 		if (result.hasErrors()) {
 			modelAndView.addObject("queryParam", queryParam);
 			return modelAndView;
-		}
+		}		
 		
 		String buttonExport = request.getParameter("exportButton");		
 		Collection<MaterialOutDetail> list = materialOutService
@@ -279,6 +283,7 @@ public class MaterialOutController {
 		totalMaterialOutDetail.setSecMaterMoney(new BigDecimal(0));
 		totalMaterialOutDetail.setTotalMoney(new BigDecimal(0));
 		totalMaterialOutDetail.setTotalProcessCost(new BigDecimal(0));
+		totalMaterialOutDetail.setTemplateFree(new BigDecimal(0));
 		totalMaterialOutDetail.getMaterialOut().setBillNumber("合计");
 		totalMaterialOutDetail.setStyleName("合计:");
 		
@@ -315,6 +320,7 @@ public class MaterialOutController {
 					materialOutDetail.getSecMaterMoney().add(totalMaterialOutDetail.getSecMaterMoney()));
 			totalMaterialOutDetail.setTotalMoney(					
 					materialOutDetail.getTotalMoney().add(totalMaterialOutDetail.getTotalMoney()));
+			totalMaterialOutDetail.setTemplateFree(materialOutDetail.getTemplateFree().add(totalMaterialOutDetail.getTemplateFree()));
 			
 		}
 		list.add(totalMaterialOutDetail);

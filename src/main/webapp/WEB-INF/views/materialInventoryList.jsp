@@ -11,6 +11,8 @@
 <title>库存查询</title>
 <!-- <link href="<c:url value="/resources/form.css" />" rel="stylesheet"
 	type="text/css" /> -->
+<link href="<c:url value="/resources/messages/messages.css" />" rel="stylesheet"
+	type="text/css" />
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/themename/jquery.dataTables.css"/>"
 	type="text/css" />
@@ -95,11 +97,16 @@
 				</s:bind>
 			</div>
 			<fieldset>
-				<legend>查询条件</legend>						
+				<legend>查询条件</legend>
+				<form:label path="clientName">
+		  			客户编码/名称: <form:errors path="clientName" cssClass="error" />
+				</form:label>
+				<form:input id="clientName" path="clientName" tabindex="1"/>
+										
 				<form:label path="materNum">
 		  			钻石编码: <form:errors path="materNum" cssClass="error" />
 				</form:label>
-				<form:input id="materNum" path="materNum" />
+				<form:input id="materNum" path="materNum" tabindex="2"/>
 			
 
 				<p>

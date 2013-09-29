@@ -41,6 +41,7 @@
 	<field name="groupName" class="java.lang.String"/>
 	<field name="loss" class="java.math.BigDecimal"/>
 	<field name="totalProcessCost" class="java.math.BigDecimal"/>
+	<field name="templateFree" class="java.math.BigDecimal"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -186,7 +187,7 @@
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="0f34066a-3bd9-4a84-af68-72707870be6d" x="537" y="0" width="50" height="30"/>
+				<reportElement uuid="0f34066a-3bd9-4a84-af68-72707870be6d" x="527" y="0" width="50" height="30"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -230,7 +231,7 @@
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="faa9d3e6-cda1-4c92-8b92-3e0bd4d96727" x="487" y="0" width="50" height="30"/>
+				<reportElement uuid="faa9d3e6-cda1-4c92-8b92-3e0bd4d96727" x="487" y="0" width="40" height="30"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -245,7 +246,7 @@
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1ea63128-fb3c-4e71-abaa-bf868f71b202" x="677" y="0" width="83" height="30"/>
+				<reportElement uuid="1ea63128-fb3c-4e71-abaa-bf868f71b202" x="700" y="0" width="60" height="30"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -260,7 +261,7 @@
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="db576cd1-302a-4f54-a0ba-8209c137d4f8" x="587" y="0" width="40" height="30"/>
+				<reportElement uuid="db576cd1-302a-4f54-a0ba-8209c137d4f8" x="577" y="0" width="40" height="30"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -289,7 +290,7 @@
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="db576cd1-302a-4f54-a0ba-8209c137d4f8" x="627" y="0" width="50" height="30"/>
+				<reportElement uuid="db576cd1-302a-4f54-a0ba-8209c137d4f8" x="617" y="0" width="50" height="30"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -315,6 +316,20 @@
 					<font fontName="宋体" size="11" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[分类统计]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="eac420b0-04b9-448e-a996-957867a3877e" x="667" y="0" width="33" height="30"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="11" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[版费]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -408,7 +423,7 @@
 				<textFieldExpression><![CDATA[$F{goldMoney}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0;-###0" isBlankWhenNull="true">
-				<reportElement uuid="c7653de1-a99a-474c-a118-ea57eda8c413" x="487" y="0" width="50" height="20"/>
+				<reportElement uuid="c7653de1-a99a-474c-a118-ea57eda8c413" x="487" y="0" width="40" height="20"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -422,7 +437,7 @@
 				<textFieldExpression><![CDATA[$F{addProcessCost}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0;-###0" isBlankWhenNull="true">
-				<reportElement uuid="8094b5d1-4e18-473e-91ee-9e48e39b6fd9" x="587" y="0" width="40" height="20"/>
+				<reportElement uuid="8094b5d1-4e18-473e-91ee-9e48e39b6fd9" x="577" y="0" width="40" height="20"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -436,7 +451,7 @@
 				<textFieldExpression><![CDATA[$F{processCost}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0;-###0" isBlankWhenNull="true">
-				<reportElement uuid="985467ad-545e-48a9-9c8b-cfc83fe91a44" x="537" y="0" width="50" height="20"/>
+				<reportElement uuid="985467ad-545e-48a9-9c8b-cfc83fe91a44" x="527" y="0" width="50" height="20"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -450,7 +465,7 @@
 				<textFieldExpression><![CDATA[$F{superSetCost}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0;-###0" isBlankWhenNull="true">
-				<reportElement uuid="8e569f40-a771-4d0a-b813-979ad04f01f1" x="677" y="0" width="83" height="20"/>
+				<reportElement uuid="8e569f40-a771-4d0a-b813-979ad04f01f1" x="700" y="0" width="60" height="20"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -478,7 +493,7 @@
 				<textFieldExpression><![CDATA[$F{loss}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0;-###0" isBlankWhenNull="true">
-				<reportElement uuid="8094b5d1-4e18-473e-91ee-9e48e39b6fd9" x="627" y="0" width="50" height="20"/>
+				<reportElement uuid="8094b5d1-4e18-473e-91ee-9e48e39b6fd9" x="617" y="0" width="50" height="20"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -504,6 +519,20 @@
 					<font fontName="宋体" size="11" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{groupName}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0;-###0" isBlankWhenNull="true">
+				<reportElement uuid="f1bdb01f-1559-4c70-98a5-7bd207b54274" x="667" y="0" width="33" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="宋体" size="11" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{templateFree}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

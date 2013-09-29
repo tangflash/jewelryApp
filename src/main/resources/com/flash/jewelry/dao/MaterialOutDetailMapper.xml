@@ -31,7 +31,8 @@
 		<result column="Detail_SecAmount" property="secAmount" />
 		<result column="Detail_SecWeight" property="secWeight" />
 		<result column="Detail_SecPrice" property="secPrice" />	
-		<result column="Detail_Loss" property="loss" />		
+		<result column="Detail_Loss" property="loss" />
+		<result column="Detail_TemplateFree" property="templateFree" />				
 	</resultMap>
 	
 	<resultMap type="com.flash.jewelry.model.MaterialOutDetail" id="materialOutQueryMap">
@@ -82,7 +83,7 @@
 		<result column="BaseData_BillStatusNumber" property="materialOut.billStatus.number" />
 		<result column="BillMain_CreateTime" property="materialOut.createTime" />
 		<result column="BillMain_BizDate" property="materialOut.bizDate" />
-			
+		<result column="Detail_TemplateFree" property="templateFree" />		
 	</resultMap>
 	
 	<select id="findMateriallOut" parameterType="com.flash.jewelry.model.MaterialInQueryParam" resultMap="materialOutQueryMap">
@@ -116,9 +117,10 @@
 		Detail.SecAmount		Detail_SecAmount,
 		Detail.SecWeight		Detail_SecWeight,
 		Detail.SecPrice			Detail_SecPrice,
+		Detail.TemplateFree		Detail_TemplateFree,
 		Detail.SecWeight * Detail.SecPrice						Detail_SecMaterMoney,
 		Detail.ConsumeWeight * BillMain.goldPrice + Detail.ProcessCost * Detail.ProductAmount + Detail.AddProcessCost
-		+ Detail.SuperSetCost + Detail.FactoryAddMoney + Detail.SecWeight * Detail.SecPrice		Detail_TotalMoney,
+		+ Detail.SuperSetCost + Detail.FactoryAddMoney + Detail.SecWeight * Detail.SecPrice + Detail.TemplateFree  Detail_TotalMoney,
 		
 		BillMain.id					BillMain_id,
 		BillMain.BillNumber			BillMain_BillNumber,
@@ -168,8 +170,9 @@
 		Sum(Detail.AddProcessCost)	Detail_AddProcessCost,
 		Sum(Detail.SuperSetCost)		Detail_SuperSetCost,	
 		Sum(Detail.ProcessCost * Detail.ProductAmount) 								Detail_TotalProcessCost,
+		Sum(Detail.TemplateFree)	Detail_TemplateFree,
 		Sum(Detail.ConsumeWeight * BillMain.goldPrice + Detail.AddProcessCost
-		+ Detail.SuperSetCost + Detail.ProcessCost * Detail.ProductAmount)		Detail_TotalMoney,		
+		+ Detail.SuperSetCost + Detail.ProcessCost * Detail.ProductAmount + Detail.TemplateFree)		Detail_TotalMoney,		
 		
 		BillMain.BizDate			BillMain_BizDate,
 		BillMain.BillNumber			BillMain_BillNumber,		
@@ -232,7 +235,8 @@
 		Sum(Detail.ProcessCost * ProductAmount)				Detail_TotalProcessCost,
 		Sum(Detail.SuperSetCost)							Detail_SuperSetCost,
 		Sum(Detail.ConsumeWeight * BillMain.goldPrice)		Detail_GoldMoney,
-		Sum(Detail.SecWeight * Detail.SecPrice)				Detail_SecMaterMoney			
+		Sum(Detail.SecWeight * Detail.SecPrice)				Detail_SecMaterMoney,
+		Sum(Detail.TemplateFree)							Detail_TemplateFree			
 				
 		FROM MaterialOutDetail Detail	
 		Left Join MaterialOut As BillMain on Detail.billId=BillMain.id
@@ -339,7 +343,8 @@
 		SecMaterial.Name		SecMaterial_SecMaterName,
 		Detail.SecAmount		Detail_SecAmount,
 		Detail.SecWeight		Detail_SecWeight,
-		Detail.SecPrice			Detail_SecPrice		
+		Detail.SecPrice			Detail_SecPrice,
+		Detail.TemplateFree		Deatil_TemplateFree		
 		FROM MaterialOutDetail Detail
 		LEFT JOIN Product Product ON Detail.ProductNameId = Product.Id
 		LEFT JOIN ProductStyle Style ON Detail.StyleNameId = Style.Id
@@ -407,7 +412,8 @@
 		SecMaterId,
 		SecAmount,
 		SecWeight,
-		SecPrice
+		SecPrice,
+		TemplateFree
 		) 
 		values(
 		#{number},
@@ -431,7 +437,8 @@
 		#{secMaterId},
 		#{secAmount},
 		#{secWeight},
-		#{secPrice}
+		#{secPrice},
+		#{templateFree}
 		);
 	</insert>
 </mapper>

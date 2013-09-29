@@ -172,7 +172,8 @@
 					<td>副石粒数</td>
 					<td>副石重量</td>
 					<td>副石单价/元</td>	
-					<td>副石额</td>	
+					<td>副石额</td>
+					<td>版费</td>	
 					<td>金额小计</td>			
 					<td style= "word-break:keep-all">操作</td>
 				</tr>
@@ -213,7 +214,8 @@
 						<td>${detail.secAmount}</td>						
 						<td align="right"><fmt:formatNumber value="${detail.secWeight}" pattern="#,##0.000"/></td>						
 						<td align="right"><fmt:formatNumber value="${detail.secPrice}" pattern="#,##0"/></td>						
-						<td align="right"><fmt:formatNumber value="${detail.secMaterMoney}" pattern="#,##0"/></td>						
+						<td align="right"><fmt:formatNumber value="${detail.secMaterMoney}" pattern="#,##0"/></td>
+						<td align="right"><fmt:formatNumber value="${detail.templateFree}" pattern="#,##0"/></td>						
 						<td align="right"><fmt:formatNumber value="${detail.totalMoney}" pattern="#,##0"/></td>
 						<td style= "word-break:keep-all;width:200px">					
 							<c:if test="${detail.materialOut.billStatus.number=='0'}">								

@@ -128,7 +128,17 @@ public class MaterialOutDetail {
 	
 	private String groupName;
 	
+	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
+	@NumberFormat(style=Style.NUMBER, pattern="#,##0")
+	private BigDecimal templateFree;
 	
+	
+	public BigDecimal getTemplateFree() {
+		return templateFree;
+	}
+	public void setTemplateFree(BigDecimal templateFree) {
+		this.templateFree = templateFree;
+	}
 	public String getGroupName() {
 		return groupName;
 	}

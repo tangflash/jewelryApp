@@ -121,6 +121,7 @@ create table if not exists materialOutDetail (
 	SecWeight Decimal(18,4) not null,	/*副石重量*/
 	SecPrice Decimal(18,4) not null,	/*副石单价/元*/
 	Loss Decimal(18,4) Not null Default 0, /*损耗*/	
+	TemplateFree Decimal(18,4) Not null Default 0, /*版费*/
 	FOREIGN KEY Fk_materialOutDetail_BillId (BillId) 
 	REFERENCES materialOut (Id) ON DELETE CASCADE ON UPDATE CASCADE
 ) engine=InnoDB CHARSET=UTF8;
@@ -164,7 +165,7 @@ create table if not exists materialInventory (
 	Sort int(4) not null default 0,
 	BalanceAmount int not null,	/*结存数量*/
 	BalanceWeight Decimal(18,4) not null, /*结存重量*/
-	constraint IX_Inventory_MaterId unique (MaterId)
+	constraint IX_Inventory_MaterId unique (ClientId,MaterId)
 ) engine=InnoDB CHARSET=UTF8;
 
 set @s = (SELECT IF(
@@ -279,6 +280,36 @@ set @s = (SELECT IF(
     ) > 0,
     "SELECT 1",
     "ALTER TABLE materialOutDetail ADD Number int Not null Default 0"
+));
+
+PREPARE stmt FROM @s;
+EXECUTE stmt;
+
+/*增加索引   IX_Inventory_MaterId*/
+set @s = (SELECT IF(
+    (SELECT COUNT(*)
+        FROM INFORMATION_SCHEMA.statistics
+        WHERE table_name = 'materialInventory'
+        AND index_schema = DATABASE()
+        AND index_name = 'IX_Inventory_MaterId'
+    ) > 0,
+    "SELECT 1",
+    "CREATE UNIQUE INDEX IX_Inventory_MaterId ON materialInventory(clientId,materId)"
+));
+
+PREPARE stmt FROM @s;
+EXECUTE stmt;
+
+/*增加字段  TemplateFree_版费*/
+set @s = (SELECT IF(
+    (SELECT COUNT(*)
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE table_name = 'materialOutDetail'
+        AND table_schema = DATABASE()
+        AND column_name = 'TemplateFree'
+    ) > 0,
+    "SELECT 1",
+    "ALTER TABLE materialOutDetail ADD TemplateFree Decimal(18,4) Not null Default 0"
 ));
 
 PREPARE stmt FROM @s;

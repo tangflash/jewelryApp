@@ -223,6 +223,7 @@ public class BalanceBillController {
 			feeInforMap.put("GoldMoney", "");
 			feeInforMap.put("SecMaterMoney", "");
 			feeInforMap.put("AddProcessCost", "");
+			feeInforMap.put("TemplateFree", "");
 			feeInforMap.put("Total", "0");
 		}
 		
@@ -264,7 +265,13 @@ public class BalanceBillController {
 			feeString = StringUtil.makeAddedStr(String.format("%.0f", materialOutDetail.getAddProcessCost()), feeStrLen, null);
 			itemName = StringUtil.makeAddedStr(String.format("%s附加工费", materialOutDetail.getMaterialOut().getGoldTypeName()), -feeStrLen, addedStr);
 			feeInforMap.put("AddProcessCost", String.format("%s  %s", 
-					feeInforMap.get("AddProcessCost"), itemName) + feeString);			
+					feeInforMap.get("AddProcessCost"), itemName) + feeString);
+			
+			feeTotal = feeTotal.add(materialOutDetail.getTemplateFree());
+			feeString = StringUtil.makeAddedStr(String.format("%.0f", materialOutDetail.getTemplateFree()), feeStrLen, null);
+			itemName = StringUtil.makeAddedStr(String.format("%s版费", materialOutDetail.getMaterialOut().getGoldTypeName()), -feeStrLen, addedStr);
+			feeInforMap.put("TemplateFree", String.format("%s  %s", 
+					feeInforMap.get("TemplateFree"), itemName) + feeString);
 			
 		}
 		String feeTotalStr = feeInforMap.get("Total");
@@ -363,6 +370,7 @@ public class BalanceBillController {
 		totalMaterialOutDetail.setSecMaterMoney(new BigDecimal(0));
 		totalMaterialOutDetail.setTotalMoney(new BigDecimal(0));
 		totalMaterialOutDetail.setTotalProcessCost(new BigDecimal(0));
+		totalMaterialOutDetail.setTemplateFree(new BigDecimal(0));
 		//totalMaterialOutDetail.getMaterialOut().setBillNumber("合计");
 		totalMaterialOutDetail.setGroupName("合计:");
 		
@@ -390,6 +398,7 @@ public class BalanceBillController {
 					materialOutDetail.getTotalProcessCost().add(totalMaterialOutDetail.getTotalProcessCost()));
 			totalMaterialOutDetail.setTotalMoney(					
 					materialOutDetail.getTotalMoney().add(totalMaterialOutDetail.getTotalMoney()));
+			totalMaterialOutDetail.setTemplateFree(materialOutDetail.getTemplateFree().add(totalMaterialOutDetail.getTemplateFree()));
 			
 		}
 		list.add(totalMaterialOutDetail);

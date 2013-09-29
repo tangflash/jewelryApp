@@ -47,6 +47,9 @@
 		<if test="materNum != null">
     		And Material.Number = #{materNum}
   		</if>
+  		<if test="clientId != 0">
+    		And MaterialInventory.ClientId = #{clientId}
+  		</if>
 	</select>	
 	<select id="selectMaterialInventoryByMaterId" parameterType="long" resultMap="materialInventoryMap">
 		SELECT
