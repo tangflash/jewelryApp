@@ -86,6 +86,8 @@ create table if not exists materialOut (
 	Id BigInt(12) not null auto_increment PRIMARY KEY,
 	BillNumber VarChar(32) not null, /*出货单号*/
 	BizDate DateTime not null,	/*出货日期*/
+	OrderDate DateTime null,   /*下单日期*/
+	PlanFinishDate DateTime null, /*计划完成日期*/
 	ClientId  BigInt(12) not null default 0,	/*客户Id*/
 	GoldPrice Decimal(18,6) not null default 0,	/*金价*/
 	GoldTypeId  BigInt(12) not null default 0,	/*金成色Id*/	
@@ -122,6 +124,7 @@ create table if not exists materialOutDetail (
 	SecPrice Decimal(18,4) not null,	/*副石单价/元*/
 	Loss Decimal(18,4) Not null Default 0, /*损耗*/	
 	TemplateFree Decimal(18,4) Not null Default 0, /*版费*/
+	Remark	VarChar(1024) null,  /*备注*/
 	FOREIGN KEY Fk_materialOutDetail_BillId (BillId) 
 	REFERENCES materialOut (Id) ON DELETE CASCADE ON UPDATE CASCADE
 ) engine=InnoDB CHARSET=UTF8;
@@ -312,5 +315,48 @@ set @s = (SELECT IF(
     "ALTER TABLE materialOutDetail ADD TemplateFree Decimal(18,4) Not null Default 0"
 ));
 
+PREPARE stmt FROM @s;
+EXECUTE stmt;
+
+
+/*增加字段  OrderDate_下单日期*/
+set @s = (SELECT IF(
+    (SELECT COUNT(*)
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE table_name = 'materialOut'
+        AND table_schema = DATABASE()
+        AND column_name = 'OrderDate'
+    ) > 0,
+    "SELECT 1",
+    "ALTER TABLE materialOut ADD OrderDate DateTime null"
+));
+PREPARE stmt FROM @s;
+EXECUTE stmt;
+
+/*增加字段  PlanFinishDate_计划完成日期*/
+set @s = (SELECT IF(
+    (SELECT COUNT(*)
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE table_name = 'materialOut'
+        AND table_schema = DATABASE()
+        AND column_name = 'PlanFinishDate'
+    ) > 0,
+    "SELECT 1",
+    "ALTER TABLE materialOut ADD PlanFinishDate DateTime null"
+));
+PREPARE stmt FROM @s;
+EXECUTE stmt;
+
+/*增加字段  Remark_备注*/
+set @s = (SELECT IF(
+    (SELECT COUNT(*)
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE table_name = 'materialOutDetail'
+        AND table_schema = DATABASE()
+        AND column_name = 'Remark'
+    ) > 0,
+    "SELECT 1",
+    "ALTER TABLE materialOutDetail ADD Remark VarChar(1024) null"
+));
 PREPARE stmt FROM @s;
 EXECUTE stmt;

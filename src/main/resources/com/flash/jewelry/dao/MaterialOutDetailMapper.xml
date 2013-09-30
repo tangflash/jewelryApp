@@ -32,7 +32,8 @@
 		<result column="Detail_SecWeight" property="secWeight" />
 		<result column="Detail_SecPrice" property="secPrice" />	
 		<result column="Detail_Loss" property="loss" />
-		<result column="Detail_TemplateFree" property="templateFree" />				
+		<result column="Detail_TemplateFree" property="templateFree" />	
+		<result column="Detail_Remark" property="remark" />			
 	</resultMap>
 	
 	<resultMap type="com.flash.jewelry.model.MaterialOutDetail" id="materialOutQueryMap">
@@ -83,7 +84,8 @@
 		<result column="BaseData_BillStatusNumber" property="materialOut.billStatus.number" />
 		<result column="BillMain_CreateTime" property="materialOut.createTime" />
 		<result column="BillMain_BizDate" property="materialOut.bizDate" />
-		<result column="Detail_TemplateFree" property="templateFree" />		
+		<result column="Detail_TemplateFree" property="templateFree" />	
+		<result column="Detail_Remark" property="remark" />	
 	</resultMap>
 	
 	<select id="findMateriallOut" parameterType="com.flash.jewelry.model.MaterialInQueryParam" resultMap="materialOutQueryMap">
@@ -118,6 +120,7 @@
 		Detail.SecWeight		Detail_SecWeight,
 		Detail.SecPrice			Detail_SecPrice,
 		Detail.TemplateFree		Detail_TemplateFree,
+		Detail.Remark			Detail_Remark,
 		Detail.SecWeight * Detail.SecPrice						Detail_SecMaterMoney,
 		Detail.ConsumeWeight * BillMain.goldPrice + Detail.ProcessCost * Detail.ProductAmount + Detail.AddProcessCost
 		+ Detail.SuperSetCost + Detail.FactoryAddMoney + Detail.SecWeight * Detail.SecPrice + Detail.TemplateFree  Detail_TotalMoney,
@@ -153,6 +156,12 @@
   		</if>
   		<if test="bizEndDate != null">
     		And BillMain.BizDate &lt;=#{bizEndDate}
+  		</if>
+  		<if test="orderBeginDate != null">
+    		And BillMain.orderDate>=#{orderBeginDate}
+  		</if>
+  		<if test="orderEndDate != null">
+    		And BillMain.orderDate &lt;=#{orderEndDate}
   		</if>
   		Order By BillMain.BizDate desc,BillMain.BillNumber, Detail.Number
 	</select>
@@ -344,7 +353,8 @@
 		Detail.SecAmount		Detail_SecAmount,
 		Detail.SecWeight		Detail_SecWeight,
 		Detail.SecPrice			Detail_SecPrice,
-		Detail.TemplateFree		Detail_TemplateFree		
+		Detail.TemplateFree		Detail_TemplateFree,
+		Detail.Remark			Detail_Remark	
 		FROM MaterialOutDetail Detail
 		LEFT JOIN Product Product ON Detail.ProductNameId = Product.Id
 		LEFT JOIN ProductStyle Style ON Detail.StyleNameId = Style.Id

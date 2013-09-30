@@ -189,7 +189,7 @@ public class MaterialOutController {
 		
 		if (StringUtil.isEmpty(materialOut.getMaterialOutDetail().getMaterName())
 			&& StringUtil.isEmpty(materialOut.getMaterialOutDetail().getSecMaterName())){
-			modelAndView.addObject("errorMessage", "主石号和副石号不能都为为空!");
+			modelAndView.addObject("errorMessage", "主石号和副石号不能都为空!");
 			return modelAndView;
 		}
 		

@@ -54,12 +54,12 @@ public class MaterialOutDetail {
 	@DecimalMin(value="0",message=StrConstant.MESSAGE_GREATER_ZERO)
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
 	@NumberFormat(style=Style.NUMBER, pattern="#,##0.00")
-	private BigDecimal productWeight;
+	private BigDecimal productWeight = new BigDecimal("0");
 	
 	@DecimalMin(value="0",message=StrConstant.MESSAGE_GREATER_ZERO)
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
 	@NumberFormat(style=Style.NUMBER, pattern="#,##0.00")
-	private BigDecimal goldWeight;
+	private BigDecimal goldWeight = new BigDecimal("0");
 	
 	@NumberFormat(style=Style.NUMBER, pattern="#,##0")
 	private BigDecimal goldMoney;
@@ -67,12 +67,12 @@ public class MaterialOutDetail {
 	@DecimalMin(value="0",message=StrConstant.MESSAGE_GREATER_ZERO)
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
 	@NumberFormat(style=Style.NUMBER, pattern="#,##0.00")
-	private BigDecimal consumeWeight;
+	private BigDecimal consumeWeight = new BigDecimal("0");
 	
 	@DecimalMin(value="0",message=StrConstant.MESSAGE_GREATER_ZERO)
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
 	@NumberFormat(style=Style.NUMBER, pattern="#,##0")
-	private BigDecimal processCost; 
+	private BigDecimal processCost = new BigDecimal("0");
 	
 	@NumberFormat(style=Style.NUMBER, pattern="#,##0")
 	private BigDecimal totalProcessCost; 
@@ -80,16 +80,16 @@ public class MaterialOutDetail {
 	@DecimalMin(value="0",message=StrConstant.MESSAGE_GREATER_ZERO)
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
 	@NumberFormat(style=Style.NUMBER, pattern="#,##0")
-	private BigDecimal addProcessCost;
+	private BigDecimal addProcessCost = new BigDecimal("0");
 	
 	@DecimalMin(value="0",message=StrConstant.MESSAGE_GREATER_ZERO)
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
 	@NumberFormat(style=Style.NUMBER, pattern="#,##0")
-	private BigDecimal superSetCost;
+	private BigDecimal superSetCost = new BigDecimal("0");
 	
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
 	@NumberFormat(style=Style.NUMBER, pattern="#,##0")
-	private BigDecimal factoryAddMoney;
+	private BigDecimal factoryAddMoney = new BigDecimal("0");
 	
 	private long secMaterId;
 	
@@ -105,7 +105,7 @@ public class MaterialOutDetail {
 	@DecimalMin(value="0",message=StrConstant.MESSAGE_GREATER_ZERO)
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
 	@NumberFormat(style=Style.NUMBER, pattern="#,##0")
-	private BigDecimal secPrice;
+	private BigDecimal secPrice = new BigDecimal("0");
 	
 	@NumberFormat(style=Style.NUMBER, pattern="#,##0")
 	private BigDecimal secMaterMoney;
@@ -124,15 +124,22 @@ public class MaterialOutDetail {
 	@DecimalMax(value="100",message=StrConstant.MESSAGE_LESS_THAN_HUNDRED)
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
 	@NumberFormat(style=Style.NUMBER, pattern="#,##0")
-	private BigDecimal loss;
+	private BigDecimal loss = new BigDecimal("0");
 	
 	private String groupName;
 	
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
 	@NumberFormat(style=Style.NUMBER, pattern="#,##0")
-	private BigDecimal templateFree;
+	private BigDecimal templateFree = new BigDecimal("0");
 	
+	private String remark;	
 	
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 	public BigDecimal getTemplateFree() {
 		return templateFree;
 	}

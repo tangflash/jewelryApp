@@ -8,12 +8,19 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class MaterialInQueryParam {
 	private String billNumber;
-	@DateTimeFormat(pattern="yyyy-MM-dd")
-	@Past
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd")	
 	private Date bizBeginDate;
-	@DateTimeFormat(pattern="yyyy-MM-dd")
-	@Past
+	@DateTimeFormat(pattern="yyyy-MM-dd")	
 	private Date bizEndDate;
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd")	
+	private Date orderBeginDate;
+	
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd")	
+	private Date orderEndDate;
+	
 	private String exportFormat;
 	
 	private int billStatus;
@@ -63,4 +70,18 @@ public class MaterialInQueryParam {
 	public void setExportFormat(String exportFormat) {
 		this.exportFormat = exportFormat;
 	}
+	
+	public Date getOrderBeginDate() {
+		return orderBeginDate;
+	}
+	public void setOrderBeginDate(Date orderBeginDate) {
+		this.orderBeginDate = orderBeginDate;
+	}
+	public Date getOrderEndDate() {
+		return orderEndDate;
+	}
+	public void setOrderEndDate(Date orderEndDate) {
+		this.orderEndDate = orderEndDate;
+	}
+	
 }

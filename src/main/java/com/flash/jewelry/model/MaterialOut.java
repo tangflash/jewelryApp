@@ -25,9 +25,15 @@ public class MaterialOut implements Serializable {
 	@NotEmpty(message="不能为空"	)
 	private String billNumber;
 	
+	@DateTimeFormat(pattern="yyyy-MM-dd")	
+	private Date bizDate = new Date();
+	
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	@Past	
-	private Date bizDate = null;
+	private Date orderDate;
+	
+
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date planFinishDate;
 	
 	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")	
 	private Date createTime = new Date();
@@ -59,6 +65,22 @@ public class MaterialOut implements Serializable {
 		billStatus = new BillStatus();
 		billStatus.setNumber("0");
 		billStatus.setName("未提交");
+	}
+	
+	public Date getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
+	}
+
+	public Date getPlanFinishDate() {
+		return planFinishDate;
+	}
+
+	public void setPlanFinishDate(Date planFinishDate) {
+		this.planFinishDate = planFinishDate;
 	}
 	
 	public BillStatus getBillStatus() {
