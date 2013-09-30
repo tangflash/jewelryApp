@@ -6,7 +6,7 @@
 	
 	<resultMap type="com.flash.jewelry.model.MaterialOutDetail" id="materialOutDetailMap">
 		<id column="Detail_Id" property="id" />		
-		<result column="Detail_Number" property="Number" />
+		<result column="Detail_Number" property="number" />
 		<result column="Detail_BillId" property="billId" />
 		<result column="Detail_Sort" property="sort" />
 		<result column="Detail_ProductNameId" property="productNameId" />
@@ -344,7 +344,7 @@
 		Detail.SecAmount		Detail_SecAmount,
 		Detail.SecWeight		Detail_SecWeight,
 		Detail.SecPrice			Detail_SecPrice,
-		Detail.TemplateFree		Deatil_TemplateFree		
+		Detail.TemplateFree		Detail_TemplateFree		
 		FROM MaterialOutDetail Detail
 		LEFT JOIN Product Product ON Detail.ProductNameId = Product.Id
 		LEFT JOIN ProductStyle Style ON Detail.StyleNameId = Style.Id
@@ -360,6 +360,7 @@
 	</select>
 	<update id="updateMaterialOutDetail" parameterType="com.flash.jewelry.model.MaterialOutDetail">
 		update MaterialOutDetail set
+		number=#{number},
 		billId=#{billId},	
 		sort=#{sort},
 		productNameId=#{productNameId},
@@ -380,7 +381,8 @@
 		secMaterId=#{secMaterId},
 		secAmount=#{secAmount},
 		secWeight=#{secWeight},
-		secPrice=#{secPrice}						
+		secPrice=#{secPrice},
+		templateFree=#{templateFree}						
 		where
 		id = #{id};
 	</update>
