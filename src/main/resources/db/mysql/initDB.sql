@@ -129,6 +129,37 @@ create table if not exists materialOutDetail (
 	REFERENCES materialOut (Id) ON DELETE CASCADE ON UPDATE CASCADE
 ) engine=InnoDB CHARSET=UTF8;
 
+/*收发表*/
+create table if not exists SendReceive(
+	Id BigInt(12) not null auto_increment PRIMARY KEY,
+	BillId BigInt(12) not null,						/*出货单Id*/
+	DepartmentId BigInt(12) not null default 0,		/*部门  1.执模   2.镶石   3.执边   4.抛光 */
+	SendDate DateTime null,							/*发出日期*/
+	SendAmount int not null default 0,				/*发货件数*/
+	SendWeight Decimal(18,4) not null default 0,	/*发出重量*/	
+	SendSignInId BigInt(12) not null default 0,		/*发出签收人Id*/
+	ScrapAmount int not null default 0,				/*报废件数*/
+	ScrapWeight Decimal(18,4) not null default 0,	/*报废重量*/	
+	QCId	BigInt(12) not null default 0,			/*质检人Id*/
+	ReceiveDate DateTime null,						/*收回日期*/				
+	ReceiveAmount int not null default 0,			/*收回件数*/
+	ReceiveWeight Decimal(18,4) not null default 0,	/*收回重量*/
+	ReceiveSignId int not null default 0,			/*收回签收*/
+	Remark VarChar(1024) null,						/*备注*/				
+	FOREIGN KEY Fk_SendReceive_BillId (BillId) 
+	REFERENCES materialOut (Id) ON DELETE CASCADE ON UPDATE CASCADE
+) engine=InnoDB CHARSET=UTF8;
+
+/*人员表*/
+create table if not exists Person (
+	Id BigInt(12) not null auto_increment PRIMARY KEY,
+	Number VarChar(32) not null,	/*工号*/
+	Name VarChar(128) not null,		/*姓名*/
+    Address VarChar(128) null,		/*地址*/
+	Tel VarChar(128) null,			/*联系电话*/
+	Remark VarChar(256) null		/*备注*/	
+) engine=InnoDB CHARSET=UTF8;
+
 /*结算单据头*/
 create table if not exists balanceBill (
 	Id BigInt(12) not null auto_increment PRIMARY KEY,

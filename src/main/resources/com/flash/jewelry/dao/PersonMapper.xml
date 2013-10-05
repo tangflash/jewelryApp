@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flash.jewelry.dao.PersonMapper">
+	
+	<resultMap type="com.flash.jewelry.model.Person" id="personMap">
+		<id column="id" property="id" />
+		<result column="number" property="number" />
+		<result column="name" property="name" />	
+		<result column="address" property="address" />
+		<result column="tel" property="tel" />	
+		<result column="remark" property="remark" />
+	</resultMap>
+	<select id="selectPerson" parameterType="int" resultMap="personMap">
+		SELECT
+		id,
+		number,
+		name,
+		address,
+		tel,
+		remark
+		FROM Person	
+	</select>
+	<select id="selectPersonByNumber" parameterType="String" resultMap="personMap">
+		SELECT
+		id,
+		number,
+		name,
+		address,
+		tel,
+		remark
+		FROM Person
+		WHERE number=#{number}
+		LIMIT 1	
+	</select>
+	<select id="getPersonByNumOrName" parameterType="String" resultMap="personMap">
+		SELECT
+		id,
+		number,
+		name,
+		address,
+		tel,
+		remark
+		FROM Person
+		WHERE number=#{personName} Or name=#{personName}
+		LIMIT 1	
+	</select>
+	<select id="selectPersonById" parameterType="int" resultMap="personMap">
+		SELECT
+		id,
+		number,
+		name,
+		address,
+		tel,
+		remark
+		FROM Person
+		WHERE id=#{id}		
+	</select>
+	<select id="repeatRowByNumber" parameterType="com.flash.jewelry.model.Person" resultType="int">
+		SELECT
+		Count(1)
+		FROM Person
+		WHERE id!=#{id} And number=#{number}		
+	</select>	
+	<update id="updatePerson" parameterType="com.flash.jewelry.model.Person">
+		update Person set
+		number =
+		#{number},
+		name = #{name},
+		address=#{address},
+		tel=#{tel},
+		remark = #{remark}				
+		where
+		id = #{id};
+	</update>
+	<delete id="deletePerson" parameterType="int">
+		delete from Person where
+		id = #{id};
+	</delete>
+	<insert id="insertPerson" parameterType="com.flash.jewelry.model.Person"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into Person(
+		number,
+		name,
+		address,
+		tel,
+		remark) 
+		values(
+		#{number},
+		#{name}, 
+		#{address},
+		#{tel},
+		#{remark}
+		);
+	</insert>
+</mapper>

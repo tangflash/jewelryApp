@@ -142,6 +142,8 @@ iframe {
 			<h3>基础数据录入</h3>
 			<div>				
 				<ul>
+					<li><a class="openLinkMenu" href="<c:url value="/personEdit/showAddPage"/>">员工信息录入</a></li>
+					<li><a class="openLinkMenu" href="<c:url value="/personList/showListPage"/>">员工信息查询</a></li>
 					<li><a class="openLinkMenu" href="<c:url value="/clientEdit/showAddPage"/>">客户信息录入</a></li>
 					<li><a class="openLinkMenu" href="<c:url value="/clientList/showListPage"/>">客户信息查询</a></li>
 					<li><a class="openLinkMenu" href="<c:url value="/materalInfInput/showAddPage"/>">钻石信息录入</a></li>

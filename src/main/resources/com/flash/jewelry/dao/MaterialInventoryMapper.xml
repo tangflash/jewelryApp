@@ -86,7 +86,8 @@
 		select ClientId,MaterId,0,0,0,0,0 from MaterialInDetail Left Join MaterialIn On  
 		MaterialInDetail.billId=MaterialIn.id where MaterialIn.id=#{billId} and 
 		not exists(select 1 from MaterialInventory where MaterialInventory.materId=MaterialInDetail.materId
-		And MaterialInventory.ClientId=MaterialIn.ClientId);
+		And MaterialInventory.ClientId=MaterialIn.ClientId)
+		Group By MaterId,ClientId;
 	</update>
 	<update id="submitMaterialIn" parameterType="long">			
 		update MaterialInventory set InAmount = InAmount + 
@@ -115,7 +116,8 @@
 		select MaterId,ClientId,0,0,0,0,0 from MaterialOutDetail Left Join MaterialOut On  MaterialOutDetail.billId
 		=MaterialOut.id where MaterialOut.id=#{billId} and MaterialOutDetail.MaterId > 0 and
 		not exists(select 1 from MaterialInventory where MaterialInventory.materId=MaterialOutDetail.materId and 
-		MaterialInventory.ClientId=MaterialOut.ClientId);	
+		MaterialInventory.ClientId=MaterialOut.ClientId)
+		Group By MaterId,ClientId;	
 	</update>
 	<update id="submitMaterialOut" parameterType="long">
 		update MaterialInventory set

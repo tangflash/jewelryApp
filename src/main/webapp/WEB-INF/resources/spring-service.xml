@@ -40,6 +40,9 @@
 	<bean id="clientService" class="com.flash.jewelry.serviceImpl.ClientManager">		
 	</bean>
 	
+	<bean id="personService" class="com.flash.jewelry.serviceImpl.PersonManager">		
+	</bean>
+	
 	<bean id="productService" class="com.flash.jewelry.serviceImpl.ProductManager">		
 	</bean>
 	
