@@ -34,7 +34,7 @@
 	</columnHeader>
 	<detail>
 		<band height="20" splitType="Stretch">
-			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00" isBlankWhenNull="true">
 				<reportElement uuid="3f2e883f-02a6-4b5c-9dc1-7a948909c277" x="-7" y="0" width="516" height="20"/>
 				<box>
 					<pen lineWidth="0.5" lineStyle="Solid"/>

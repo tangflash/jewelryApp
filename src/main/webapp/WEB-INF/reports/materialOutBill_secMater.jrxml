@@ -127,7 +127,7 @@
 	</columnHeader>
 	<detail>
 		<band height="20" splitType="Stretch">
-			<textField pattern="###0.000;-###0.000" isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" pattern="###0.000;-###0.000" isBlankWhenNull="true">
 				<reportElement uuid="eeacfb1f-fb17-466f-a615-d0a19a4114c6" x="121" y="0" width="47" height="20"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -141,7 +141,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{secWeight}]]></textFieldExpression>
 			</textField>
-			<textField pattern="###0;-###0" isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" pattern="###0;-###0" isBlankWhenNull="true">
 				<reportElement uuid="eeacfb1f-fb17-466f-a615-d0a19a4114c6" x="168" y="0" width="51" height="20"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -155,7 +155,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{secMaterMoney}]]></textFieldExpression>
 			</textField>
-			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00" isBlankWhenNull="true">
 				<reportElement uuid="703702e9-1151-49a5-a13f-7779713dd917" x="-13" y="0" width="60" height="20"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -169,7 +169,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{materialOut}.getGoldTypeName()]]></textFieldExpression>
 			</textField>
-			<textField pattern="###0;-###0" isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" pattern="###0;-###0" isBlankWhenNull="true">
 				<reportElement uuid="3f2e883f-02a6-4b5c-9dc1-7a948909c277" x="47" y="0" width="44" height="20"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -183,7 +183,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{secPrice}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="525e831a-1858-473e-9e32-205a1b001128" x="91" y="0" width="30" height="20"/>
 				<box>
 					<pen lineWidth="0.5"/>
