@@ -40,7 +40,7 @@
 <script type="text/javascript">
 	function totalCol() {
 		var tableName='#materialInListTable';
-		var source1 = 0, source2 = 0;
+		var source1 = 0, source2 = 0.0;
 		$('tr:gt(0)', tableName).each(
 				function(i) {
 					if ($(this).attr('total') != $('tr:last', tableName).attr(
@@ -85,7 +85,7 @@
 			return false;			
 		});
 
-		totalCol();
+		//totalCol();
 
 	});
 	//flag = true;
@@ -151,8 +151,8 @@
 								pattern="yyyy-MM-dd" /></td>
 						<td>${materialIn.billStatus.name}</td>
 						<td>${materialIn.materialInDetail.materNum}</td>
-						<td>${materialIn.materialInDetail.amount}</td>
-						<td>${materialIn.materialInDetail.weight}</td>
+						<td>${materialIn.materialInDetail.amount}</td>						
+						<td align="right"><fmt:formatNumber value="${materialIn.materialInDetail.weight}" pattern="#,##0.000"/></td>	
 						<td width="150"><c:if test="${materialIn.billStatus.number=='0'}">
 								<a class="submitLinkClass"
 									href="<c:url value="doDelBillDetail?id=${materialIn.materialInDetail.id}"/>">删除明细</a>								
@@ -165,7 +165,7 @@
 							</c:if></td>
 					</tr>
 				</c:forEach>
-				<tr total='aa'>
+				<!-- <tr total='aa'>
 					<td>合计</td>
 					<td></td>
 					<td></td>
@@ -174,7 +174,7 @@
 					<td>0</td>
 					<td>0</td>
 					<td></td>
-				</tr>
+				</tr> -->
 			</tbody>
 		</table>
 	</div>

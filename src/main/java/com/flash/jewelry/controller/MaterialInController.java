@@ -1,5 +1,6 @@
 package com.flash.jewelry.controller;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 
@@ -92,13 +93,28 @@ public class MaterialInController {
 			return modelAndView;
 		}
 		
-		Collection<MaterialIn> list = materialInService.findMateriallIn(queryParam);		
+		Collection<MaterialIn> list = materialInService.findMateriallIn(queryParam);	
+		totalMaterialIn(list);
 		modelAndView.addObject("queryParam", queryParam);
 		modelAndView.addObject("list", list);
 		return modelAndView;
 	}	
 	
-	
+	private void totalMaterialIn(Collection<MaterialIn> list){
+		MaterialIn totalMaterialIn = new MaterialIn();
+		totalMaterialIn.setBillNumber("ºÏ¼Æ");
+		MaterialInDetail totalMaterialInDetail = new MaterialInDetail();
+		totalMaterialInDetail.setAmount(0);
+		totalMaterialInDetail.setWeight(new BigDecimal("0"));
+		totalMaterialIn.setMaterialInDetail(totalMaterialInDetail);
+		
+		for (MaterialIn materialIn : list) {
+			totalMaterialInDetail.setAmount(totalMaterialInDetail.getAmount() + materialIn.getMaterialInDetail().getAmount());
+			totalMaterialInDetail.setWeight(totalMaterialInDetail.getWeight().add(materialIn.getMaterialInDetail().getWeight()));
+		}
+		
+		list.add(totalMaterialIn);
+	}
 	
 
 	@RequestMapping(value = "/doSaveBillHead", method = RequestMethod.POST)

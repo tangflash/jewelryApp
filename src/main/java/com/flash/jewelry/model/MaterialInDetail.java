@@ -7,6 +7,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 public class MaterialInDetail implements Serializable {
 	
@@ -19,6 +21,7 @@ public class MaterialInDetail implements Serializable {
 	@Min(value=1,message="必须大于0!")
 	private int amount;
 	@NotNull(message="不能为空!")
+	@NumberFormat(style=Style.NUMBER, pattern="#,##0.000")
 	private BigDecimal weight;
 	@NotEmpty(message="不能为空!")
 	private String materNum;
