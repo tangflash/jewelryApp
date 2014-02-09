@@ -408,7 +408,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{consumeWeight}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="###0;-###0" isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00" isBlankWhenNull="true">
 				<reportElement uuid="a1d65999-1452-42b7-af95-fd03f3f0d27f" x="437" y="0" width="50" height="20"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -464,7 +464,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{superSetCost}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="###0;-###0" isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00" isBlankWhenNull="true">
 				<reportElement uuid="8e569f40-a771-4d0a-b813-979ad04f01f1" x="700" y="0" width="60" height="20"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -478,7 +478,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{totalMoney}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="###0;-###0" isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" pattern="###0.0;-###0.0" isBlankWhenNull="true">
 				<reportElement uuid="1393cc7c-7291-49de-be31-6be2fc85a8e6" x="417" y="0" width="20" height="20"/>
 				<box>
 					<pen lineWidth="0.5"/>

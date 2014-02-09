@@ -123,7 +123,7 @@ public class MaterialOutDetail {
 	@DecimalMin(value="0",message=StrConstant.MESSAGE_GREATER_ZERO)
 	@DecimalMax(value="100",message=StrConstant.MESSAGE_LESS_THAN_HUNDRED)
 	@NotNull(message=StrConstant.MESSAGE_NOT_EMPTY)
-	@NumberFormat(style=Style.NUMBER, pattern="#,##0")
+	@NumberFormat(style=Style.NUMBER, pattern="#,##0.0")
 	private BigDecimal loss = new BigDecimal("0");
 	
 	private String groupName;

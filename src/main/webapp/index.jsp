@@ -142,8 +142,8 @@ iframe {
 			<h3>基础数据录入</h3>
 			<div>				
 				<ul>
-					<li><a class="openLinkMenu" href="<c:url value="/personEdit/showAddPage"/>">员工信息录入</a></li>
-					<li><a class="openLinkMenu" href="<c:url value="/personList/showListPage"/>">员工信息查询</a></li>
+					<!-- <li><a class="openLinkMenu" href="<c:url value="/personEdit/showAddPage"/>">员工信息录入</a></li>
+					<li><a class="openLinkMenu" href="<c:url value="/personList/showListPage"/>">员工信息查询</a></li> -->
 					<li><a class="openLinkMenu" href="<c:url value="/clientEdit/showAddPage"/>">客户信息录入</a></li>
 					<li><a class="openLinkMenu" href="<c:url value="/clientList/showListPage"/>">客户信息查询</a></li>
 					<li><a class="openLinkMenu" href="<c:url value="/materalInfInput/showAddPage"/>">钻石信息录入</a></li>
@@ -162,8 +162,9 @@ iframe {
 				<ul>
 					<li><a class="openLinkMenu" href="<c:url value="/materialInBillEdit/showPage"/>">钻石入库</a></li>
 					<li><a class="openLinkMenu" href="<c:url value="/materialInBillList/showListPage"/>">钻石入库查询</a></li>
-					<li><a class="openLinkMenu" href="<c:url value="/orderBillEdit/showPage"/>">下单录入</a></li>
+					<!-- <li><a class="openLinkMenu" href="<c:url value="/orderBillEdit/showPage"/>">下单录入</a></li>
 					<li><a class="openLinkMenu" href="<c:url value="/orderBillList/showListPage"/>">下单查询</a></li>
+					<li><a class="openLinkMenu" href="<c:url value="/sendReceiveBillList/showListPage"/>">收发查询</a></li> -->
 					<li><a class="openLinkMenu" href="<c:url value="/materialOutBillEdit/showPage"/>">出货单</a></li>
 					<li><a class="openLinkMenu" href="<c:url value="/materialOutBillList/showListPage"/>">出货单查询</a></li>
 					<li><a class="openLinkMenu" href="<c:url value="/balanceBillEdit/showPage"/>">结算单生成</a></li>	

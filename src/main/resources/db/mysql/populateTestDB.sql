@@ -51,3 +51,36 @@ VALUES (2, 1, 2,10,100,0
 
 INSERT IGNORE INTO materialInventory(Id,ClientId,MaterId,InAmount,InWeight,OutAmount,OutWeight,Sort) 
 VALUES (1, 1, 1, 0,0,0,0,0);
+
+/*收发*/
+INSERT IGNORE INTO SendReceive(
+Id,BillId,DepartmentId,SendDate,SendAmount,
+SendWeight,SendSignInId,ScrapAmount,ScrapWeight,QCId
+,ReceiveDate,ReceiveAmount,ReceiveWeight,ReceiveSignId,Remark) 
+VALUES (1, 1, 1, '2013-11-06', 10,
+20.1, 1, 1, 1.1, 1
+, '2013-11-07', 10, 20.1, 1, '执模');
+
+INSERT IGNORE INTO SendReceive(
+Id,BillId,DepartmentId,SendDate,SendAmount,
+SendWeight,SendSignInId,ScrapAmount,ScrapWeight,QCId
+,ReceiveDate,ReceiveAmount,ReceiveWeight,ReceiveSignId,Remark) 
+VALUES (2, 1, 2, '2013-11-08', 10,
+20.1, 1, 1, 1.1, 1
+, '2013-11-09', 10, 20.1, 1, '镶石');
+
+INSERT IGNORE INTO SendReceive(
+Id,BillId,DepartmentId,SendDate,SendAmount,
+SendWeight,SendSignInId,ScrapAmount,ScrapWeight,QCId
+,ReceiveDate,ReceiveAmount,ReceiveWeight,ReceiveSignId,Remark) 
+VALUES (3, 1, 3, '2013-11-10', 10,
+20.1, 1, 1, 1.1, 1
+, '2013-11-11', 10, 20.1, 1, '执边');
+
+INSERT IGNORE INTO SendReceive(
+Id,BillId,DepartmentId,SendDate,SendAmount,
+SendWeight,SendSignInId,ScrapAmount,ScrapWeight,QCId
+,ReceiveDate,ReceiveAmount,ReceiveWeight,ReceiveSignId,Remark) 
+VALUES (4, 1, 4, '2013-11-12', 10,
+20.1, 1, 1, 1.1, 1
+, '2013-11-13', 10, 20.1, 1, '抛光');

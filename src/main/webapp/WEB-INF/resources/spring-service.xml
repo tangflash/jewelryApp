@@ -54,4 +54,7 @@
 	
 	<bean id="baseDataService" class="com.flash.jewelry.serviceImpl.BaseDataManager">		
 	</bean>
+	
+	<!-- <bean id="sendReceiveSerivce" class="com.flash.jewelry.serviceImpl.SendReceiveManager">		
+	</bean> -->
 </beans>

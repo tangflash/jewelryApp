@@ -170,14 +170,14 @@
 												
 						<td align="right"><fmt:formatNumber value="${detail.goldWeight}" pattern="#,##0.00"/></td>						
 						<td align="right"><fmt:formatNumber value="${detail.consumeWeight}" pattern="#,##0.00"/></td>						
-						<td align="right"><fmt:formatNumber value="${detail.goldMoney}" pattern="#,##0"/></td>						
-						<td align="right"><fmt:formatNumber value="${detail.loss}" pattern="#,##0"/></td>					
+						<td align="right"><fmt:formatNumber value="${detail.goldMoney}" pattern="#,##0.00"/></td>						
+						<td align="right"><fmt:formatNumber value="${detail.loss}" pattern="#,##0.0"/></td>					
 						<td align="right"><fmt:formatNumber value="${detail.addProcessCost}" pattern="#,##0"/></td>						
 						<td align="right"><fmt:formatNumber value="${detail.superSetCost}" pattern="#,##0"/></td>						
 						<td align="right"><fmt:formatNumber value="${detail.processCost}" pattern="#,##0"/></td>	
 						<td align="right"><fmt:formatNumber value="${detail.totalProcessCost}" pattern="#,##0"/></td>
 						<td align="right"><fmt:formatNumber value="${detail.templateFree}" pattern="#,##0"/></td>						
-						<td align="right"><fmt:formatNumber value="${detail.totalMoney}" pattern="#,##0"/></td>
+						<td align="right"><fmt:formatNumber value="${detail.totalMoney}" pattern="#,##0.00"/></td>
 								
 					</tr>
 				</c:forEach>

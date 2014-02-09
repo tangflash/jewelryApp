@@ -198,9 +198,9 @@
 						<td align="right"><fmt:formatNumber value="${detail.productWeight}" pattern="#,##0.00"/></td>
 												
 						<td align="right"><fmt:formatNumber value="${detail.goldWeight}" pattern="#,##0.00"/></td>	
-						<td align="right"><fmt:formatNumber value="${detail.loss}" pattern="#,##0"/></td>					
+						<td align="right"><fmt:formatNumber value="${detail.loss}" pattern="#,##0.0"/></td>					
 						<td align="right"><fmt:formatNumber value="${detail.consumeWeight}" pattern="#,##0.00"/></td>						
-						<td align="right"><fmt:formatNumber value="${detail.goldMoney}" pattern="#,##0"/></td>						
+						<td align="right"><fmt:formatNumber value="${detail.goldMoney}" pattern="#,##0.00"/></td>						
 						<td align="right"><fmt:formatNumber value="${detail.totalProcessCost}" pattern="#,##0"/></td>						
 						<td align="right"><fmt:formatNumber value="${detail.addProcessCost}" pattern="#,##0"/></td>						
 						<td align="right"><fmt:formatNumber value="${detail.superSetCost}" pattern="#,##0"/></td>
@@ -216,7 +216,7 @@
 						<td align="right"><fmt:formatNumber value="${detail.secPrice}" pattern="#,##0"/></td>						
 						<td align="right"><fmt:formatNumber value="${detail.secMaterMoney}" pattern="#,##0"/></td>
 						<td align="right"><fmt:formatNumber value="${detail.templateFree}" pattern="#,##0"/></td>						
-						<td align="right"><fmt:formatNumber value="${detail.totalMoney}" pattern="#,##0"/></td>
+						<td align="right"><fmt:formatNumber value="${detail.totalMoney}" pattern="#,##0.00"/></td>
 						<td style= "word-break:keep-all;width:200px">					
 							<c:if test="${detail.materialOut.billStatus.number=='0'}">								
 								<a class="submitLinkClass"

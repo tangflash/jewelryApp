@@ -163,7 +163,7 @@
 			return;
 
 		var goldMoney = parseFloat(consumeWeight) * parseFloat(goldPrice);
-		$("#input_goldMoney").val("" + goldMoney.toFixed(0)).trigger("change");
+		$("#input_goldMoney").val("" + goldMoney.toFixed(2)).trigger("change");
 	}
 
 	//计算副石金额
@@ -201,7 +201,7 @@
 		var totalMoney = parseFloat(goldMoney) + parseFloat(processCost) * parseFloat(productAmount)
 				+ parseFloat(addProcessCost) + parseFloat(superSetCost)
 				+ parseFloat(secMaterMoney);
-		$("#input_totalMoney").val("" + totalMoney.toFixed(0))
+		$("#input_totalMoney").val("" + totalMoney.toFixed(2))
 				.trigger("change");
 	}
 	

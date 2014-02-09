@@ -81,9 +81,11 @@
 		InWeight,
 		OutAmount,
 		OutWeight,	
-		Sort
+		Sort,
+		BalanceAmount,
+		BalanceWeight
 		)
-		select ClientId,MaterId,0,0,0,0,0 from MaterialInDetail Left Join MaterialIn On  
+		select ClientId,MaterId,0,0,0,0,0,0,0 from MaterialInDetail Left Join MaterialIn On  
 		MaterialInDetail.billId=MaterialIn.id where MaterialIn.id=#{billId} and 
 		not exists(select 1 from MaterialInventory where MaterialInventory.materId=MaterialInDetail.materId
 		And MaterialInventory.ClientId=MaterialIn.ClientId)
@@ -111,9 +113,11 @@
 		InWeight,
 		OutAmount,
 		OutWeight,	
-		Sort
+		Sort,
+		BalanceAmount,
+		BalanceWeight
 		)
-		select MaterId,ClientId,0,0,0,0,0 from MaterialOutDetail Left Join MaterialOut On  MaterialOutDetail.billId
+		select MaterId,ClientId,0,0,0,0,0,0,0 from MaterialOutDetail Left Join MaterialOut On  MaterialOutDetail.billId
 		=MaterialOut.id where MaterialOut.id=#{billId} and MaterialOutDetail.MaterId > 0 and
 		not exists(select 1 from MaterialInventory where MaterialInventory.materId=MaterialOutDetail.materId and 
 		MaterialInventory.ClientId=MaterialOut.ClientId)
@@ -167,7 +171,9 @@
 		InWeight,
 		OutAmount,
 		OutWeight,	
-		Sort
+		Sort,
+		BalanceAmount,
+		BalanceWeight
 		) 
 		values(
 		#{materId},
@@ -175,7 +181,9 @@
 		#{inWeight},
 		#{outAmount}, 
 		#{outWeight},
-		#{sort}
+		#{sort},
+		0,
+		0
 		);
 	</insert>
 	<update id="balanceInventory" parameterType="long">

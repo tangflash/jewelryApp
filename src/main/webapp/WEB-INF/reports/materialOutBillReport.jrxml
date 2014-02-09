@@ -235,27 +235,7 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band splitType="Stretch"/>
-	</pageHeader>
-	<columnHeader>
 		<band height="40" splitType="Stretch">
-			<staticText>
-				<reportElement uuid="1412d9b4-5a62-4e1c-9571-13cfc7a8d6d9" x="-9" y="0" width="23" height="40">
-					<property name="net.sf.jasperreports.export.pdf.tag.th" value="full"/>
-					<property name="net.sf.jasperreports.export.pdf.tag.tr" value="full"/>
-				</reportElement>
-				<box>
-					<pen lineWidth="0.5" lineStyle="Solid"/>
-					<topPen lineWidth="0.5" lineStyle="Solid"/>
-					<leftPen lineWidth="0.5" lineStyle="Solid"/>
-					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
-					<rightPen lineWidth="0.5" lineStyle="Solid"/>
-				</box>
-				<textElement>
-					<font fontName="宋体" size="11" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[序号]]></text>
-			</staticText>
 			<staticText>
 				<reportElement uuid="9c448c8b-8580-445d-89e2-cfab25446ce7" x="14" y="0" width="49" height="40">
 					<property name="net.sf.jasperreports.export.pdf.tag.th" value="full"/>
@@ -572,7 +552,27 @@
 重量
 ]]></text>
 			</staticText>
+			<staticText>
+				<reportElement uuid="1412d9b4-5a62-4e1c-9571-13cfc7a8d6d9" x="-9" y="0" width="23" height="40">
+					<property name="net.sf.jasperreports.export.pdf.tag.th" value="full"/>
+					<property name="net.sf.jasperreports.export.pdf.tag.tr" value="full"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="11" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[序号]]></text>
+			</staticText>
 		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
 		<band height="20" splitType="Stretch">
@@ -674,7 +674,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{consumeWeight}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="###0;-###0" isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00" isBlankWhenNull="true">
 				<reportElement uuid="a1d65999-1452-42b7-af95-fd03f3f0d27f" x="278" y="0" width="40" height="20"/>
 				<box>
 					<pen lineWidth="0.5" lineStyle="Solid"/>
@@ -842,7 +842,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{secMaterMoney}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="###0;-###0" isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00" isBlankWhenNull="true">
 				<reportElement uuid="8e569f40-a771-4d0a-b813-979ad04f01f1" x="733" y="0" width="40" height="20"/>
 				<box>
 					<pen lineWidth="0.5" lineStyle="Solid"/>

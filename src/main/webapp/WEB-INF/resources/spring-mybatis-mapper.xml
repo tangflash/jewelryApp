@@ -90,4 +90,9 @@
 		<property name="mapperInterface" value="com.flash.jewelry.dao.BaseDataMapper" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
+	
+	<!-- <bean id="sendReceiveMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.flash.jewelry.dao.SendReceiveMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean> -->
 </beans>
