@@ -124,6 +124,7 @@ create table if not exists materialOutDetail (
 	SecPrice Decimal(18,4) not null,	/*副石单价/元*/
 	Loss Decimal(18,4) Not null Default 0, /*损耗*/	
 	TemplateFree Decimal(18,4) Not null Default 0, /*版费*/
+	DiamondFee Decimal(18,4) Not null Default 0, /*卡钻风险费*/
 	Remark	VarChar(1024) null,  /*备注*/
 	FOREIGN KEY Fk_materialOutDetail_BillId (BillId) 
 	REFERENCES materialOut (Id) ON DELETE CASCADE ON UPDATE CASCADE
@@ -389,5 +390,20 @@ set @s = (SELECT IF(
     "SELECT 1",
     "ALTER TABLE materialOutDetail ADD Remark VarChar(1024) null"
 ));
+PREPARE stmt FROM @s;
+EXECUTE stmt;
+
+/*增加字段  DiamondFee_卡钻风险费*/
+set @s = (SELECT IF(
+    (SELECT COUNT(*)
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE table_name = 'materialOutDetail'
+        AND table_schema = DATABASE()
+        AND column_name = 'DiamondFee'
+    ) > 0,
+    "SELECT 1",
+    "ALTER TABLE materialOutDetail ADD DiamondFee Decimal(18,4) Not null Default 0"
+));
+
 PREPARE stmt FROM @s;
 EXECUTE stmt;
